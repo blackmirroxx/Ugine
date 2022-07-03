@@ -1,14 +1,23 @@
 #pragma once
 #include <Ugine.h>
+#include <iostream>
+#include <spdlog/spdlog.h>
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 
-class Sandbox: public Ugine::Application
+class Sandbox final: public ugine::Application
 {
 };
 
 
-inline Ugine::Application* Ugine::create_application()
+
+inline ugine::Application* ugine::create_application()
 {
-	return new Sandbox();
+	const auto app = new Sandbox();
+	app->signals.on_start.add_listener([](const int i ) 
+		{
+			std::cout << " hello " << i << std::endl;
+		});
+	return app;
 }
 

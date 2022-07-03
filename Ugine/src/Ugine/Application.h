@@ -1,7 +1,8 @@
 #pragma once
 #include "Core.h"
+#include "Signals.h"
 
-namespace Ugine
+namespace ugine
 {
 	class UGINE_API Application
 	{
@@ -13,6 +14,7 @@ namespace Ugine
 		Application operator=(Application&&) = delete;
 		virtual ~Application() = default;
 		void run() const noexcept;
+		SignalDispatcher signals{};
 	};
 
 	Application* create_application();

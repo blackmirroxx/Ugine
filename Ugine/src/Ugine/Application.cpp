@@ -1,9 +1,7 @@
 #include "Application.h"
 
-void Ugine::Application::run() const noexcept
+void ugine::Application::run() const noexcept
 {
-	while(true)
-	{
-		
-	}
+	this->signals.on_start.emit(10);
+	while (true);
 }
