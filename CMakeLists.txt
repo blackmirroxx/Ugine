@@ -5,3 +5,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_subdirectory(vendor/spdlog)
 add_subdirectory(Ugine)
+add_subdirectory(Sandbox)
+
