@@ -61,7 +61,7 @@ _deps
 
 # build files
 Debug
-Relase
+Release
 x64
 x86
 out
