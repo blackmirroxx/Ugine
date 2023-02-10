@@ -1,4 +1,6 @@
 #pragma once
+#include "../src/Application.h"
+#include "../src/Log.h"
 
 extern ugine::Application* ugine::create_application();
 

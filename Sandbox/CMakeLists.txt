@@ -19,7 +19,7 @@ target_link_libraries(Sandbox
 
 target_include_directories(
 	Sandbox
-	PRIVATE ${PROJECT_SOURCE_DIR}/Ugine/src
+	PRIVATE ${PROJECT_SOURCE_DIR}/Ugine/include
 )
 
 # copy Ugine.dll to the executable location
