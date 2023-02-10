@@ -8,3 +8,9 @@ bin-int/
 **.vcxproj
 **.vcxproj.filters
 **.vcxproj.user
+
+# Cmake files
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
