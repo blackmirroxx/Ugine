@@ -22,9 +22,3 @@ target_include_directories(
 	PRIVATE ${PROJECT_SOURCE_DIR}/Ugine/include
 )
 
-# copy Ugine.dll to the executable location
-add_custom_command(TARGET Sandbox POST_BUILD       
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different 
-        "${PROJECT_SOURCE_DIR}/Ugine/Debug/Ugine.dll"  
-        "${CMAKE_CURRENT_BINARY_DIR}/Debug"
-	COMMENT "Copy Ugine.dll to ${CMAKE_CURRENT_BINARY_DIR}/Debug")

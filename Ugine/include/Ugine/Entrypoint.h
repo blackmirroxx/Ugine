@@ -11,5 +11,6 @@ int main(int argc, char** args)
 	const auto app = ugine::create_application();
 	app->run();
 	delete app;
+	UGINE_CORE_INFO("Ugine has stopped");
 }
 
