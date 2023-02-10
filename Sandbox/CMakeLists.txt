@@ -1,7 +1,16 @@
 set(ROOT_PATH src/Sandbox)
 
-add_executable(Sandbox
+set(SOURCES 
 	${ROOT_PATH}/Sandbox.cpp 
+)
+
+set(HEADERS 
+	${ROOT_PATH}/Sandbox.h
+)
+
+add_executable(Sandbox
+	${SOURCES}
+	${HEADERS}
 )
 
 target_link_libraries(Sandbox 
@@ -13,8 +22,9 @@ target_include_directories(
 	PRIVATE ${PROJECT_SOURCE_DIR}/Ugine/src
 )
 
-add_custom_command(TARGET Sandbox POST_BUILD        # Adds a post-build event to MyTest
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different  # which executes "cmake - E copy_if_different..."
-        "${PROJECT_SOURCE_DIR}/Ugine/Debug/Ugine.dll"      # <--this is in-file
+# copy Ugine.dll to the executable location
+add_custom_command(TARGET Sandbox POST_BUILD       
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+        "${PROJECT_SOURCE_DIR}/Ugine/Debug/Ugine.dll"  
         "${CMAKE_CURRENT_BINARY_DIR}/Debug"
 	COMMENT "Copy Ugine.dll to ${CMAKE_CURRENT_BINARY_DIR}/Debug")
