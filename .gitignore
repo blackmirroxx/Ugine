@@ -1,3 +1,6 @@
+# packages
+packages
+
 # Binaries
 **/bin/
 bin-int/
@@ -54,6 +57,7 @@ install_manifest.txt
 compile_commands.json
 CTestTestfile.cmake
 _deps
+*.cmake
 
 # build files
 Debug
@@ -61,3 +65,6 @@ Relase
 x64
 x86
 out
+
+# Resharper
+*.DotSettings.user

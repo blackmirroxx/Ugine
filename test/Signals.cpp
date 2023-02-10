@@ -1,5 +1,5 @@
 #include "pch.h"
-#include <Ugine/Signals.h>
+#include <Signals.h>
 
 TEST(Signals, ShouldCallTheCallbackOnEmit) {
 	int i = 0;
