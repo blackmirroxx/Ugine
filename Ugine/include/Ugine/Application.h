@@ -1,5 +1,5 @@
 #pragma once
-#include "../src/Core.h"
+#include "Core.h"
 #include "../src/Signals.h"
 
 namespace ugine

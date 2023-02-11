@@ -8,8 +8,8 @@ set(SOURCES
 set(HEADERS 
 	include/Ugine/Entrypoint.h
 	include/Ugine/Application.h
-	${ROOT_PATH}/Core.h
-	${ROOT_PATH}/Log.h
+	include/Ugine/Log.h
+	include/Ugine/Core.h
 	${ROOT_PATH}/Signals.h
 )
 

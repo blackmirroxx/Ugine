@@ -9,7 +9,7 @@ namespace ugine
 	{
 		using logger_type = std::shared_ptr<spdlog::logger>;
 		UGINE_API void init() noexcept;
-			UGINE_API logger_type& get_core_logger() noexcept;
+		UGINE_API logger_type& get_core_logger() noexcept;
 		UGINE_API logger_type& get_client_logger() noexcept;
 	}
 }
