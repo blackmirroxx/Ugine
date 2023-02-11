@@ -31,7 +31,7 @@ target_link_libraries(Ugine PUBLIC spdlog::spdlog)
 # copy Ugine.dll to the executable location
 add_custom_command(TARGET Ugine POST_BUILD       
     COMMAND ${CMAKE_COMMAND} -E copy_if_different 
-        "${CMAKE_CURRENT_BINARY_DIR}/Debug/Ugine.dll"
-        "${PROJECT_SOURCE_DIR}/Sandbox/Debug"
-	COMMENT "Copy Ugine.dll to ${PROJECT_SOURCE_DIR}/Sandbox/Debug")
+		$<TARGET_FILE:Ugine>
+        $<TARGET_FILE_DIR:Sandbox>
+	COMMENT "Copy Ugine.dll")
 

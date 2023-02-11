@@ -46,6 +46,7 @@ bin-int/
 *.app
 
 # Cmake files
+build
 CMakeLists.txt.user
 CMakeCache.txt
 CMakeFiles
