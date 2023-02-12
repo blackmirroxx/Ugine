@@ -67,5 +67,6 @@ x64
 x86
 out
 
-# Resharper
+# jetbrains
 *.DotSettings.user
+.idea

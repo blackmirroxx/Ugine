@@ -20,9 +20,9 @@ class Event
 public:
 	Event() = default;
 	Event(const Event& e) = delete;
-	Event(Event&& e) = delete;
+	Event(Event&& e) = default;
 	Event& operator= (const Event& e) = delete;
-	Event& operator= (Event&& e) = delete;
+	Event& operator= (Event&& e) = default;
 	[[nodiscard]] virtual int get_category_flags() const = 0;
 	virtual ~Event() = default;
 };
