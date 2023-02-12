@@ -10,3 +10,5 @@
 #else
 	#define UGINE_API _declspec(dllimport)
 #endif
+
+#define BIT(x) (1 << x)
