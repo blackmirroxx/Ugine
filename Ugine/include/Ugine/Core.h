@@ -4,6 +4,7 @@
 	#error Ugine only support Windows
 #endif
 
+
 #ifdef U_BUILD_DLL
 	#define UGINE_API __declspec(dllexport)
 #else

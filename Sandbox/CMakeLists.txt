@@ -22,3 +22,7 @@ target_include_directories(
 	PRIVATE ${PROJECT_SOURCE_DIR}/Ugine/include
 )
 
+target_compile_definitions(
+	Sandbox
+	PRIVATE $<$<CONFIG:DEBUG>:UGINE_DEBUG>
+)

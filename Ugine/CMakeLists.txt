@@ -19,7 +19,7 @@ add_library(Ugine SHARED
 )
 
 target_include_directories(Ugine
-	PRIVATE include/Ugine
+	PRIVATE include
 )
 
 target_compile_definitions(Ugine
@@ -34,4 +34,5 @@ add_custom_command(TARGET Ugine POST_BUILD
 		$<TARGET_FILE:Ugine>
         $<TARGET_FILE_DIR:Sandbox>
 	COMMENT "Copy Ugine.dll")
+
 
