@@ -26,3 +26,10 @@ target_compile_definitions(
 	Sandbox
 	PRIVATE $<$<CONFIG:DEBUG>:UGINE_DEBUG>
 )
+
+# copy Ugine.dll to the executable location
+add_custom_command(TARGET Sandbox POST_BUILD       
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+		$<TARGET_FILE:Ugine>
+        $<TARGET_FILE_DIR:Sandbox>
+	COMMENT "Copy Ugine.dll")

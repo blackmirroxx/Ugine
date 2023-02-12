@@ -31,11 +31,5 @@ target_compile_definitions(Ugine
 
 target_link_libraries(Ugine PUBLIC spdlog::spdlog)
 
-# copy Ugine.dll to the executable location
-add_custom_command(TARGET Ugine POST_BUILD       
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different 
-		$<TARGET_FILE:Ugine>
-        $<TARGET_FILE_DIR:Sandbox>
-	COMMENT "Copy Ugine.dll")
 
 

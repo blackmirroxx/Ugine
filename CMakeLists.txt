@@ -7,4 +7,3 @@ add_subdirectory(vendor/spdlog)
 add_subdirectory(test)
 add_subdirectory(Ugine)
 add_subdirectory(Sandbox)
-
