@@ -36,32 +36,15 @@ private:
     event_type event;
 };
 
+template <typename E=Event>
 class UGINE_API Listener
 {
 public:
-    explicit Listener(event_type event_t): event_t(event_t) {}
+    Listener() = default;
     Listener(const Listener&) = delete;
     Listener(Listener&&) = delete;
     void operator=(const Listener&) = delete;
     void operator=(Listener&&) = delete;
-    virtual void operator()(const Event& e) = 0;
+    virtual void operator()(const E& e) = 0;
     virtual ~Listener() = default;
-    [[nodiscard]] event_type get_event_type() const noexcept {return event_t;}
-protected:
-   event_type event_t;
-};
-
-class UGINE_API EventDispatcher
-{
-public:
-    void add_listener(std::unique_ptr<Listener>& listener) {this->listeners.push_back(std::move(listener));}
-    void dispatch(const Event& event) {
-        for (auto& listener: listeners) {
-            if (listener->get_event_type() == event.get_event_type()) {
-                listener->operator()(event);
-            }
-        }
-    }
-private:
-    std::vector<std::unique_ptr<Listener>> listeners;
 };

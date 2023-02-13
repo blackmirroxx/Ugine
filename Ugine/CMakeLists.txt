@@ -14,6 +14,7 @@ set(HEADERS
 	${INCLUDE_PATH}/Event/Event.h
 	${INCLUDE_PATH}/Event/MouseEvent.h
 	${INCLUDE_PATH}/Event/KeyboardEvent.h
+	${INCLUDE_PATH}/Event/EventDispatcher.h
 	${SRC_PATH}/Signals.h
 )
 
