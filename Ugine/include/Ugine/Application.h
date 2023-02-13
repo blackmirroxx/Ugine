@@ -1,6 +1,7 @@
 #pragma once
 #include "Ugine/Core.h"
 #include "../src/Signals.h"
+#include "Ugine/Window.h"
 
 namespace ugine
 {
@@ -15,6 +16,8 @@ namespace ugine
 		virtual ~Application() = default;
 		void run() const noexcept;
 		SignalDispatcher signals{};
+    private:
+        Window window;
 	};
 
 	Application* create_application();

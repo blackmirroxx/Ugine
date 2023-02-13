@@ -3,7 +3,7 @@
 #include "Ugine/Event/KeyboardEvent.h"
 
 TEST(Events, MouseUpCategories) {
-    const std::unique_ptr<MouseButton> mouse_up = std::make_unique<MouseUp>(mouse_button_type::right);
+    const std::unique_ptr<MouseButtonEvent> mouse_up = std::make_unique<MouseUp>(mouse_button_type::right);
     EXPECT_EQ(mouse_up->get_mouse_button(), mouse_button_type::right);
     EXPECT_EQ(mouse_up->get_event_type(), event_type::mouse_up);
     EXPECT_TRUE(mouse_up->is_in_category(event_category::input_category) );
@@ -13,7 +13,7 @@ TEST(Events, MouseUpCategories) {
 }
 
 TEST(Events, MouseDownCategories) {
-    const std::unique_ptr<MouseButton> mouse_down = std::make_unique<MouseDown>(mouse_button_type::left);
+    const std::unique_ptr<MouseButtonEvent> mouse_down = std::make_unique<MouseDown>(mouse_button_type::left);
     EXPECT_EQ(mouse_down->get_mouse_button(), mouse_button_type::left);
     EXPECT_EQ(mouse_down->get_event_type(), event_type::mouse_down);
     EXPECT_TRUE(mouse_down->is_in_category(event_category::input_category) );
@@ -23,7 +23,7 @@ TEST(Events, MouseDownCategories) {
 }
 
 TEST(Events, MouseeWheelCategories) {
-    const std::unique_ptr<Event> mouse_wheel = std::make_unique<MouseWheel>();
+    const std::unique_ptr<Event> mouse_wheel = std::make_unique<MouseWheel>(10.7, 21.4);
     EXPECT_EQ(mouse_wheel->get_event_type(), event_type::mouse_wheel);
     EXPECT_TRUE(mouse_wheel->is_in_category(event_category::input_category) );
     EXPECT_TRUE(mouse_wheel->is_in_category(event_category::mouse_category) );
@@ -32,7 +32,7 @@ TEST(Events, MouseeWheelCategories) {
 }
 
 TEST(Events, MouseMoveCategories) {
-    const std::unique_ptr<Event> mouse_move = std::make_unique<MouseMove>();
+    const std::unique_ptr<Event> mouse_move = std::make_unique<MouseMove>(10.2, 20.5);
     EXPECT_EQ(mouse_move->get_event_type(), event_type::mouse_move);
     EXPECT_TRUE(mouse_move->is_in_category(event_category::input_category) );
     EXPECT_TRUE(mouse_move->is_in_category(event_category::mouse_category) );

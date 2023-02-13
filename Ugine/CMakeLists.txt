@@ -16,7 +16,7 @@ set(HEADERS
 	${INCLUDE_PATH}/Event/KeyboardEvent.h
 	${INCLUDE_PATH}/Event/EventDispatcher.h
 	${SRC_PATH}/Signals.h
-)
+		include/Ugine/Window.h)
 
 add_library(Ugine SHARED
 	${SOURCES}
