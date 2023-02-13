@@ -13,6 +13,7 @@ set(HEADERS
 	${INCLUDE_PATH}/Core.h
 	${INCLUDE_PATH}/Event/Event.h
 	${INCLUDE_PATH}/Event/MouseEvent.h
+	${INCLUDE_PATH}/Event/KeyboardEvent.h
 	${SRC_PATH}/Signals.h
 )
 

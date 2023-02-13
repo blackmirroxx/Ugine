@@ -11,7 +11,7 @@ enable_testing()
 add_executable(
   ugine_test
   Signals.cpp
-		Event.cpp)
+		Event.cpp EventDispatcher.cpp)
 
 target_include_directories(
 	ugine_test
