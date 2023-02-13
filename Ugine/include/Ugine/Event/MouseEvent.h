@@ -4,8 +4,5 @@
 class MouseUp final: public Event
 {
 public:
-	[[nodiscard]] int get_category_flags() const override
-	{
-		return input_category | mouse_category | mouse_button_category;
-	}
+    EVENT_CATEGORIES(input_category | mouse_category | mouse_button_category)
 };

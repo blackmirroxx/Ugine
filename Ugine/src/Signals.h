@@ -10,18 +10,18 @@ namespace ugine
 	public:
 		void add_listener(const callback_type& func) noexcept
 		{
-			this->callback_ = func;
+			this->callback = func;
 		}
 		void emit(const Args&... args) const noexcept
 		{
-			if (this->callback_) this->callback_(args...);
+			if (this->callback) this->callback(args...);
 		}
 		void clear() noexcept
 		{
-			this->callback_ = nullptr;
+			this->callback = nullptr;
 		}
 	private:
-		callback_type callback_;
+		callback_type callback;
 	};
 
 

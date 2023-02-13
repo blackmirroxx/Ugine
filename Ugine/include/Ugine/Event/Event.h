@@ -1,6 +1,8 @@
 #pragma once
 #include "Ugine/Core.h"
 
+#define EVENT_CATEGORIES(categories) [[nodiscard]] int get_category_flags() const override { return categories; }
+
 enum class event_type
 {
 	mouse_up, mouse_down, mouse_wheel, mouse_move, key_up, key_down
@@ -25,4 +27,7 @@ public:
 	Event& operator= (Event&& e) = default;
 	[[nodiscard]] virtual int get_category_flags() const = 0;
 	virtual ~Event() = default;
+    [[nodiscard]] bool is_in_category(event_category category) const {
+        return this->get_category_flags() & category;
+    }
 };

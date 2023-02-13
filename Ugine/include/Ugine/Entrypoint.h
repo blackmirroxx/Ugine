@@ -2,14 +2,11 @@
 #include "Ugine/Application.h"
 #include "Log.h"
 
-
-extern ugine::Application* ugine::create_application();
-
 int main(int argc, char** args)
 {
 	ugine::log::init();
 	UGINE_CORE_INFO("Ugine has started");
-	const auto app = ugine::create_application();
+	 const auto app = ugine::create_application();
 	app->run();
 	delete app;
 	UGINE_CORE_INFO("Ugine has stopped");

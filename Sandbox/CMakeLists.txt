@@ -1,11 +1,11 @@
-set(ROOT_PATH src/Sandbox)
+set(SRC_PATH src/Sandbox)
 
 set(SOURCES 
-	${ROOT_PATH}/Sandbox.cpp 
+	${SRC_PATH}/Sandbox.cpp
 )
 
 set(HEADERS 
-	${ROOT_PATH}/Sandbox.h
+	${SRC_PATH}/Sandbox.h
 )
 
 add_executable(Sandbox
