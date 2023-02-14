@@ -1,6 +1,6 @@
 #pragma once
 #include "Ugine/Core.h"
-#include "../src/Signals.h"
+#include "Ugine/Signals.h"
 #include "Ugine/Window.h"
 
 namespace ugine

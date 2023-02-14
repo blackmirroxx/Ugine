@@ -9,21 +9,23 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 
 add_executable(
-  ugine_test
-  Signals.cpp
-		Event.cpp EventDispatcher.cpp)
-
-target_include_directories(
-	ugine_test
-	PRIVATE ${PROJECT_SOURCE_DIR}/Ugine/include
-	PRIVATE ${PROJECT_SOURCE_DIR}/Ugine/src
+  Test
+  src/Signals.cpp
+  src/Event.cpp
+  src/EventDispatcher.cpp
 )
 
+
 target_link_libraries(
-  ugine_test
-  GTest::gtest_main
+		Test
+	   PRIVATE GTest::gtest_main
+)
+
+target_include_directories(
+		Test
+	PRIVATE ${PROJECT_SOURCE_DIR}/Ugine/include
 )
 
 include(GoogleTest)
-gtest_discover_tests(ugine_test)
+gtest_discover_tests(Test)
 

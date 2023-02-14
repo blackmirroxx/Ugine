@@ -1,7 +1,7 @@
 set(SRC_PATH src)
 set (INCLUDE_PATH include/Ugine)
 
-set(SOURCES 
+set(SOURCES
 	${SRC_PATH}/Application.cpp 
 	${SRC_PATH}/Log.cpp
 )
@@ -15,23 +15,27 @@ set(HEADERS
 	${INCLUDE_PATH}/Event/MouseEvent.h
 	${INCLUDE_PATH}/Event/KeyboardEvent.h
 	${INCLUDE_PATH}/Event/EventDispatcher.h
-	${SRC_PATH}/Signals.h
-		include/Ugine/Window.h)
-
-add_library(Ugine SHARED
-	${SOURCES}
-	${HEADERS}
+	${INCLUDE_PATH}/Window.h
+	${INCLUDE_PATH}/Signals.h
 )
+
+
+if(UGINE_SHARED_LIBRARY OR BUILD_SHARED_LIBS)
+	add_library(Ugine SHARED ${SOURCES} ${HEADERS} )
+	target_compile_definitions(Ugine PUBLIC UGINE_SHARED_LIB )
+else()
+	add_library(Ugine STATIC ${SOURCES} ${HEADERS} )
+endif()
 
 target_include_directories(Ugine
-	PRIVATE include
-)
+		PRIVATE include
+		)
 
 target_compile_definitions(Ugine
-	PRIVATE U_BUILD_DLL
-)
+		PRIVATE U_BUILD_DLL
+		)
 
-target_link_libraries(Ugine PUBLIC spdlog::spdlog)
-
-
-
+target_link_libraries(Ugine
+		PUBLIC spdlog::spdlog
+		PUBLIC ${SDL2_LIBRARIES}
+		)

@@ -33,6 +33,8 @@ class UGINE_API MouseWheel final : public Event
 public:
     MouseWheel(float offset_x,float offset_y) : Event(event_type::mouse_wheel, input_category | mouse_category ),
     offset_x(offset_x), offset_y(offset_y){}
+    [[nodiscard]] float get_offset_x() const noexcept {return offset_x;}
+    [[nodiscard]] float get_offset_y() const noexcept {return offset_y;}
 private:
     float offset_x;
     float offset_y;
