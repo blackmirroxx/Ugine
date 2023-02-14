@@ -23,7 +23,7 @@ TEST(Events, MouseDownCategories) {
 }
 
 TEST(Events, MouseeWheelCategories) {
-    const std::unique_ptr<Event> mouse_wheel = std::make_unique<MouseWheel>(10.2, 21.4);
+    const std::unique_ptr<Event> mouse_wheel = std::make_unique<MouseWheel>(10.2, 23.3);
     EXPECT_EQ(mouse_wheel->get_event_type(), event_type::mouse_wheel);
     EXPECT_TRUE(mouse_wheel->is_in_category(event_category::input_category) );
     EXPECT_TRUE(mouse_wheel->is_in_category(event_category::mouse_category) );

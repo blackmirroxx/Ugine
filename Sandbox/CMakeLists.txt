@@ -1,4 +1,4 @@
-set(SRC_PATH src/Sandbox)
+set(SRC_PATH src)
 
 set(SOURCES 
 	${SRC_PATH}/Sandbox.cpp
