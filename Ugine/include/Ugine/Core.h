@@ -1,5 +1,7 @@
 #pragma once
 
+#define SDL_MAIN_HANDLED
+
 #ifndef _WIN64 
 	#error Ugine only support Windows
 #endif

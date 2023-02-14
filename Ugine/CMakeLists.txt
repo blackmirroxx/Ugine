@@ -4,7 +4,7 @@ set (INCLUDE_PATH include/Ugine)
 set(SOURCES
 	${SRC_PATH}/Application.cpp 
 	${SRC_PATH}/Log.cpp
-)
+		src/Window.cpp)
 
 set(HEADERS 
 	${INCLUDE_PATH}/Entrypoint.h
@@ -37,5 +37,5 @@ target_compile_definitions(Ugine
 
 target_link_libraries(Ugine
 		PUBLIC spdlog::spdlog
-		PUBLIC SDL3::SDL3
+		PUBLIC SDL2::SDL2
 		)
