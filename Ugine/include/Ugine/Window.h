@@ -3,8 +3,9 @@
 #include <string>
 #include <utility>
 #include "Ugine/Core.h"
+#include "SDL3/SDL.h"
 
-struct WindowProps {
+struct UGINE_API WindowProps {
     std::string title = "Default title";
     unsigned int height = 1080;
     unsigned int width = 1920;

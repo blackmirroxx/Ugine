@@ -17,10 +17,6 @@ target_link_libraries(Sandbox
 	PRIVATE Ugine
 )
 
-target_include_directories(
-	Sandbox
-	PRIVATE ${PROJECT_SOURCE_DIR}/Ugine/include
-)
 
 target_compile_definitions(
 	Sandbox

@@ -28,14 +28,14 @@ else()
 endif()
 
 target_include_directories(Ugine
-		PRIVATE include
-		)
+		PUBLIC include
+)
 
 target_compile_definitions(Ugine
 		PRIVATE U_BUILD_DLL
-		)
+)
 
 target_link_libraries(Ugine
 		PUBLIC spdlog::spdlog
-		PUBLIC ${SDL2_LIBRARIES}
+		PUBLIC SDL3::SDL3
 		)
