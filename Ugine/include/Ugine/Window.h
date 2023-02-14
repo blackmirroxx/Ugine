@@ -6,8 +6,8 @@
 
 struct UGINE_API WindowProps {
     std::string title = "Default title";
-    unsigned int height = 1080;
-    unsigned int width = 1920;
+    int height = 1080;
+    int width = 1920;
 };
 
 class UGINE_API Window

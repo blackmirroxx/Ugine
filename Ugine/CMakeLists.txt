@@ -4,7 +4,7 @@ set (INCLUDE_PATH include/Ugine)
 set(SOURCES
 	${SRC_PATH}/Application.cpp 
 	${SRC_PATH}/Log.cpp
-		src/Window.cpp)
+	${SRC_PATH}/Window.cpp)
 
 set(HEADERS 
 	${INCLUDE_PATH}/Entrypoint.h
