@@ -18,10 +18,6 @@ target_link_libraries(Sandbox
 )
 
 
-target_compile_definitions(
-	Sandbox
-	PRIVATE $<$<CONFIG:DEBUG>:UGINE_DEBUG>
-)
 
 if (UGINE_SHARED_LIBRARY)
 	# copy Ugine.dll to the executable location

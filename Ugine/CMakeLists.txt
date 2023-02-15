@@ -4,7 +4,7 @@ set (INCLUDE_PATH include/Ugine)
 set(SOURCES
 	${SRC_PATH}/Application.cpp 
 	${SRC_PATH}/Log.cpp
-	${SRC_PATH}/Window.cpp)
+	${SRC_PATH}/Window.cpp src/EventHandler.cpp)
 
 set(HEADERS 
 	${INCLUDE_PATH}/Entrypoint.h
@@ -17,7 +17,8 @@ set(HEADERS
 	${INCLUDE_PATH}/Event/EventDispatcher.h
 	${INCLUDE_PATH}/Window.h
 	${INCLUDE_PATH}/Signals.h
-)
+    ${INCLUDE_PATH}/Exception/WindowException.h
+		include/Ugine/Event/EventHandler.h)
 
 
 if(UGINE_SHARED_LIBRARY OR BUILD_SHARED_LIBS)
@@ -33,6 +34,7 @@ target_include_directories(Ugine
 
 target_compile_definitions(Ugine
 		PRIVATE U_BUILD_DLL
+		PUBLIC $<$<CONFIG:DEBUG>:UGINE_DEBUG>
 )
 
 target_link_libraries(Ugine

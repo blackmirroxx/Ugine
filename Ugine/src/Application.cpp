@@ -1,8 +1,12 @@
 #include "Ugine/Application.h"
 
-void ugine::Application::run() const noexcept
+void ugine::Application::run() const
 {
 	this->signals.on_start.emit(10);
-	while (true);
+    while(this->game_loop) {
+        this->event_handler.poll_events();
+    }
 }
+
+
 
