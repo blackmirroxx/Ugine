@@ -18,7 +18,6 @@ target_link_libraries(Sandbox
 )
 
 
-
 if (UGINE_SHARED_LIBRARY)
 	# copy Ugine.dll to the executable location
 	add_custom_command(TARGET Sandbox POST_BUILD
@@ -27,8 +26,3 @@ if (UGINE_SHARED_LIBRARY)
 			$<TARGET_FILE_DIR:Sandbox>
 		COMMENT "Copy Ugine.dll")
 endif()
-add_custom_command(
-		 TARGET Sandbox POST_BUILD
-		 COMMAND ${CMAKE_COMMAND} -E copy_if_different "$<TARGET_FILE:SDL2::SDL2>" "$<TARGET_FILE_DIR:Sandbox>"
-		 COMMENT "Copy SDL2.dll"
-)

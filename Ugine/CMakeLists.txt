@@ -39,6 +39,6 @@ target_compile_definitions(Ugine
 
 target_link_libraries(Ugine
 		PUBLIC spdlog::spdlog
-		PUBLIC SDL2::SDL2
-		PUBLIC SDL2_image::SDL2_image
+		PUBLIC SDL2::SDL2-static
+		PUBLIC SDL2_image::SDL2_image-static
 )

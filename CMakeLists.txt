@@ -2,15 +2,21 @@ cmake_minimum_required(VERSION 3.24)
 project(UgineProject VERSION 1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+option(UGINE_SHARED_LIBRARY "Build shared library" ${BUILD_SHARED_LIBS})
+option(UGINE_TEST "Build Ugine tests" OFF)
+
+set(BUILD_SHARED_LIBS OFF)
 set(SDL2IMAGE_INSTALL OFF)
 set(SDL2IMAGE_SAMPLES OFF)
-
-option(UGINE_SHARED_LIBRARY "Build shared library" OFF)
 
 add_subdirectory(vendor/spdlog)
 add_subdirectory(vendor/SDL)
 add_subdirectory(vendor/SDL_image)
-set(BUILD_SHARED_LIBS OFF)
 add_subdirectory(Ugine)
-add_subdirectory(Test)
+if (UGINE_TEST)
+    add_subdirectory(Test)
+endif()
 add_subdirectory(Sandbox)
+
+set(BUILD_SHARED_LIBS ${UGINE_SHARED_LIBRARY})
