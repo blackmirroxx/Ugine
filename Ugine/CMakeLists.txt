@@ -18,7 +18,7 @@ set(HEADERS
 	${INCLUDE_PATH}/Window.h
 	${INCLUDE_PATH}/Signals.h
     ${INCLUDE_PATH}/Exception/WindowException.h
-		include/Ugine/Event/EventHandler.h)
+	${INCLUDE_PATH}/Event/EventHandler.h)
 
 
 if(UGINE_SHARED_LIBRARY OR BUILD_SHARED_LIBS)
@@ -40,4 +40,5 @@ target_compile_definitions(Ugine
 target_link_libraries(Ugine
 		PUBLIC spdlog::spdlog
 		PUBLIC SDL2::SDL2
-		)
+		PUBLIC SDL2_image::SDL2_image
+)

@@ -10,21 +10,23 @@ enable_testing()
 
 add_executable(
   Test
+  src/pch.h
+  src/pch.cpp
   src/Signals.cpp
   src/Event.cpp
   src/EventDispatcher.cpp
-)
-
-
-target_link_libraries(
-		Test
-	   PRIVATE GTest::gtest_main
 )
 
 target_include_directories(
 		Test
 	PRIVATE ${PROJECT_SOURCE_DIR}/Ugine/include
 )
+
+target_link_libraries(
+		Test
+	PRIVATE GTest::gtest_main
+)
+
 
 include(GoogleTest)
 gtest_discover_tests(Test)
