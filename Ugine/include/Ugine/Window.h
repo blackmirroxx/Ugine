@@ -8,6 +8,8 @@
 struct SDL_Window;
 struct SDL_Renderer;
 
+class AssetRenderer;
+
 struct UGINE_API WindowProps {
     std::string title = "Default title";
     int height = 650;
@@ -16,10 +18,12 @@ struct UGINE_API WindowProps {
 
 class UGINE_API Window
 {
+    friend AssetRenderer;
 public:
     Window(WindowProps  props = {}): props(std::move(props)) {
         this->init();
     }
+    void render() const;
     Window(const Window&) = delete;
     Window(Window&&) = delete;
     Window& operator=(const Window&) = delete;

@@ -1,3 +1,4 @@
+#include "spdlog/spdlog.h"
 #include "Ugine/log.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 

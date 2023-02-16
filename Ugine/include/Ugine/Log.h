@@ -13,19 +13,19 @@ namespace ugine::log
 
 #ifdef UGINE_DEBUG
 	// core log macros
-	#define UGINE_CORE_ERROR(msg) ugine::log::get_core_logger()->error(msg)
-	#define UGINE_CORE_INFO(msg) ugine::log::get_core_logger()->info(msg)
-	#define UGINE_CORE_WARN(msg) ugine::log::get_core_logger()->warn(msg)
-	#define UGINE_CORE_TRACE(msg) ugine::log::get_core_logger()->trace(msg)
+	#define UGINE_CORE_ERROR(...) ugine::log::get_core_logger()->error(__VA_ARGS__)
+	#define UGINE_CORE_INFO(...) ugine::log::get_core_logger()->info(__VA_ARGS__)
+	#define UGINE_CORE_WARN(...) ugine::log::get_core_logger()->warn(__VA_ARGS__)
+	#define UGINE_CORE_TRACE(...) ugine::log::get_core_logger()->trace(__VA_ARGS__)
 #else
-	#define UGINE_CORE_ERROR(msg) 
-	#define UGINE_CORE_INFO(msg) 
-	#define UGINE_CORE_WARN(msg) 
-	#define UGINE_CORE_TRACE(msg)
+	#define UGINE_CORE_ERROR(...)
+	#define UGINE_CORE_INFO(...)
+	#define UGINE_CORE_WARN(...)
+	#define UGINE_CORE_TRACE(...)
 #endif
 
 // client log macros
-#define UGINE_ERROR(msg) ugine::log::get_client_logger()->error(msg)
-#define UGINE_INFO(msg) ugine::log::get_client_logger()->info(msg)
-#define UGINE_WARN(msg) ugine::log::get_client_logger()->warn(msg)
-#define UGINE_TRACE(msg) ugine::log::get_client_logger()->trace(msg)
+#define UGINE_ERROR(...) ugine::log::get_client_logger()->error(__VA_ARGS__)
+#define UGINE_INFO(...) ugine::log::get_client_logger()->info(__VA_ARGS__)
+#define UGINE_WARN(...) ugine::log::get_client_logger()->warn(__VA_ARGS__)
+#define UGINE_TRACE(...) ugine::log::get_client_logger()->trace(__VA_ARGS__)
