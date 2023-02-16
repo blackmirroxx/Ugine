@@ -4,9 +4,9 @@
 
 struct SDL_Texture;
 
-struct Rectangle
+struct AssetPosition
 {
-    int x, y, w, h;
+    int x, y, width, height;
 };
 
 /**
@@ -21,7 +21,7 @@ public:
      * @param window the window on which the asset will appear
      */
     AssetRenderer(const std::string &asset_path, std::string asset_name, const Window &window );
-    void render(const Rectangle& src, const Rectangle& dest ) const;
+    void render(const AssetPosition& asset_pos, int frame = 0, int row = 0) const;
 private:
     SDL_Texture* texture;
     const Window& window;
