@@ -4,7 +4,8 @@ set (INCLUDE_PATH include/Ugine)
 set(SOURCES
 	${SRC_PATH}/Application.cpp 
 	${SRC_PATH}/Log.cpp
-	${SRC_PATH}/Window.cpp src/EventHandler.cpp)
+	${SRC_PATH}/Window.cpp
+	${SRC_PATH}/EventHandler.cpp)
 
 set(HEADERS 
 	${INCLUDE_PATH}/Entrypoint.h
@@ -39,6 +40,6 @@ target_compile_definitions(Ugine
 
 target_link_libraries(Ugine
 		PUBLIC spdlog::spdlog
-		PUBLIC SDL2::SDL2-static
-		PUBLIC SDL2_image::SDL2_image-static
+		PRIVATE SDL2::SDL2-static
+		PRIVATE SDL2_image::SDL2_image-static
 )

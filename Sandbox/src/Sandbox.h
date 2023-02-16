@@ -1,8 +1,6 @@
 #pragma once
 #include "Ugine/Entrypoint.h"
 #include <iostream>
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
 
 
 class Sandbox final: public ugine::Application

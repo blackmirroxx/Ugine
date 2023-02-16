@@ -3,8 +3,10 @@
 #include <string>
 #include <utility>
 #include "Ugine/Core.h"
-#include "SDL.h"
 #include "Ugine/Event/EventHandler.h"
+
+struct SDL_Window;
+struct SDL_Renderer;
 
 struct UGINE_API WindowProps {
     std::string title = "Default title";

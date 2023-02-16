@@ -10,11 +10,14 @@ enable_testing()
 
 add_executable(
   Test
-  src/pch.h
-  src/pch.cpp
   src/Signals.cpp
   src/Event.cpp
   src/EventDispatcher.cpp
+)
+
+target_precompile_headers(
+		Test
+		PRIVATE src/pch.h
 )
 
 target_include_directories(
