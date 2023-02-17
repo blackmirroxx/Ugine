@@ -10,7 +10,7 @@ struct SDL_Renderer;
 
 
 namespace ugine {
-    class AssetsRenderer;
+    class TextureManager;
 
     struct UGINE_API WindowProps {
         std::string title = "Default title";
@@ -20,7 +20,7 @@ namespace ugine {
 
     class UGINE_API Window
     {
-        friend AssetsRenderer;
+        friend TextureManager;
     public:
         Window(WindowProps  props = {}): props(std::move(props)) {
             this->init();

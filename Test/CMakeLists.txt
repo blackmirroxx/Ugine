@@ -13,7 +13,7 @@ add_executable(
   src/Signals.cpp
   src/Event.cpp
   src/EventDispatcher.cpp
-)
+        src/Vector.cpp)
 
 target_precompile_headers(
 		Test
