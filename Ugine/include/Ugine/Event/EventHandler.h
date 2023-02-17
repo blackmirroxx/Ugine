@@ -1,8 +1,10 @@
 #pragma once
+#include "Ugine/Core.h"
 
-
-class EventHandler {
-public:
-    void poll_events() const;
-};
+namespace ugine {
+    class UGINE_API EventHandler {
+    public:
+        void poll_events() const;
+    };
+}
 

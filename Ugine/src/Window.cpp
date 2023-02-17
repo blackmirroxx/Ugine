@@ -1,20 +1,19 @@
 #include "Ugine/Window.h"
 #include "Ugine/Log.h"
 #include "SDL.h"
-#include "Ugine/Renderer.h"
 #include "Ugine/Exception/WindowException.h"
 
 static int i_count = 0;
 
 static void init_sdl() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        throw WindowInitError(SDL_GetError());
+        throw ugine::WindowInitError(SDL_GetError());
     }
     UGINE_CORE_INFO("SDL initialized");
 }
 
 
-void Window::init()  {
+void ugine::Window::init()  {
     if (i_count++ == 0) {
         init_sdl();
     }
@@ -24,7 +23,7 @@ void Window::init()  {
     UGINE_CORE_INFO("Window {0} of {1}x{2}px created", this->props.title, this->props.height, this->props.width);
 }
 
-Window::~Window() {
+ugine::Window::~Window() {
     SDL_DestroyRenderer(this->sdl_renderer);
     SDL_DestroyWindow(this->sdl_window);
     UGINE_CORE_INFO("Window closed");
@@ -34,6 +33,6 @@ Window::~Window() {
     }
 }
 
-void Window::render() const {
+void ugine::Window::render() const {
     SDL_RenderPresent(this->sdl_renderer);
 }

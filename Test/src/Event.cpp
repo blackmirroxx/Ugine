@@ -2,6 +2,8 @@
 #include "Ugine/Event/MouseEvent.h"
 #include "Ugine/Event/KeyboardEvent.h"
 
+using namespace ugine;
+
 TEST(Events, MouseUpCategories) {
     const std::unique_ptr<MouseButtonEvent> mouse_up = std::make_unique<MouseUp>(mouse_button_type::right);
     EXPECT_EQ(mouse_up->get_mouse_button(), mouse_button_type::right);

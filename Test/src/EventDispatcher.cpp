@@ -4,6 +4,8 @@
 #include "Ugine/Event/MouseEvent.h"
 #include "Ugine/Event/EventDispatcher.h"
 
+using namespace ugine;
+
 class PlayerMouseUpListener final: public Listener<MouseUp> {
 public:
     void operator()(const MouseUp& event) override {

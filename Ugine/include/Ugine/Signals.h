@@ -1,5 +1,6 @@
 #pragma once
 #include <functional>
+#include "Ugine/Core.h"
 
 namespace ugine
 {
