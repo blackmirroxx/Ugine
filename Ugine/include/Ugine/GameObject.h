@@ -1,13 +1,20 @@
 #pragma oncee
+#include "Ugine/Core.h"
 #include "Ugine/Renderer.h"
+#include "Ugine/Vector.h"
 
 namespace ugine {
 
-    class GameObject {
+    class UGINE_API GameObject {
+
+    };
+
+    class UGINE_API GameObject2D: public GameObject {
     public:
-        explicit GameObject(const TextureManager& texture_manager): manager{texture_manager} {}
+        GameObject2D() =default;
     private:
-        const TextureManager& manager;
+        Vector2D position{0, 0};
+        Vector2D velocity{0, 0};
     };
 
 }

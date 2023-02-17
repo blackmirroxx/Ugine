@@ -4,7 +4,19 @@
 
 namespace ugine {
 
-    class UGINE_API Vector2D {
+    class UGINE_API Vector {
+    public:
+        Vector() = default;
+        Vector(const Vector&) = default;
+        Vector(Vector&&) = default;
+        Vector& operator=(const Vector&) = default;
+        Vector& operator=(Vector&&) = default;
+        virtual ~Vector() = default;
+        virtual void normalize() noexcept = 0;
+        [[nodiscard]] virtual float length() const noexcept = 0;
+    };
+
+    class UGINE_API Vector2D: public Vector {
     public:
         Vector2D(float x, float y): v_x{x},v_y{y} {}
         void set_x(float x) noexcept {this->v_x = x;}
@@ -55,7 +67,7 @@ namespace ugine {
             this->v_y /= scalar;
             return *this;
         }
-        void normalize() {
+        void normalize() noexcept override {
             float l = this->length();
             if (l > 0) {
                 *this *= (1/l);
@@ -63,7 +75,7 @@ namespace ugine {
         }
         [[nodiscard]] float get_x() const noexcept {return v_x;}
         [[nodiscard]] float get_y() const noexcept {return v_y;}
-        [[nodiscard]] float length() const noexcept {
+        [[nodiscard]] float length() const noexcept override {
             return std::sqrt(v_x * v_x + v_y * v_y);
         }
 
