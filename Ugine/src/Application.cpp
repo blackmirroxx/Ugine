@@ -4,8 +4,6 @@
 void ugine::Application::run()
 {
 	this->signals.on_start.emit(10);
-    texture_manager.load("assets/Attack.png", "attack");
-    texture_manager.render("attack", {0,0, 100, 100, 1 });
     this->start_loop();
 }
 

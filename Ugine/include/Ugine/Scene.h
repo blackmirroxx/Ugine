@@ -18,12 +18,17 @@ namespace ugine {
         ~Scene() = default;
         [[nodiscard]] const std::string& get_name() const noexcept {return name;}
         [[nodiscard]] component_list_type& get_component_list() noexcept {return this->component_list;}
+        void add_component(std::unique_ptr<Component> component) {
+            this->component_list.push_back(std::move(component));
+        }
     protected:
         component_list_type component_list;
         std::string name;
     };
 
     class UGINE_API Scene2D: public Scene {
+    public:
+        explicit Scene2D(std::string name): Scene(std::move(name)) {}
     };
 
     class UGINE_API SceneManager {

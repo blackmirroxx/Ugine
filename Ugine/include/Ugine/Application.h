@@ -21,6 +21,7 @@ namespace ugine
 		void run();
 		SignalDispatcher signals{};
         SceneManager& get_scene_manager() noexcept {return this->scene_manager;}
+        TextureManager& get_texture_manager() noexcept {return this->texture_manager;}
     private:
         void start_loop();
         void on_game_loop() ;

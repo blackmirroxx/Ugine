@@ -6,7 +6,7 @@ set(SOURCES
 
 set(HEADERS 
 	${SRC_PATH}/Sandbox.h
-)
+        src/PlayerComponent.h)
 
 add_executable(Sandbox
 	${SOURCES}
