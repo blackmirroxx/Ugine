@@ -1,5 +1,6 @@
 #pragma once
 #include "Ugine/Window.h"
+#include "Ugine/Scene.h"
 #include <string>
 #include <map>
 
@@ -39,6 +40,12 @@ namespace ugine {
          * @param asset_props
          */
         void render(const std::string& asset_name, const AssetProps& asset_props) const;
+        void render(Scene& scene) const {
+            for (const auto& component: scene.get_component_list())  {
+                auto [name, props] = component->initial_rendering();
+                this->render(name, props);
+            }
+        }
         ~TextureManager();
     private:
         std::map<std::string, SDL_Texture*> textures;

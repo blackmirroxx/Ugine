@@ -1,15 +1,29 @@
 #pragma once
 #include "Ugine/Core.h"
-#include "Ugine/Exception/Exception.h"
+#include "Ugine/Component.h"
 #include <map>
+#include <vector>
+#include <memory>
 
 namespace ugine {
+
     class UGINE_API Scene {
     public:
+        using component_list_type = std::vector<std::unique_ptr<Component>>;
         explicit Scene(std::string name): name(std::move(name)) {}
+        Scene(Scene&&) = default;
+        Scene(const Scene&) = delete;
+        Scene& operator=(Scene&&) =default;
+        Scene& operator=(const Scene&) = delete;
+        ~Scene() = default;
         [[nodiscard]] const std::string& get_name() const noexcept {return name;}
-    private:
+        [[nodiscard]] component_list_type& get_component_list() noexcept {return this->component_list;}
+    protected:
+        component_list_type component_list;
         std::string name;
+    };
+
+    class UGINE_API Scene2D: public Scene {
     };
 
     class UGINE_API SceneManager {
@@ -20,13 +34,7 @@ namespace ugine {
         void remove_scene(const std::string& name) {
             this->scene_map.erase(name);
         }
-        Scene& get_scene(const std::string& name)  {
-            const auto& el = this->scene_map.find(name);
-            if (el == this->scene_map.end()) {
-                throw ugine::SceneNotFound("The scene " + name + " is not found");
-            }
-            return this->scene_map.find(name)->second;
-        }
+        Scene& get_scene(const std::string& name);
     private:
         std::map<std::string, Scene> scene_map;
     };

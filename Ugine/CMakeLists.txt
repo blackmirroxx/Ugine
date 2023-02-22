@@ -5,8 +5,8 @@ set(SOURCES
 	${SRC_PATH}/Application.cpp 
 	${SRC_PATH}/Log.cpp
 	${SRC_PATH}/Window.cpp
-	${SRC_PATH}/InputHandler.cpp src/Renderer.cpp src/GameObject.cpp
-		)
+	${SRC_PATH}/InputHandler.cpp src/Renderer.cpp src/Component.cpp
+		src/Scene.cpp)
 
 set(HEADERS 
 	${INCLUDE_PATH}/Entrypoint.h
@@ -21,7 +21,7 @@ set(HEADERS
 	${INCLUDE_PATH}/Signals.h
     ${INCLUDE_PATH}/Exception/Exception.h
 	${INCLUDE_PATH}/Input/InputHandler.h include/Ugine/Renderer.h
-		include/Ugine/GameObject.h include/Ugine/Vector.h include/Ugine/Event/WindowEvent.h include/Ugine/Scene.h)
+		include/Ugine/Component.h include/Ugine/Vector.h include/Ugine/Event/WindowEvent.h include/Ugine/Scene.h)
 
 
 if(UGINE_SHARED_LIBRARY OR BUILD_SHARED_LIBS)

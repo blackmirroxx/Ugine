@@ -4,9 +4,10 @@
 
 
 TEST(Scene, AddGetRemoveScene) {
-    auto scene = ugine::Scene("menu");
     auto scene_manager = ugine::SceneManager();
-    scene_manager.add_scene(scene);
+    scene_manager.add_scene(
+            ugine::Scene("menu")
+        );
     auto& retrieved_scene = scene_manager.get_scene("menu");
     EXPECT_EQ(retrieved_scene.get_name(), "menu");
     EXPECT_THROW(

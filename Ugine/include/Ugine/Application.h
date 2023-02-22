@@ -4,6 +4,7 @@
 #include "Ugine/Signals.h"
 #include "Ugine/Window.h"
 #include "Ugine/Input/InputHandler.h"
+#include "Ugine/Renderer.h"
 #include "Ugine/Scene.h"
 
 namespace ugine
@@ -11,7 +12,7 @@ namespace ugine
     class UGINE_API Application
 	{
 	public:
-		explicit Application(WindowProps props = {}): window(std::move(props)) {}
+		explicit Application(WindowProps props = {}): window(std::move(props)), texture_manager(window) {}
 		Application(const Application&) = delete;
 		Application(Application&&) = delete;
 		Application& operator=(const Application&) = delete;
@@ -28,6 +29,7 @@ namespace ugine
         Window window;
         InputHandler input_handler;
         SceneManager scene_manager;
+        TextureManager texture_manager;
 	};
 
 	Application* create_application();

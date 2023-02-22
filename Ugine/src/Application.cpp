@@ -1,13 +1,11 @@
 #include "Ugine/Application.h"
-#include "Ugine/Renderer.h"
 #include "SDL.h"
 
 void ugine::Application::run()
 {
 	this->signals.on_start.emit(10);
-    auto renderer = TextureManager(this->window);
-    renderer.load("assets/Attack.png", "attack");
-    renderer.render("attack", {0,0, 100, 100, 1 });
+    texture_manager.load("assets/Attack.png", "attack");
+    texture_manager.render("attack", {0,0, 100, 100, 1 });
     this->start_loop();
 }
 
