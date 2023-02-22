@@ -19,14 +19,5 @@ namespace ugine {
         std::unique_ptr<Listener<E>> event_listener;
     };
 
-    struct UGINE_API EventController
-    {
-        EventDispatcher<MouseUp> mouse_up;
-        EventDispatcher<MouseDown> mouse_down;
-        EventDispatcher<MouseWheel> mouse_wheel;
-        EventDispatcher<MouseMove> mouse_move;
-        EventDispatcher<KeyUp> key_up;
-        EventDispatcher<KeyDown> key_down;
-    };
 }
 

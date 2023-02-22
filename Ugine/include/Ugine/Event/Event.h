@@ -5,7 +5,8 @@
 namespace ugine {
     enum class event_type
     {
-        mouse_up, mouse_down, mouse_wheel, mouse_move, key_up, key_down
+        mouse_up, mouse_down, mouse_wheel, mouse_move, key_up, key_down,
+        window_quit
     };
 
     enum event_category
@@ -14,7 +15,8 @@ namespace ugine {
         input_category = BIT(0),
         keyboard_category = BIT(1),
         mouse_category = BIT(2),
-        mouse_button_category = BIT(3)
+        mouse_button_category = BIT(3),
+        window_category = BIT(4)
     };
 
     class UGINE_API Event

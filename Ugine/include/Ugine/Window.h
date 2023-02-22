@@ -3,7 +3,7 @@
 #include <string>
 #include <utility>
 #include "Ugine/Core.h"
-#include "Ugine/Event/EventHandler.h"
+#include "Ugine/Input/InputHandler.h"
 
 struct SDL_Window;
 struct SDL_Renderer;

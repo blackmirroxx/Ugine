@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Ugine/Event/MouseEvent.h"
 #include "Ugine/Event/KeyboardEvent.h"
+#include "Ugine/Event/WindowEvent.h"
 
 using namespace ugine;
 
@@ -59,4 +60,11 @@ TEST(Events, KeyDownCategories) {
     EXPECT_TRUE(key_up->is_in_category(event_category::input_category) );
     EXPECT_FALSE(key_up->is_in_category(event_category::mouse_category) );
     EXPECT_FALSE(key_up->is_in_category(event_category::mouse_button_category) );
+}
+
+TEST(Events, QuitEvent) {
+    const std::unique_ptr<Event> quit= std::make_unique<QuitEvent>();
+    EXPECT_EQ(quit->get_event_type(), event_type::window_quit);
+    EXPECT_TRUE(quit->is_in_category(event_category::window_category));
+    EXPECT_FALSE(quit->is_in_category(event_category::input_category) );
 }

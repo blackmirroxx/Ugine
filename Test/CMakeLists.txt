@@ -15,19 +15,16 @@ add_executable(
   src/EventDispatcher.cpp
         src/Vector.cpp)
 
-target_precompile_headers(
-		Test
-		PRIVATE src/pch.h
-)
+#target_precompile_headers(
+#		Test
+#		PRIVATE src/pch.h
+#)
 
-target_include_directories(
-		Test
-	PRIVATE ${PROJECT_SOURCE_DIR}/Ugine/include
-)
 
 target_link_libraries(
 		Test
 	PRIVATE GTest::gtest_main
+	PRIVATE Ugine
 )
 
 
