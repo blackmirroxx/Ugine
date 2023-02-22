@@ -24,7 +24,7 @@ inline ugine::Application* ugine::create_application()
     auto first_scene = Scene2D("first_scene");
     first_scene.add_component(std::make_unique<PlayerComponent>());
     scene_manager.add_scene(std::move(first_scene));
-    app->get_texture_manager().render(scene_manager.get_scene("first_scene"));
+    app->get_texture_manager().render_scene(scene_manager.get_scene("first_scene"));
 	return app;
 }
 

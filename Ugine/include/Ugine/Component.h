@@ -12,7 +12,7 @@ namespace ugine {
     public:
         Component(std::string name): name(std::move(name))  {}
         /**
-         * First render of the component in a scene
+         * First render_scene of the component in a scene
          * @return name of the asset and its props
          */
         [[nodiscard]] virtual std::tuple<std::string, AssetProps> initial_rendering() const noexcept = 0;

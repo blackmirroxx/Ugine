@@ -13,7 +13,7 @@ add_executable(
   src/Signals.cpp
   src/Event.cpp
   src/EventDispatcher.cpp
-        src/Vector.cpp src/Scene.cpp)
+        src/Vector.cpp src/Scene.cpp src/TextureManager.cpp)
 
 #target_precompile_headers(
 #		Test
@@ -24,6 +24,7 @@ add_executable(
 target_link_libraries(
 		Test
 	PRIVATE GTest::gtest_main
+	PRIVATE GTest::gmock_main
 	PRIVATE Ugine
 )
 

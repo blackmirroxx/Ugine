@@ -1,5 +1,5 @@
 #pragma once
-#include "Ugine/Window.h"
+#include "Ugine/SDLWindow.h"
 #include "Ugine/Scene.h"
 #include <string>
 #include <map>
@@ -14,20 +14,38 @@ namespace ugine {
         int col = 0, row = 0;
     };
 
-/**
- * Render an asset on a window
- */
-    class TextureManager
+    class UGINE_API TextureManager
+    {
+    public:
+        TextureManager() = default;
+        virtual ~TextureManager() = default;
+        TextureManager(TextureManager&&) = default;
+        TextureManager(const TextureManager&) = default;
+        TextureManager& operator=(const TextureManager&) = default;
+        TextureManager& operator=(TextureManager&&) = default;
+        virtual void render(const std::string& asset_name, const AssetProps& asset_props) const = 0;
+        void render_scene(Scene& scene) const {
+            for (const auto& component: scene.get_component_list())  {
+                auto [name, props] = component->initial_rendering();
+                this->render(name, props);
+            }
+        }
+    };
+
+    /**
+     * Render an asset on a window
+     */
+    class UGINE_API SDLTextureManager final: public TextureManager
     {
     public:
         /**
          * @param window the window on which the asset will appear
          */
-        explicit TextureManager(const Window &window ): window(window) {};
-        TextureManager(TextureManager&&) = default;
-        TextureManager(const TextureManager&) = delete;
-        TextureManager& operator=(const TextureManager&) = delete;
-        TextureManager& operator=(TextureManager&&) = delete;
+        explicit SDLTextureManager(const SDLWindow &window ): window(window) {};
+        SDLTextureManager(SDLTextureManager&&) = default;
+        SDLTextureManager(const SDLTextureManager&) = delete;
+        SDLTextureManager& operator=(const SDLTextureManager&) = delete;
+        SDLTextureManager& operator=(SDLTextureManager&&) = delete;
         /**
          * load an asset
          * @param asset_path the file path of the asset
@@ -39,16 +57,10 @@ namespace ugine {
          * @param asset_name
          * @param asset_props
          */
-        void render(const std::string& asset_name, const AssetProps& asset_props) const;
-        void render(Scene& scene) const {
-            for (const auto& component: scene.get_component_list())  {
-                auto [name, props] = component->initial_rendering();
-                this->render(name, props);
-            }
-        }
-        ~TextureManager();
+        void render(const std::string& asset_name, const AssetProps& asset_props) const override;
+        ~SDLTextureManager() override;
     private:
         std::map<std::string, SDL_Texture*> textures;
-        const Window& window;
+        const SDLWindow& window;
     };
 }
