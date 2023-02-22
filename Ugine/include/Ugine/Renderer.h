@@ -33,6 +33,11 @@ namespace ugine {
          * @param asset_name the name of the asset
          */
         void load(const std:: string& asset_path, const std::string& asset_name);
+        /**
+         * Render the asset in the screen
+         * @param asset_name
+         * @param asset_props
+         */
         void render(const std::string& asset_name, const AssetProps& asset_props) const;
         ~TextureManager();
     private:

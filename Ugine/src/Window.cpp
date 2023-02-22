@@ -1,7 +1,7 @@
 #include "Ugine/Window.h"
 #include "Ugine/Log.h"
 #include "SDL.h"
-#include "Ugine/Exception/WindowException.h"
+#include "Ugine/Exception/Exception.h"
 
 static int i_count = 0;
 

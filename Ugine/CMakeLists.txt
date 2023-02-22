@@ -19,9 +19,9 @@ set(HEADERS
 	${INCLUDE_PATH}/Event/EventDispatcher.h
 	${INCLUDE_PATH}/Window.h
 	${INCLUDE_PATH}/Signals.h
-    ${INCLUDE_PATH}/Exception/WindowException.h
+    ${INCLUDE_PATH}/Exception/Exception.h
 	${INCLUDE_PATH}/Input/InputHandler.h include/Ugine/Renderer.h
-		include/Ugine/GameObject.h include/Ugine/Vector.h include/Ugine/Event/WindowEvent.h include/Ugine/Component.h)
+		include/Ugine/GameObject.h include/Ugine/Vector.h include/Ugine/Event/WindowEvent.h include/Ugine/Scene.h)
 
 
 if(UGINE_SHARED_LIBRARY OR BUILD_SHARED_LIBS)

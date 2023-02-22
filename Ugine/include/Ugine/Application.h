@@ -4,6 +4,7 @@
 #include "Ugine/Signals.h"
 #include "Ugine/Window.h"
 #include "Ugine/Input/InputHandler.h"
+#include "Ugine/Scene.h"
 
 namespace ugine
 {
@@ -18,6 +19,7 @@ namespace ugine
 		virtual ~Application() = default;
 		void run();
 		SignalDispatcher signals{};
+        SceneManager& get_scene_manager() noexcept {return this->scene_manager;}
     private:
         void start_loop();
         void on_game_loop() ;
@@ -25,6 +27,7 @@ namespace ugine
         bool running = false;
         Window window;
         InputHandler input_handler;
+        SceneManager scene_manager;
 	};
 
 	Application* create_application();
