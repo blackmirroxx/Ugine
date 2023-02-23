@@ -10,10 +10,8 @@ enable_testing()
 
 add_executable(
   Test
-  src/Signals.cpp
-  src/Event.cpp
-  src/EventDispatcher.cpp
-        src/Vector.cpp src/Scene.cpp src/TextureManager.cpp)
+  src/signals_test.cpp src/event_test.cpp
+  src/event_dispatcher_test.cpp src/vector_test.cpp src/scene_test.cpp src/texture_manager_test.cpp)
 
 #target_precompile_headers(
 #		Test

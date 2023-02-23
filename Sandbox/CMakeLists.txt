@@ -1,12 +1,10 @@
-set(SRC_PATH src)
 
 set(SOURCES 
-	${SRC_PATH}/Sandbox.cpp
+	src/sandbox.cpp
 )
 
 set(HEADERS 
-	${SRC_PATH}/Sandbox.h
-        src/PlayerComponent.h)
+	src/sandbox.h src/player_component.h)
 
 add_executable(Sandbox
 	${SOURCES}
@@ -16,7 +14,6 @@ add_executable(Sandbox
 target_link_libraries(Sandbox 
 	PRIVATE Ugine
 )
-
 
 if (UGINE_SHARED_LIBRARY)
 	# copy Ugine.dll to the executable location
