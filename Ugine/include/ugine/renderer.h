@@ -17,7 +17,7 @@ namespace ugine {
         int col = 0, row = 0;
     };
 
-    template <typename S = Scene>
+    template <typename S>
     class UGINE_API TextureManager
     {
     public:

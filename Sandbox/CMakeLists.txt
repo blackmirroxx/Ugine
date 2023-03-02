@@ -11,6 +11,10 @@ add_executable(Sandbox
 	${HEADERS}
 )
 
+target_compile_definitions(Sandbox
+		PRIVATE $<$<CONFIG:DEBUG>:UGINE_DEBUG>
+	)
+
 target_link_libraries(Sandbox 
 	PRIVATE Ugine
 )

@@ -11,7 +11,7 @@ public:
 };
 
 TEST(SceneManager, AddGetRemoveScene) {
-    auto scene_manager = ugine::SceneManager();
+    auto scene_manager = ugine::SceneManager2D();
     scene_manager.add_scene(
             ugine::Scene2D("menu")
         );
@@ -29,7 +29,7 @@ TEST(SceneManager, AddGetRemoveScene) {
 }
 
 TEST(scene, AddComponent) {
-    auto scene_manager = ugine::SceneManager();
+    auto scene_manager = ugine::SceneManager2D();
     auto scene = ugine::Scene2D("menu");
     scene.add_component(std::make_unique<Player>());
     EXPECT_EQ(scene.get_component_list().size(), 1);

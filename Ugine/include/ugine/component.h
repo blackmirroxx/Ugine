@@ -11,11 +11,6 @@ namespace ugine {
     class UGINE_API Component {
     public:
         explicit Component(std::string name): name(std::move(name))  {}
-        /**
-         * First render_scene of the component in a scene
-         * @return name of the asset and its props
-         */
-        [[nodiscard]] virtual AssetProps initial_rendering() const noexcept = 0;
         Component(Component&&) = default;
         Component(const Component&) = default;
         Component& operator=(Component&&) = default;
@@ -33,6 +28,11 @@ namespace ugine {
                              Vector2D accel = {0,0}): Component(std::move(name)),
                              position{std::move(pos)}, velocity{std::move(vel)}, acceleration{std::move(accel)}
                              {}
+        /**
+         * First render_scene of the component in a scene
+         * @return name of the asset and its props
+         */
+        [[nodiscard]] virtual AssetProps initial_rendering() const noexcept = 0;
         Component2D(Component2D&&) = default;
         Component2D(const Component2D&) = default;
         Component2D& operator=(Component2D&&) = default;

@@ -8,8 +8,10 @@
 
 namespace ugine {
 
+    template <typename C = Component>
     class UGINE_API Scene {
     public:
+        using component_list_type = std::vector<std::unique_ptr<C>>;
         explicit Scene(std::string name): name(std::move(name)) {}
         Scene(Scene&&) = default;
         Scene(const Scene&) = delete;
@@ -17,23 +19,21 @@ namespace ugine {
         Scene& operator=(const Scene&) = delete;
         ~Scene() = default;
         [[nodiscard]] const std::string& get_name() const noexcept {return name;}
-    protected:
-        std::string name;
-    };
-
-    class UGINE_API Scene2D: public Scene {
-    public:
-        using component_list_type = std::vector<std::unique_ptr<Component2D>>;
-        explicit Scene2D(std::string name): Scene(std::move(name)) {}
         [[nodiscard]] component_list_type& get_component_list() noexcept {return this->component_list;}
-        void add_component(std::unique_ptr<Component2D> component) {
+        void add_component(std::unique_ptr<C> component) {
             this->component_list.emplace_back(std::move(component));
         }
-    private:
+    protected:
+        std::string name;
         component_list_type component_list;
     };
 
-    template <typename T = Scene>
+    class UGINE_API Scene2D: public Scene<Component2D> {
+    public:
+        explicit Scene2D(std::string name): Scene(std::move(name)) {}
+    };
+
+    template <typename T>
     class UGINE_API SceneManager {
     public:
         void add_scene(T scene) {
