@@ -9,18 +9,18 @@
 
 namespace ugine
 {
-    class UGINE_API Application
+    class UGINE_API Application2D
 	{
 	public:
-		explicit Application(WindowProps props = {}): window(std::move(props)), texture_manager(window) {}
-		Application(const Application&) = delete;
-		Application(Application&&) = delete;
-		Application& operator=(const Application&) = delete;
-		Application& operator=(Application&&) = delete;
-		virtual ~Application() = default;
+		explicit Application2D(WindowProps props = {}): window(std::move(props)), texture_manager(window) {}
+		Application2D(const Application2D&) = delete;
+		Application2D(Application2D&&) = delete;
+		Application2D& operator=(const Application2D&) = delete;
+		Application2D& operator=(Application2D&&) = delete;
+		virtual ~Application2D() = default;
 		void run();
 		SignalDispatcher signals{};
-        SceneManager& get_scene_manager() noexcept {return this->scene_manager;}
+        SceneManager2D& get_scene_manager() noexcept {return this->scene_manager;}
         SDLTextureManager& get_texture_manager() noexcept {return this->texture_manager;}
     private:
         void start_loop();
@@ -28,11 +28,11 @@ namespace ugine
         int fps = 60;
         bool running = false;
         SDLWindow window;
-        InputHandler input_handler;
-        SceneManager scene_manager;
+        SDLInputHandler input_handler;
+        SceneManager2D scene_manager;
         SDLTextureManager texture_manager;
 	};
 
-	Application* create_application();
+	Application2D* create_application();
 }
 

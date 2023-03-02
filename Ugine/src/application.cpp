@@ -1,13 +1,13 @@
 #include "ugine/application.h"
 #include "SDL.h"
 
-void ugine::Application::run()
+void ugine::Application2D::run()
 {
 	this->signals.on_start.emit(10);
     this->start_loop();
 }
 
-void ugine::Application::start_loop() {
+void ugine::Application2D::start_loop() {
     this->running = true;
     const int delay_time = 1000 / fps;
     while (this->running) {
@@ -20,7 +20,7 @@ void ugine::Application::start_loop() {
     }
 }
 
-void ugine::Application::on_game_loop() {
+void ugine::Application2D::on_game_loop() {
     this->input_handler.poll_events();
     this->window.render();
 }

@@ -6,13 +6,13 @@
 
 
 
-class Sandbox final: public ugine::Application
+class Sandbox final: public ugine::Application2D
 {
 };
 
 
 
-inline ugine::Application* ugine::create_application()
+inline ugine::Application2D* ugine::create_application()
 {
 	const auto app = new Sandbox();
     auto& scene_manager = app->get_scene_manager();
@@ -24,7 +24,8 @@ inline ugine::Application* ugine::create_application()
     auto first_scene = Scene2D("first_scene");
     first_scene.add_component(std::make_unique<PlayerComponent>());
     scene_manager.add_scene(std::move(first_scene));
-    app->get_texture_manager().render_scene(scene_manager.get_scene("first_scene"));
+    app->get_texture_manager().render_scene(
+            scene_manager.get_scene("first_scene"));
 	return app;
 }
 

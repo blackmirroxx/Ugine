@@ -5,15 +5,15 @@
 class Player final: public ugine::Component2D {
 public:
     Player(): ugine::Component2D("player") {};
-    [[nodiscard]] std::tuple<std::string, ugine::AssetProps> initial_rendering() const noexcept override {
-        return {"attack", {0,0, 100, 100, 1 }};
+    [[nodiscard]] ugine::AssetProps initial_rendering() const noexcept override {
+        return  {"attack", 0,0, 100, 100, 1 };
     }
 };
 
 TEST(SceneManager, AddGetRemoveScene) {
     auto scene_manager = ugine::SceneManager();
     scene_manager.add_scene(
-            ugine::Scene("menu")
+            ugine::Scene2D("menu")
         );
     auto& retrieved_scene = scene_manager.get_scene("menu");
     EXPECT_EQ(retrieved_scene.get_name(), "menu");
