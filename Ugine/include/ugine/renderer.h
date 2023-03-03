@@ -35,7 +35,7 @@ namespace ugine {
     public:
         virtual void render(const Component2D& component,  const AssetProps& asset_props) const = 0;
         void render_scene(Scene2D& scene) const override  {
-            UGINE_CORE_INFO("Rendering scene {0}", scene.get_name());
+            UGINE_CORE_INFO("Rendering 2D scene {0}", scene.get_name());
             for (const auto& component: scene.get_component_list())  {
                 auto props = component->initial_rendering();
                 this->render( *component, props);

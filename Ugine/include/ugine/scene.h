@@ -8,7 +8,7 @@
 
 namespace ugine {
 
-    template <typename C = Component>
+    template <typename C>
     class UGINE_API Scene {
     public:
         using component_list_type = std::vector<std::unique_ptr<C>>;
@@ -33,16 +33,16 @@ namespace ugine {
         explicit Scene2D(std::string name): Scene(std::move(name)) {}
     };
 
-    template <typename T>
+    template <typename S>
     class UGINE_API SceneManager {
     public:
-        void add_scene(T scene) {
+        void add_scene(S scene) {
             this->scene_map.insert({scene.get_name(), std::move(scene)});
         }
         void remove_scene(const std::string& name) {
             this->scene_map.erase(name);
         }
-        T& get_scene(const std::string& name) {
+        S& get_scene(const std::string& name) {
             const auto& el = this->scene_map.find(name);
             if (el == this->scene_map.end()) {
                 throw ugine::SceneNotFound("The scene " + name + " is not found");
@@ -50,7 +50,7 @@ namespace ugine {
             return this->scene_map.find(name)->second;
         }
     private:
-        std::map<std::string, T> scene_map;
+        std::map<std::string, S> scene_map;
     };
 
     class UGINE_API SceneManager2D: public SceneManager<Scene2D>
