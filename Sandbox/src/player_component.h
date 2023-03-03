@@ -1,6 +1,6 @@
 #pragma once
-#include "Ugine/component.h"
-#include "Ugine/renderer.h"
+#include "ugine/component.h"
+#include "ugine/renderer.h"
 
 
 class PlayerComponent final: public ugine::Component2D {

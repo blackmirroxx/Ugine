@@ -27,6 +27,10 @@ namespace ugine {
         TextureManager(const TextureManager&) = default;
         TextureManager& operator=(const TextureManager&) = default;
         TextureManager& operator=(TextureManager&&) = default;
+        /**
+         * Render a scene
+         * @param scene The scene to render
+         */
         virtual void render_scene(S& scene) const = 0;
     };
 
@@ -34,6 +38,12 @@ namespace ugine {
     {
     public:
         virtual void render(const Component2D& component,  const AssetProps& asset_props) const = 0;
+        /**
+         * load an asset
+         * @param asset_path the file path of the asset
+         * @param asset_name the name of the asset
+         */
+        virtual void load(const std:: string& asset_path, const std::string& asset_name) = 0;
         void render_scene(Scene2D& scene) const override  {
             UGINE_CORE_INFO("Rendering 2D scene {0}", scene.get_name());
             for (const auto& component: scene.get_component_list())  {
@@ -62,7 +72,7 @@ namespace ugine {
          * @param asset_path the file path of the asset
          * @param asset_name the name of the asset
          */
-        void load(const std:: string& asset_path, const std::string& asset_name);
+        void load(const std:: string& asset_path, const std::string& asset_name) override;
         /**
          * Render the asset in the screen
          * @param asset_name

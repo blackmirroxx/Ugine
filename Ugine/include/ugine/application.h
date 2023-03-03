@@ -34,7 +34,7 @@ namespace ugine
 		void run() override;
 		SignalDispatcher signals{};
         SceneManager2D& get_scene_manager() noexcept {return this->scene_manager;}
-        SDLTextureManager& get_texture_manager() noexcept {return this->texture_manager;}
+        TextureManager2D& get_texture_manager() noexcept {return this->texture_manager;}
     private:
         void start_loop();
         void on_game_loop() ;

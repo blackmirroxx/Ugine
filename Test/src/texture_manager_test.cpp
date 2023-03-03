@@ -15,6 +15,9 @@ public:
 class MockTextureManager final : public ugine::TextureManager2D {
 public:
     MOCK_METHOD( void, render,(const ugine::Component2D&, const ugine::AssetProps&) , ( const,  override) );
+    void load(const std:: string& asset_path, const std::string& asset_name) override  {
+
+    }
 };
 
 TEST(SDLTextureManager, RenderScene) {
