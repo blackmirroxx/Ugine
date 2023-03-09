@@ -45,7 +45,7 @@ namespace ugine {
         S& get_scene(const std::string& name) {
             const auto& el = this->scene_map.find(name);
             if (el == this->scene_map.end()) {
-                throw ugine::SceneNotFound("The scene " + name + " is not found");
+                throw ugine::exception::SceneNotFound("The scene " + name + " is not found");
             }
             return this->scene_map.find(name)->second;
         }

@@ -27,25 +27,28 @@ namespace ugine {
         Window(Window&&) = delete;
         Window& operator=(const Window&) = delete;
         Window& operator=(Window&&) = delete;
+        virtual void create(const WindowProps& props = {}) = 0;
+        virtual void close() const = 0;
+        virtual void render() const = 0;
+        virtual void on_update() const = 0;
     };
 
     class UGINE_API SDLWindow: public Window
     {
         friend SDLTextureManager;
     public:
-        explicit SDLWindow(WindowProps  props = {}): props(std::move(props)) {
-            this->init();
-        }
-        void render() const;
+        SDLWindow();
+        void create(const WindowProps& props) override;
+        void render() const override;
         SDLWindow(const SDLWindow&) = delete;
         SDLWindow(SDLWindow&&) = delete;
         SDLWindow& operator=(const SDLWindow&) = delete;
         SDLWindow& operator=(SDLWindow&&) = delete;
         ~SDLWindow() override ;
+        void on_update() const override;
+        void close() const override;
     private:
-        void init();
-        WindowProps props;
-        SDL_Window * sdl_window{nullptr};
+        SDL_Window* sdl_window{nullptr};
         SDL_Renderer* sdl_renderer{nullptr};
     };
 }

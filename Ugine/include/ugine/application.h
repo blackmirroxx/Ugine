@@ -3,7 +3,6 @@
 #include "ugine/core.h"
 #include "ugine/signals.h"
 #include "ugine/window.h"
-#include "ugine/input/input_handler.h"
 #include "ugine/renderer.h"
 #include "ugine/scene.h"
 
@@ -25,7 +24,9 @@ namespace ugine
     class UGINE_API Application2D: public Application
 	{
 	public:
-		explicit Application2D(WindowProps props = {}): Application(), window(std::move(props)), texture_manager(window) {}
+		explicit Application2D(WindowProps props = {}): texture_manager(window) {
+            this->window.create(props);
+        }
 		Application2D(const Application2D&) = delete;
 		Application2D(Application2D&&) = delete;
 		Application2D& operator=(const Application2D&) = delete;
@@ -41,11 +42,10 @@ namespace ugine
         int fps = 60;
         bool running = false;
         SDLWindow window;
-        SDLInputHandler input_handler;
         SceneManager2D scene_manager;
         SDLTextureManager texture_manager;
 	};
 
-	Application2D* create_application();
+	Application* create_application();
 }
 

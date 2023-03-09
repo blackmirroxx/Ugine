@@ -48,7 +48,7 @@ namespace ugine {
             UGINE_CORE_INFO("Rendering 2D scene {0}", scene.get_name());
             for (const auto& component: scene.get_component_list())  {
                 auto props = component->initial_rendering();
-                this->render( *component, props);
+                this->render(*component, props);
             }
         }
     };
@@ -83,5 +83,10 @@ namespace ugine {
     private:
         std::map<std::string, SDL_Texture*> textures;
         const SDLWindow& window;
+    };
+
+    class UGINE_API SpriteRenderer
+    {
+    public:
     };
 }

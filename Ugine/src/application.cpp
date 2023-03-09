@@ -21,6 +21,6 @@ void ugine::Application2D::start_loop() {
 }
 
 void ugine::Application2D::on_game_loop() {
-    this->input_handler.poll_events();
     this->window.render();
+    this->window.on_update();
 }

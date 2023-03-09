@@ -19,12 +19,12 @@ TEST(SceneManager, AddGetRemoveScene) {
     EXPECT_EQ(retrieved_scene.get_name(), "menu");
     EXPECT_THROW(
             scene_manager.get_scene("not_existing_scene"),
-            ugine::SceneNotFound
+            ugine::exception::SceneNotFound
             );
     scene_manager.remove_scene("menu");
     EXPECT_THROW(
             scene_manager.get_scene("menu"),
-            ugine::SceneNotFound
+            ugine::exception::SceneNotFound
     );
 }
 

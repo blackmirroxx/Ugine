@@ -6,7 +6,7 @@ static auto create_scenes() {
     return std::array{ugine::Scene2D("menu"), std::move(first_scene) };
 }
 
-ugine::Application2D* ugine::create_application()
+ugine::Application* ugine::create_application()
 {
     const auto app = new Sandbox();
     auto& scene_manager = app->get_scene_manager();
@@ -18,8 +18,7 @@ ugine::Application2D* ugine::create_application()
     for (auto& scene: create_scenes()) {
         scene_manager.add_scene(std::move(scene));
     }
-    app->get_texture_manager().render_scene(
-            scene_manager.get_scene("first_scene"));
+    app->get_texture_manager().render_scene(app->get_scene_manager().get_scene("first_scene"));
     return app;
 }
 
