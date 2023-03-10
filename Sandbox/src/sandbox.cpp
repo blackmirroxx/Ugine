@@ -8,12 +8,8 @@ static auto create_scenes() {
 
 ugine::Application* ugine::create_application()
 {
-    const auto app = new Sandbox();
+    auto* const app = new Sandbox();
     auto& scene_manager = app->get_scene_manager();
-    app->signals.on_start.add_listener([](const int i )
-                                       {
-                                           std::cout << " on start event " << i << std::endl;
-                                       });
     app->get_texture_manager().load("assets/Attack.png", "attack");
     for (auto& scene: create_scenes()) {
         scene_manager.add_scene(std::move(scene));

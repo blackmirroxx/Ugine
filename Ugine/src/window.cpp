@@ -1,7 +1,8 @@
 #include "Ugine/window.h"
 #include "Ugine/log.h"
 #include "SDL.h"
-#include "Ugine/exception/exception.h"
+#include "ugine/exception/exception.h"
+#include "ugine/event/window_event.h"
 
 static int i_count = 0;
 
@@ -38,9 +39,11 @@ void ugine::SDLWindow::render() const {
 }
 
 void ugine::SDLWindow::on_update() const {
-    SDL_Event* event = nullptr;
-    if (SDL_PollEvent(event) != 0) {
-
+    SDL_Event event;
+    if (SDL_PollEvent(&event) != 0) {
+        if (event.type == SDL_QUIT) {
+            this->event_cb(ugine::event::WindowQuit());
+        }
     }
 }
 
@@ -49,4 +52,3 @@ void ugine::SDLWindow::close() const {
     SDL_DestroyWindow(this->sdl_window);
     UGINE_CORE_INFO("SDLWindow closed");
 }
-

@@ -2,7 +2,7 @@
 set(SOURCES
 		src/application.cpp src/component.cpp src/log.cpp
 		src/input_handler.cpp src/renderer.cpp src/scene.cpp src/window.cpp
-)
+        src/event.cpp)
 
 set(HEADERS
 		include/ugine/application.h include/ugine/component.h include/ugine/core.h

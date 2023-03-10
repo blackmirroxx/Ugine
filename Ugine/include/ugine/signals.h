@@ -29,7 +29,7 @@ namespace ugine
 	class SignalDispatcher
 	{
 	public:
-		Signal<int> on_start;
+		Signal<> on_start;
 	};
 
 }

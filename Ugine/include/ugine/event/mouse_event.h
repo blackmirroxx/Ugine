@@ -2,7 +2,7 @@
 #include "ugine/core.h"
 #include "ugine/event/event.h"
 
-namespace ugine {
+namespace ugine::event {
     enum class mouse_button_type {
         left, right, middle
     };
@@ -13,7 +13,7 @@ namespace ugine {
         MouseButtonEvent(event_type event_type , mouse_button_type mouse_button) : Event(event_type, input_category | mouse_category | mouse_button_category ),
                                                                                    mouse_button(mouse_button)  {}
         [[nodiscard]] mouse_button_type get_mouse_button() const {return this->mouse_button; }
-    private:
+    protected:
         mouse_button_type mouse_button;
     };
 
@@ -21,12 +21,18 @@ namespace ugine {
     {
     public:
         explicit MouseUp(mouse_button_type mouse_button): MouseButtonEvent(event_type::mouse_up, mouse_button) {}
+        [[nodiscard]] std::string to_string() const noexcept {
+            return  "MouseUp";
+        }
     };
 
     class UGINE_API MouseDown final : public MouseButtonEvent
     {
     public:
         explicit MouseDown(mouse_button_type mouse_button): MouseButtonEvent(event_type::mouse_down, mouse_button) {}
+        [[nodiscard]] std::string to_string() const noexcept {
+            return  "MouseDown";
+        }
     };
 
     class UGINE_API MouseWheel final : public Event
@@ -36,6 +42,9 @@ namespace ugine {
                                                     offset_x(offset_x), offset_y(offset_y){}
         [[nodiscard]] float get_offset_x() const noexcept {return offset_x;}
         [[nodiscard]] float get_offset_y() const noexcept {return offset_y;}
+        [[nodiscard]] std::string to_string() const noexcept {
+            return  "MouseWheel " + std::to_string(offset_x) + "x" + std::to_string(offset_y);
+        }
     private:
         float offset_x;
         float offset_y;
@@ -48,6 +57,9 @@ namespace ugine {
                                                   mouse_x(mouse_x), mouse_y(mouse_y){}
         [[nodiscard]] float get_mouse_x() const noexcept {return mouse_x;}
         [[nodiscard]] float get_mouse_y() const noexcept {return mouse_y;}
+        [[nodiscard]] std::string to_string() const noexcept {
+            return  "MouseMove " + std::to_string(mouse_x) + "x" + std::to_string(mouse_y);
+        }
     private:
         float mouse_y;
         float mouse_x;

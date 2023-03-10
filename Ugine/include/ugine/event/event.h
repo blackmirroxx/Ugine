@@ -1,8 +1,10 @@
 #pragma once
+
 #include "ugine/core.h"
 #include <vector>
+#include <iostream>
 
-namespace ugine {
+namespace ugine::event {
     enum class event_type
     {
         mouse_up, mouse_down, mouse_wheel, mouse_move, key_up, key_down,
@@ -30,6 +32,7 @@ namespace ugine {
         [[nodiscard]] int get_category_flags() const {return this->category_flags;}
         [[nodiscard]] event_type get_event_type() const {return this->event; }
         virtual ~Event() = default;
+        [[nodiscard]] virtual std::string to_string() const noexcept = 0;
         [[nodiscard]] bool is_in_category(event_category category) const {
             return this->category_flags & category;
         }
@@ -38,6 +41,8 @@ namespace ugine {
         int category_flags = event_category::none;
         event_type event;
     };
+
+
 
     template <typename E=Event>
     class UGINE_API Listener
@@ -48,7 +53,8 @@ namespace ugine {
         Listener(Listener&&) = delete;
         void operator=(const Listener&) = delete;
         void operator=(Listener&&) = delete;
-        virtual void operator()(const E& e) = 0;
+        virtual void operator()(const E& evt) = 0;
         virtual ~Listener() = default;
     };
+
 }

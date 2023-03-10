@@ -6,12 +6,12 @@
 #include "ugine/event/keyboard_event.h"
 #include "ugine/core.h"
 
-namespace ugine {
+namespace ugine::event {
     template <typename E>
     class UGINE_API EventDispatcher
     {
     public:
-        void set_listener(std::unique_ptr<Listener<E>>& listener) {this->event_listener = std::move(listener);}
+        void set_listener(std::unique_ptr<Listener<E>> listener) {this->event_listener = std::move(listener);}
         void dispatch(const E& event) const noexcept {
             if (event_listener) this->event_listener->operator()(event);
         }

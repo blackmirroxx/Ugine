@@ -3,9 +3,10 @@
 
 void ugine::Application2D::run()
 {
-	this->signals.on_start.emit(10);
+	this->signals.on_start.emit();
     this->start_loop();
 }
+
 
 void ugine::Application2D::start_loop() {
     this->running = true;
@@ -23,4 +24,11 @@ void ugine::Application2D::start_loop() {
 void ugine::Application2D::on_game_loop() {
     this->window.render();
     this->window.on_update();
+}
+
+void ugine::Application2D::on_event(const ugine::event::Event& event) {
+    UGINE_CORE_INFO("event {0}", event.to_string());
+    if (event.get_event_type() == ugine::event::event_type::window_quit) {
+        this->running = false;
+    }
 }

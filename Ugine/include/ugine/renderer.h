@@ -1,5 +1,4 @@
 #pragma once
-#include "ugine/window.h"
 #include "ugine/component.h"
 #include "ugine/scene.h"
 #include "ugine/log.h"
@@ -7,6 +6,8 @@
 #include <map>
 
 struct SDL_Texture;
+struct SDL_Window;
+struct SDL_Renderer;
 
 namespace ugine {
     struct AssetProps
@@ -59,10 +60,8 @@ namespace ugine {
     class UGINE_API SDLTextureManager final: public TextureManager2D
     {
     public:
-        /**
-         * @param window the window on which the asset will appear
-         */
-        explicit SDLTextureManager(const SDLWindow &window ): window(window) {};
+        SDLTextureManager(SDL_Window*& sdl_window, SDL_Renderer*& sdl_renderer ): sdl_window{sdl_window},
+        sdl_renderer{sdl_renderer} {}
         SDLTextureManager(SDLTextureManager&&) = default;
         SDLTextureManager(const SDLTextureManager&) = delete;
         SDLTextureManager& operator=(const SDLTextureManager&) = delete;
@@ -82,11 +81,8 @@ namespace ugine {
         ~SDLTextureManager() override;
     private:
         std::map<std::string, SDL_Texture*> textures;
-        const SDLWindow& window;
+        SDL_Window*& sdl_window;
+        SDL_Renderer*& sdl_renderer;
     };
 
-    class UGINE_API SpriteRenderer
-    {
-    public:
-    };
 }
