@@ -11,7 +11,7 @@ enable_testing()
 add_executable(
   Test
   src/signals_test.cpp src/event_test.cpp
-  src/event_dispatcher_test.cpp src/vector_test.cpp src/scene_test.cpp src/texture_manager_test.cpp src/component_test.cpp src/window_test.cpp)
+  src/event_dispatcher_test.cpp src/vector_test.cpp src/scene_test.cpp src/texture_manager_test.cpp src/component_test.cpp src/window_test.cpp src/application_test.cpp src/mocks.h)
 
 #target_precompile_headers(
 #		Test
@@ -23,7 +23,7 @@ target_link_libraries(
 		Test
 	PRIVATE GTest::gtest_main
 	PRIVATE GTest::gmock_main
-	PRIVATE Ugine
+	PRIVATE Ugine::Ugine-test
 )
 
 

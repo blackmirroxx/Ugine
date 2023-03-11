@@ -1,8 +1,9 @@
-#include "Ugine/window.h"
-#include "Ugine/log.h"
-#include "SDL.h"
+#include "ugine/window.h"
+#include "ugine/log.h"
 #include "ugine/exception/exception.h"
 #include "ugine/event/window_event.h"
+#include "ugine/event/mouse_event.h"
+#include "SDL.h"
 
 static int i_count = 0;
 
@@ -42,7 +43,11 @@ void ugine::SDLWindow::on_update() const {
     SDL_Event event;
     if (SDL_PollEvent(&event) != 0) {
         if (event.type == SDL_QUIT) {
-            this->event_cb(ugine::event::WindowQuit());
+            this->dispatch(ugine::event::WindowQuit());
+        }
+        if (event.type == SDL_MOUSEMOTION) {
+            auto *motion_event = reinterpret_cast<SDL_MouseMotionEvent*>(&event);
+            this->dispatch(ugine::event::MouseMove{ static_cast<float>(motion_event->x), static_cast<float>(motion_event->y)});
         }
     }
 }

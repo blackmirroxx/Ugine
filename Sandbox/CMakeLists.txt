@@ -16,7 +16,7 @@ target_compile_definitions(Sandbox
 	)
 
 target_link_libraries(Sandbox 
-	PRIVATE Ugine
+	PRIVATE Ugine::Ugine-static
 )
 
 if (UGINE_SHARED_LIBRARY)

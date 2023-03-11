@@ -29,7 +29,7 @@ namespace ugine {
         Window(Window&&) = delete;
         Window& operator=(const Window&) = delete;
         Window& operator=(Window&&) = delete;
-        void set_event_callback(event_callback_type callback) noexcept {
+        void on_event(event_callback_type callback) noexcept {
             this->event_cb = std::move(callback);
         }
         virtual void create(const WindowProps& props = {}) = 0;
@@ -37,6 +37,10 @@ namespace ugine {
         virtual void render() const = 0;
         virtual void on_update() const = 0;
     protected:
+        void dispatch(const ugine::event::Event& event) const noexcept {
+            this->event_cb(event);
+        }
+    private:
         event_callback_type event_cb = nullptr;
     };
 

@@ -1,25 +1,13 @@
 #include "pch.h"
-#include "ugine/window.h"
-#include "ugine/event/window_event.h"
+#include "mocks.h"
 
-class TestWindow final: public ugine::Window {
-public:
-    TestWindow() = default;
-    void create(const ugine::WindowProps &props = {}) override {};
-    void close() const override {}
-    void on_update() const override {}
-    void render() const override {}
-    void dispatch_event() {
-        this->event_cb(ugine::event::WindowQuit());
-    }
-};
 
 TEST(Window, EventCallback) {
-    auto test_window = TestWindow();
+    auto test_window = mocks::TestWindow();
     int i = 0;
-    test_window.set_event_callback([&i](const ugine::event::Event& event) {
+    test_window.on_event([&i](const ugine::event::Event &event) {
         ++i;
     });
-    test_window.dispatch_event();
+    test_window.test_dispatch( ugine::event::WindowQuit() );
     EXPECT_EQ(i, 1);
 }

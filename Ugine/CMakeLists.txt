@@ -14,25 +14,50 @@ set(HEADERS
 		include/ugine/exception/exception.h include/ugine/input/input_handler.h
 )
 
+add_library(Ugine-public-options INTERFACE)
+add_library(Ugine-private-options INTERFACE)
+
+macro(add_options LIB)
+	target_link_libraries(${LIB} PUBLIC Ugine-public-options)
+	target_link_libraries(${LIB} PRIVATE Ugine-private-options)
+endmacro()
+
+target_include_directories( Ugine-public-options
+		INTERFACE include
+		)
+
+target_compile_definitions( Ugine-private-options
+		INTERFACE U_BUILD_DLL
+		)
+
+target_link_libraries( Ugine-private-options
+		INTERFACE SDL2::SDL2-static
+		INTERFACE SDL2_image::SDL2_image-static
+		)
+
+target_link_libraries( Ugine-public-options
+		INTERFACE spdlog::spdlog
+		)
+
 
 if(UGINE_SHARED_LIBRARY OR BUILD_SHARED_LIBS)
-	add_library(Ugine SHARED ${SOURCES} ${HEADERS} )
-	target_compile_definitions(Ugine PUBLIC UGINE_SHARED_LIB )
+	add_library(Ugine-shared SHARED ${SOURCES} ${HEADERS} )
+	add_library(Ugine::Ugine-shared ALIAS Ugine-shared)
+	target_compile_definitions(Ugine-shared
+			PUBLIC UGINE_SHARED_LIB
+			PRIVATE $<$<CONFIG:DEBUG>:UGINE_DEBUG>
+			)
+	add_options(Ugine-shared)
 else()
-	add_library(Ugine STATIC ${SOURCES} ${HEADERS} )
+	add_library(Ugine-static STATIC ${SOURCES} ${HEADERS} )
+	add_library(Ugine::Ugine-static ALIAS Ugine-static)
+	target_compile_definitions(Ugine-static
+			PRIVATE $<$<CONFIG:DEBUG>:UGINE_DEBUG>
+			)
+	add_options(Ugine-static)
 endif()
-
-target_include_directories(Ugine
-		PUBLIC include
-)
-
-target_compile_definitions(Ugine
-		PRIVATE U_BUILD_DLL
-		PRIVATE $<$<CONFIG:DEBUG>:UGINE_DEBUG>
-)
-
-target_link_libraries(Ugine
-		PUBLIC spdlog::spdlog
-		PRIVATE SDL2::SDL2-static
-		PRIVATE SDL2_image::SDL2_image-static
-)
+if (UGINE_TEST)
+	add_library(Ugine-test STATIC ${SOURCES} ${HEADERS} )
+	add_library(Ugine::Ugine-test ALIAS Ugine-test)
+	add_options(Ugine-test)
+endif()

@@ -6,6 +6,6 @@
 #include <array>
 
 
-class Sandbox final: public ugine::Application2D
+class Sandbox final: public ugine::SDLApplication2D
 {
 };
