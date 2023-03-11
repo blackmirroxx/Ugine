@@ -15,15 +15,15 @@ target_compile_definitions(Sandbox
 		PRIVATE $<$<CONFIG:DEBUG>:UGINE_DEBUG>
 	)
 
-target_link_libraries(Sandbox 
-	PRIVATE Ugine::Ugine-static
+target_link_libraries(Sandbox
+	PRIVATE	$<IF:$<BOOL:${UGINE_SHARED_LIBRARY}>, Ugine::Ugine-shared, Ugine::Ugine-static>
 )
 
 if (UGINE_SHARED_LIBRARY)
 	# copy Ugine.dll to the executable location
 	add_custom_command(TARGET Sandbox POST_BUILD
 		COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			$<TARGET_FILE:Ugine>
+			$<TARGET_FILE:Ugine::Ugine-shared>
 			$<TARGET_FILE_DIR:Sandbox>
 		COMMENT "Copy Ugine.dll")
 endif()
