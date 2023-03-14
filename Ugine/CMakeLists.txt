@@ -22,42 +22,43 @@ macro(add_options LIB)
 	target_link_libraries(${LIB} PRIVATE Ugine-private-options)
 endmacro()
 
-target_include_directories( Ugine-public-options
+target_include_directories(Ugine-public-options
 		INTERFACE include
 		)
 
-target_compile_definitions( Ugine-private-options
+target_compile_definitions(Ugine-private-options
 		INTERFACE U_BUILD_DLL
 		)
 
-target_link_libraries( Ugine-private-options
+target_link_libraries(Ugine-private-options
 		INTERFACE SDL2::SDL2-static
 		INTERFACE SDL2_image::SDL2_image-static
 		)
 
-target_link_libraries( Ugine-public-options
+target_link_libraries(Ugine-public-options
 		INTERFACE spdlog::spdlog
 		)
-
 
 if(UGINE_SHARED_LIBRARY OR BUILD_SHARED_LIBS)
 	add_library(Ugine-shared SHARED ${SOURCES} ${HEADERS} )
 	add_library(Ugine::Ugine-shared ALIAS Ugine-shared)
 	target_compile_definitions(Ugine-shared
 			PUBLIC UGINE_SHARED_LIB
-			PRIVATE $<$<CONFIG:DEBUG>:UGINE_DEBUG>
+			PUBLIC $<$<BOOL:UGINE_LOGGING>:UGINE_DEBUG>
 			)
 	add_options(Ugine-shared)
 else()
 	add_library(Ugine-static STATIC ${SOURCES} ${HEADERS} )
 	add_library(Ugine::Ugine-static ALIAS Ugine-static)
 	target_compile_definitions(Ugine-static
-			PRIVATE $<$<CONFIG:DEBUG>:UGINE_DEBUG>
+			PUBLIC $<$<BOOL:UGINE_LOGGING>:UGINE_DEBUG>
 			)
 	add_options(Ugine-static)
 endif()
+
 if (UGINE_TEST)
 	add_library(Ugine-test STATIC ${SOURCES} ${HEADERS} )
 	add_library(Ugine::Ugine-test ALIAS Ugine-test)
 	add_options(Ugine-test)
 endif()
+
