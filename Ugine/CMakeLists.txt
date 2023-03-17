@@ -1,7 +1,7 @@
 
 set(SOURCES
 		src/application.cpp src/component.cpp src/log.cpp
-		src/input_handler.cpp src/renderer.cpp src/scene.cpp src/window.cpp
+		src/renderer.cpp src/scene.cpp src/window.cpp
         src/event.cpp)
 
 set(HEADERS
@@ -11,7 +11,7 @@ set(HEADERS
 		include/ugine/window.h include/ugine/event/event.h
 		include/ugine/event/event_dispatcher.h include/ugine/event/keyboard_event.h
 		include/ugine/event/mouse_event.h include/ugine/event/window_event.h
-		include/ugine/exception/exception.h include/ugine/input/input_handler.h
+		include/ugine/exception/exception.h
 )
 
 add_library(Ugine-public-options INTERFACE)
