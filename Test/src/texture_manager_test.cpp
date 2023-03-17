@@ -14,8 +14,8 @@ public:
 
 class MockTextureManager final : public ugine::TextureManager2D {
 public:
-    MOCK_METHOD( void, render,(const ugine::Component2D&, const ugine::AssetProps&) , ( const,  override) );
-    void load(const std:: string& asset_path, const std::string& asset_name) override  {
+    MOCK_METHOD( void, render_component,(const ugine::Component2D&, const ugine::AssetProps&) , ( const,  override) );
+    void load_asset(const std:: string& asset_path, const std::string& asset_name) override  {
 
     }
 };
@@ -25,6 +25,6 @@ TEST(SDLTextureManager, RenderScene) {
     auto texture_manager = MockTextureManager();
     auto component = std::make_unique<Mock2DComponent>();
     first_scene.add_component(std::move(component));
-    EXPECT_CALL(texture_manager, render(testing::_, testing::_));
+    EXPECT_CALL(texture_manager, render_component(testing::_, testing::_));
     texture_manager.render_scene(first_scene);
 }

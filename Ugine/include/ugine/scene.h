@@ -37,20 +37,20 @@ namespace ugine {
     class UGINE_API SceneManager {
     public:
         void add_scene(S scene) {
-            this->scene_map.insert({scene.get_name(), std::move(scene)});
+            this->scenes_map.insert({scene.get_name(), std::move(scene)});
         }
         void remove_scene(const std::string& name) {
-            this->scene_map.erase(name);
+            this->scenes_map.erase(name);
         }
         S& get_scene(const std::string& name) {
-            const auto& el = this->scene_map.find(name);
-            if (el == this->scene_map.end()) {
+            const auto& el = this->scenes_map.find(name);
+            if (el == this->scenes_map.end()) {
                 throw ugine::exception::SceneNotFound("The scene " + name + " is not found");
             }
-            return this->scene_map.find(name)->second;
+            return this->scenes_map.find(name)->second;
         }
     private:
-        std::map<std::string, S> scene_map;
+        std::map<std::string, S> scenes_map;
     };
 
     class UGINE_API SceneManager2D: public SceneManager<Scene2D>

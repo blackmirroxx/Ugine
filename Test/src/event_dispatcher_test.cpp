@@ -18,6 +18,7 @@ TEST(EventDispatcher, RegisterAndCallListener) {
     auto* raw_ptr = dynamic_cast<PlayerMouseUpListener*>(listener.get());
     mouse_up_event_dispatcher.set_listener(std::move(listener));
     EXPECT_EQ(raw_ptr->val, 0);
-    mouse_up_event_dispatcher.dispatch(ugine::event::MouseUp(ugine::event::mouse_button_type::left));
+    mouse_up_event_dispatcher.dispatch(ugine::event::MouseUp(
+            ugine::event::mouse_button_type::left, 100, 200));
     EXPECT_EQ(raw_ptr->val, 1);
 }

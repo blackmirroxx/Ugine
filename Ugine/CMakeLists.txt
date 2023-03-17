@@ -33,6 +33,7 @@ target_compile_definitions(Ugine-private-options
 target_link_libraries(Ugine-private-options
 		INTERFACE SDL2::SDL2-static
 		INTERFACE SDL2_image::SDL2_image-static
+		INTERFACE glad::4.1-static
 		)
 
 target_link_libraries(Ugine-public-options
@@ -61,4 +62,3 @@ if (UGINE_TEST)
 	add_library(Ugine::Ugine-test ALIAS Ugine-test)
 	add_options(Ugine-test)
 endif()
-

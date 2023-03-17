@@ -28,7 +28,7 @@ namespace ugine
     class UGINE_API Application2D: public Application {
     public:
         Application2D() = default;
-        virtual SceneManager2D& get_scene_manager() noexcept = 0;
+        virtual SceneManager<Scene2D> & get_scene_manager() noexcept = 0;
         virtual TextureManager2D& get_texture_manager() noexcept = 0;
     };
 
@@ -50,9 +50,8 @@ namespace ugine
 		~SDLApplication2D() override = default;
 		void run() override;
         [[nodiscard]] bool is_running() const noexcept {return running;}
-        SceneManager2D& get_scene_manager() noexcept override {return this->scene_manager;}
+        SceneManager<Scene2D>& get_scene_manager() noexcept override {return this->scene_manager;}
         TextureManager2D& get_texture_manager() noexcept override {return this->pt_window->get_texture_manager();}
-        void set_running(bool is_running) noexcept {this->running = is_running;}
     private:
         void on_event(const ugine::event::Event&);
         void start_loop();

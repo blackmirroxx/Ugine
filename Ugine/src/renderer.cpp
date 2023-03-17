@@ -5,7 +5,7 @@
 #include "SDL_image.h"
 
 
-void ugine::SDLTextureManager::load(const std::string &asset_path, const std::string& asset_name) {
+void ugine::SDLTextureManager::load_asset(const std::string &asset_path, const std::string& asset_name) {
     SDL_Surface* assert_surface = IMG_Load(asset_path.c_str());
     if (assert_surface == nullptr) {
         UGINE_CORE_ERROR("Error loading asset '{0}', details: {1}", asset_name, SDL_GetError());
@@ -21,7 +21,7 @@ void ugine::SDLTextureManager::load(const std::string &asset_path, const std::st
 }
 
 
-void ugine::SDLTextureManager::render(const Component2D& component,  const AssetProps& asset_props)  const {
+void ugine::SDLTextureManager::render_component(const Component2D& component,  const AssetProps& asset_props)  const {
     SDL_Rect src_rect{ asset_props.x + asset_props.col * asset_props.width, asset_props.y + asset_props.row * asset_props.height, asset_props.width, asset_props.height};
     SDL_Rect dest_rect{int(component.get_position().get_x()), int(component.get_position().get_y()), int(float(asset_props.width) * asset_props.zoom), int(float(asset_props.height) * asset_props.zoom)};
     if (SDL_RenderCopy(this->sdl_renderer, this->textures.at(asset_props.name), &src_rect, &dest_rect) < 0 ) {

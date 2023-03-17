@@ -29,6 +29,10 @@ namespace ugine {
         Window(Window&&) = delete;
         Window& operator=(const Window&) = delete;
         Window& operator=(Window&&) = delete;
+        /**
+         * Dispatch window event
+         * @param callback: callback call when an event occured
+         */
         void on_event(event_callback_type callback) noexcept {
             this->event_cb = std::move(callback);
         }

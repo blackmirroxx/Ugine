@@ -38,18 +38,18 @@ namespace ugine {
     class UGINE_API TextureManager2D: public TextureManager<Scene2D>
     {
     public:
-        virtual void render(const Component2D& component,  const AssetProps& asset_props) const = 0;
+        virtual void render_component(const Component2D& component,  const AssetProps& asset_props) const = 0;
         /**
-         * load an asset
+         * load_asset an asset
          * @param asset_path the file path of the asset
          * @param asset_name the name of the asset
          */
-        virtual void load(const std:: string& asset_path, const std::string& asset_name) = 0;
+        virtual void load_asset(const std:: string& asset_path, const std::string& asset_name) = 0;
         void render_scene(Scene2D& scene) const override  {
             UGINE_CORE_INFO("Rendering 2D scene {0}", scene.get_name());
             for (const auto& component: scene.get_component_list())  {
                 auto props = component->initial_rendering();
-                this->render(*component, props);
+                this->render_component(*component, props);
             }
         }
     };
@@ -67,17 +67,17 @@ namespace ugine {
         SDLTextureManager& operator=(const SDLTextureManager&) = delete;
         SDLTextureManager& operator=(SDLTextureManager&&) = delete;
         /**
-         * load an asset
+         * load_asset an asset
          * @param asset_path the file path of the asset
          * @param asset_name the name of the asset
          */
-        void load(const std:: string& asset_path, const std::string& asset_name) override;
+        void load_asset(const std:: string& asset_path, const std::string& asset_name) override;
         /**
          * Render the asset in the screen
          * @param asset_name
          * @param asset_props
          */
-        void render(const Component2D& component, const AssetProps& asset_props) const override;
+        void render_component(const Component2D& component, const AssetProps& asset_props) const override;
         ~SDLTextureManager() override;
     private:
         std::map<std::string, SDL_Texture*> textures;

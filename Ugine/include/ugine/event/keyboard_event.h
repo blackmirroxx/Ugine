@@ -17,7 +17,7 @@ namespace ugine::event {
     {
     public:
         explicit KeyUp(int key_code ): KeyboardEvent(event_type::key_up, key_code) {}
-        [[nodiscard]] std::string to_string() const noexcept {
+        [[nodiscard]] std::string to_string() const noexcept override {
             return  "KeyUp " + std::to_string(key_code);
         }
     };
@@ -25,13 +25,13 @@ namespace ugine::event {
     class UGINE_API KeyDown final: public KeyboardEvent
     {
     public:
-        explicit KeyDown(int key_code, int repeat_count = 1): KeyboardEvent(event_type::key_down, key_code),
-                                                              repeat_count(repeat_count) {}
-        [[nodiscard]] int get_repeat_count() const noexcept {return repeat_count;}
-        [[nodiscard]] std::string to_string() const noexcept {
-            return  "KeyUp " + std::to_string(key_code) + " repeat: " + std::to_string(repeat_count);
+        explicit KeyDown(int key_code, bool repeat = false):
+        KeyboardEvent(event_type::key_down, key_code), repeat{repeat} {}
+        [[nodiscard]] bool is_repeated() const noexcept {return repeat;}
+        [[nodiscard]] std::string to_string() const noexcept override {
+            return  "KeyDown " + std::to_string(key_code) + (repeat ? " repeated" : "");
         }
     private:
-        int repeat_count;
+        bool repeat;
     };
 }

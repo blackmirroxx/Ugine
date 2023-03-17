@@ -43,7 +43,6 @@ namespace ugine::event {
     };
 
 
-
     template <typename E=Event>
     class UGINE_API Listener
     {

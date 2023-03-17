@@ -5,7 +5,10 @@
 
 
 TEST(Events, MouseUpCategories) {
-    const std::unique_ptr<ugine::event::MouseButtonEvent> mouse_up = std::make_unique<ugine::event::MouseUp>(ugine::event::mouse_button_type::right);
+    const std::unique_ptr<ugine::event::MouseButtonEvent> mouse_up = std::make_unique<ugine::event::MouseUp>(
+            ugine::event::mouse_button_type::right, 10, 20);
+    EXPECT_EQ(mouse_up->get_offset_x(), 10);
+    EXPECT_EQ(mouse_up->get_offset_y(), 20);
     EXPECT_EQ(mouse_up->get_mouse_button(), ugine::event::mouse_button_type::right);
     EXPECT_EQ(mouse_up->get_event_type(), ugine::event::event_type::mouse_up);
     EXPECT_TRUE(mouse_up->is_in_category(ugine::event::event_category::input_category) );
@@ -15,7 +18,8 @@ TEST(Events, MouseUpCategories) {
 }
 
 TEST(Events, MouseDownCategories) {
-    const std::unique_ptr<ugine::event::MouseButtonEvent> mouse_down = std::make_unique<ugine::event::MouseDown>(ugine::event::mouse_button_type::left);
+    const std::unique_ptr<ugine::event::MouseButtonEvent> mouse_down = std::make_unique<ugine::event::MouseDown>(
+            ugine::event::mouse_button_type::left, 100, 5000);
     EXPECT_EQ(mouse_down->get_mouse_button(), ugine::event::mouse_button_type::left);
     EXPECT_EQ(mouse_down->get_event_type(), ugine::event::event_type::mouse_down);
     EXPECT_TRUE(mouse_down->is_in_category(ugine::event::event_category::input_category) );
@@ -25,7 +29,10 @@ TEST(Events, MouseDownCategories) {
 }
 
 TEST(Events, MouseeWheelCategories) {
-    const std::unique_ptr<ugine::event::Event> mouse_wheel = std::make_unique<ugine::event::MouseWheel>(10.2, 23.3);
+    const std::unique_ptr<ugine::event::MouseWheel> mouse_wheel = std::make_unique<ugine::event::MouseWheel>(0.0, 1.0);
+
+    EXPECT_TRUE(mouse_wheel->is_up());
+    EXPECT_FALSE(mouse_wheel->is_down());
     EXPECT_EQ(mouse_wheel->get_event_type(), ugine::event::event_type::mouse_wheel);
     EXPECT_TRUE(mouse_wheel->is_in_category(ugine::event::event_category::input_category) );
     EXPECT_TRUE(mouse_wheel->is_in_category(ugine::event::event_category::mouse_category) );
@@ -53,12 +60,14 @@ TEST(Events, KeyUpCategories) {
 }
 
 TEST(Events, KeyDownCategories) {
-    const std::unique_ptr<ugine::event::Event> key_up = std::make_unique<ugine::event::KeyDown>(21);
-    EXPECT_EQ(key_up->get_event_type(), ugine::event::event_type::key_down);
-    EXPECT_TRUE(key_up->is_in_category(ugine::event::event_category::keyboard_category));
-    EXPECT_TRUE(key_up->is_in_category(ugine::event::event_category::input_category) );
-    EXPECT_FALSE(key_up->is_in_category(ugine::event::event_category::mouse_category) );
-    EXPECT_FALSE(key_up->is_in_category(ugine::event::event_category::mouse_button_category) );
+    const std::unique_ptr<ugine::event::KeyDown> key_down = std::make_unique<ugine::event::KeyDown>(97, true);
+    EXPECT_TRUE(key_down->is_repeated());
+    EXPECT_EQ(key_down->get_key_code(), 97);
+    EXPECT_EQ(key_down->get_event_type(), ugine::event::event_type::key_down);
+    EXPECT_TRUE(key_down->is_in_category(ugine::event::event_category::keyboard_category));
+    EXPECT_TRUE(key_down->is_in_category(ugine::event::event_category::input_category) );
+    EXPECT_FALSE(key_down->is_in_category(ugine::event::event_category::mouse_category) );
+    EXPECT_FALSE(key_down->is_in_category(ugine::event::event_category::mouse_button_category) );
 }
 
 TEST(Events, QuitEvent) {

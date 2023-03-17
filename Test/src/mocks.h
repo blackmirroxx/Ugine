@@ -7,10 +7,10 @@
 namespace mocks {
     class TestTextureManager2D final: public ugine::TextureManager2D {
     public:
-        void render(const ugine::Component2D& component,  const ugine::AssetProps& asset_props) const override {
+        void render_component(const ugine::Component2D& component,  const ugine::AssetProps& asset_props) const override {
 
         }
-        void load(const std:: string& asset_path, const std::string& asset_name) override {
+        void load_asset(const std:: string& asset_path, const std::string& asset_name) override {
 
         }
     };
@@ -44,11 +44,23 @@ namespace mocks {
         TestTextureManager2D texture_manager;
     };
 
-    class TestApplication2D final: public ugine::SDLApplication2D {
+    class TestSceneManager2D final: public ugine::SceneManager<ugine::Scene2D> {
+
+    };
+
+    class TestApplication2D final: public ugine::Application2D {
     public:
-        explicit TestApplication2D(std::unique_ptr<ugine::Window2D> window): ugine::SDLApplication2D(std::move(window)) {}
+        ugine::SceneManager<ugine::Scene2D> & get_scene_manager() noexcept override {
+            return scene_manager;
+        }
+        ugine::TextureManager2D & get_texture_manager() noexcept override {
+            return texture_manager;
+        }
         void run() override {
         }
+    private:
+        TestSceneManager2D scene_manager;
+        TestTextureManager2D texture_manager;
     };
 }
 
