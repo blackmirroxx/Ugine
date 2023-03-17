@@ -19,7 +19,7 @@ namespace ugine {
     };
 
     template <typename S>
-    class UGINE_API TextureManager
+    class TextureManager
     {
     public:
         TextureManager() = default;
@@ -35,7 +35,7 @@ namespace ugine {
         virtual void render_scene(S& scene) const = 0;
     };
 
-    class UGINE_API TextureManager2D: public TextureManager<Scene2D>
+    class TextureManager2D: public TextureManager<Scene2D>
     {
     public:
         virtual void render_component(const Component2D& component,  const AssetProps& asset_props) const = 0;

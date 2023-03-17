@@ -11,10 +11,10 @@ ugine::Application* ugine::create_application()
     auto* const app = new Sandbox();
     auto& scene_manager = app->get_scene_manager();
     app->get_texture_manager().load_asset("assets/Attack.png", "attack");
-   // for (auto& scene: create_scenes()) {
-   //     scene_manager.add_scene(std::move(scene));
-   // }
-   // app->get_texture_manager().render_scene(app->get_scene_manager().get_scene("first_scene"));
+    for (auto& scene: create_scenes()) {
+        scene_manager.add_scene(std::move(scene));
+    }
+    app->get_texture_manager().render_scene(app->get_scene_manager().get_scene("first_scene"));
     return app;
 }
 

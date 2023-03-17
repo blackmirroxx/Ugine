@@ -9,15 +9,15 @@
 namespace ugine {
 
     template <typename C>
-    class UGINE_API Scene {
+    class Scene {
     public:
         using component_list_type = std::vector<std::unique_ptr<C>>;
         explicit Scene(std::string name): name(std::move(name)) {}
-        Scene(Scene&&) = default;
+        Scene(Scene&&)  noexcept = default;
         Scene(const Scene&) = delete;
-        Scene& operator=(Scene&&) =default;
+        Scene& operator=(Scene&&)  noexcept =default;
         Scene& operator=(const Scene&) = delete;
-        ~Scene() = default;
+        virtual ~Scene() = default;
         [[nodiscard]] const std::string& get_name() const noexcept {return name;}
         [[nodiscard]] component_list_type& get_component_list() noexcept {return this->component_list;}
         void add_component(std::unique_ptr<C> component) {
@@ -34,8 +34,14 @@ namespace ugine {
     };
 
     template <typename S>
-    class UGINE_API SceneManager {
+    class SceneManager {
     public:
+        SceneManager() = default;
+        SceneManager(const SceneManager&) = default;
+        SceneManager(SceneManager&&) noexcept = default;
+        SceneManager& operator=(const SceneManager&) = default;
+        SceneManager& operator=(SceneManager&&) noexcept = default;
+        virtual ~SceneManager() = default;
         void add_scene(S scene) {
             this->scenes_map.insert({scene.get_name(), std::move(scene)});
         }
@@ -53,7 +59,9 @@ namespace ugine {
         std::map<std::string, S> scenes_map;
     };
 
-    class UGINE_API SceneManager2D: public SceneManager<Scene2D>
+    class SceneManager2D: public SceneManager<Scene2D>
     {
+    public:
+        SceneManager2D() = default;
     };
 }
