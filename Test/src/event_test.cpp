@@ -6,7 +6,7 @@
 
 TEST(Events, MouseUpCategories) {
     const std::unique_ptr<ugine::event::MouseButtonEvent> mouse_up = std::make_unique<ugine::event::MouseUp>(
-            ugine::event::mouse_button_type::right, 10, 20);
+            ugine::event::mouse_button_type::right, 10.F, 20.F);
     EXPECT_EQ(mouse_up->get_offset_x(), 10);
     EXPECT_EQ(mouse_up->get_offset_y(), 20);
     EXPECT_EQ(mouse_up->get_mouse_button(), ugine::event::mouse_button_type::right);
@@ -19,7 +19,7 @@ TEST(Events, MouseUpCategories) {
 
 TEST(Events, MouseDownCategories) {
     const std::unique_ptr<ugine::event::MouseButtonEvent> mouse_down = std::make_unique<ugine::event::MouseDown>(
-            ugine::event::mouse_button_type::left, 100, 5000);
+            ugine::event::mouse_button_type::left, 100.F, 5000.F);
     EXPECT_EQ(mouse_down->get_mouse_button(), ugine::event::mouse_button_type::left);
     EXPECT_EQ(mouse_down->get_event_type(), ugine::event::event_type::mouse_down);
     EXPECT_TRUE(mouse_down->is_in_category(ugine::event::event_category::input_category) );
@@ -29,7 +29,7 @@ TEST(Events, MouseDownCategories) {
 }
 
 TEST(Events, MouseeWheelCategories) {
-    const std::unique_ptr<ugine::event::MouseWheel> mouse_wheel = std::make_unique<ugine::event::MouseWheel>(0.0, 1.0);
+    const std::unique_ptr<ugine::event::MouseWheel> mouse_wheel = std::make_unique<ugine::event::MouseWheel>(0.0F, 1.0F);
 
     EXPECT_TRUE(mouse_wheel->is_up());
     EXPECT_FALSE(mouse_wheel->is_down());
@@ -41,7 +41,7 @@ TEST(Events, MouseeWheelCategories) {
 }
 
 TEST(Events, MouseMoveCategories) {
-    const std::unique_ptr<ugine::event::Event> mouse_move = std::make_unique<ugine::event::MouseMove>(10.2, 20.5);
+    const std::unique_ptr<ugine::event::Event> mouse_move = std::make_unique<ugine::event::MouseMove>(10.2F, 20.5F);
     EXPECT_EQ(mouse_move->get_event_type(), ugine::event::event_type::mouse_move);
     EXPECT_TRUE(mouse_move->is_in_category(ugine::event::event_category::input_category) );
     EXPECT_TRUE(mouse_move->is_in_category(ugine::event::event_category::mouse_category) );

@@ -9,4 +9,5 @@ namespace ugine::exception {
         class UGINE_API SceneNotFound: public std::runtime_error {
             using std::runtime_error::runtime_error;
         };
+
     }

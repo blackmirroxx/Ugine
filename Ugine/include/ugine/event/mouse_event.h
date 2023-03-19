@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include "ugine/core.h"
 #include "ugine/event/event.h"
 

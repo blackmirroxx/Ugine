@@ -5,6 +5,7 @@
 #include "ugine/core.h"
 #include "ugine/event/event.h"
 #include "ugine/renderer.h"
+#include "ugine/input.h"
 #include <functional>
 
 struct SDL_Window;
@@ -40,6 +41,7 @@ namespace ugine {
         virtual void close() const = 0;
         virtual void render() const = 0;
         virtual void on_update() const = 0;
+        [[nodiscard]] virtual const Input& get_input() const noexcept = 0;
     protected:
         void dispatch(const ugine::event::Event& event) const noexcept {
             this->event_cb(event);
@@ -53,7 +55,7 @@ namespace ugine {
         [[nodiscard]] virtual TextureManager2D& get_texture_manager() noexcept = 0;
     };
 
-    class UGINE_API SDLWindow: public Window2D
+    class UGINE_API SDLWindow final: public Window2D
     {
     public:
         SDLWindow();
@@ -69,10 +71,14 @@ namespace ugine {
         TextureManager2D& get_texture_manager() noexcept override {
             return texture_manager;
         }
+        [[nodiscard]] const Input& get_input() const noexcept override {
+            return this->input;
+        }
     private:
         SDL_Window* sdl_window{nullptr};
         SDL_Renderer* sdl_renderer{nullptr};
         SDLTextureManager texture_manager{sdl_window, sdl_renderer};
+        SDLInput input;
     };
 }
 

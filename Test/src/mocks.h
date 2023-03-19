@@ -15,6 +15,13 @@ namespace mocks {
         }
     };
 
+    class TestInput final: public ugine::Input {
+    public:
+        [[nodiscard]] bool is_key_pressed(int key_code) const noexcept override {return false;}
+        [[nodiscard]] bool is_mouse_button_pressed(ugine::event::mouse_button_type button) const noexcept override {return false;}
+        [[nodiscard]] virtual std::pair<float,float> get_mouse_position() const noexcept {return {10.F, 20.F};}
+    };
+
     class TestWindow final: public ugine::Window {
     public:
         TestWindow() = default;
@@ -25,6 +32,9 @@ namespace mocks {
         void test_dispatch(const ugine::event::Event& event) {
             this->dispatch(event);
         }
+        [[nodiscard]] const ugine::Input& get_input() const noexcept override {return this->input;}
+    private:
+        TestInput input;
     };
 
     class TestWindow2D final: public ugine::Window2D {
