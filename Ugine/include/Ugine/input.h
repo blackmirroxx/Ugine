@@ -16,11 +16,11 @@ namespace ugine {
         [[nodiscard]] virtual bool is_mouse_button_pressed(event::mouse_button_type button) const noexcept = 0;
         [[nodiscard]] virtual std::pair<float,float> get_mouse_position() const noexcept = 0;
         [[nodiscard]] float get_mouse_x() const noexcept {
-            auto [x,y] = this->get_mouse_position();
+            const auto [x,_] = this->get_mouse_position();
             return x;
         }
         [[nodiscard]] float get_mouse_y() const noexcept {
-            auto [x,y] = this->get_mouse_position();
+            const auto [_,y] = this->get_mouse_position();
             return y;
         }
     };

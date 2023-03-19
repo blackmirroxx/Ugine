@@ -37,6 +37,9 @@ ugine::SDLWindow::SDLWindow() {
 }
 
 void ugine::SDLWindow::create(const WindowProps& props)  {
+    if (this->sdl_window != nullptr || this->sdl_renderer != nullptr) {
+        throw ugine::exception::WindowAlreadyCreated();
+    }
     this->sdl_window = SDL_CreateWindow(props.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                      props.width, props.height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
     if (this->sdl_window == nullptr) {

@@ -62,7 +62,6 @@ namespace ugine
         SceneManager2D scene_manager;
 	};
 
-
 	Application* create_application();
 }
 
