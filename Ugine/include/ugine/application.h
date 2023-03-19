@@ -55,7 +55,7 @@ namespace ugine
     private:
         void on_event(const ugine::event::Event&);
         void start_loop();
-        void on_game_loop() ;
+        void on_game_loop();
         int fps = 60;
         bool running = false;
         std::unique_ptr<Window2D> pt_window;

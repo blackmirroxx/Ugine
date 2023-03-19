@@ -17,6 +17,7 @@ function(build_dependencies folder)
     add_subdirectory(${folder}/SDL)
     add_subdirectory(${folder}/SDL_image)
     add_subdirectory(${folder}/glad)
+    add_subdirectory(${folder}/imgui)
 endfunction()
 
 function(build_tests)
