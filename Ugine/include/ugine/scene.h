@@ -57,7 +57,7 @@ namespace ugine {
         std::map<std::string, S> scenes_map;
     };
 
-    class SceneManager2D: public SceneManager<Scene2D>
+    class SceneManager2D final: public SceneManager<Scene2D>
     {
     public:
         SceneManager2D() = default;

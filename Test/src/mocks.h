@@ -47,11 +47,15 @@ namespace mocks {
         void test_dispatch(const ugine::event::Event& event) {
             this->dispatch(event);
         }
-        [[nodiscard]] virtual ugine::TextureManager2D& get_texture_manager() noexcept {
+        [[nodiscard]] ugine::TextureManager2D& get_texture_manager() noexcept override {
             return texture_manager;
+        }
+        [[nodiscard]] const ugine::Input& get_input() const noexcept override {
+            return this->input;
         }
     private:
         TestTextureManager2D texture_manager;
+        TestInput input;
     };
 
     class TestSceneManager2D final: public ugine::SceneManager<ugine::Scene2D> {
@@ -60,12 +64,8 @@ namespace mocks {
 
     class TestApplication2D final: public ugine::Application2D {
     public:
-        ugine::SceneManager<ugine::Scene2D> & get_scene_manager() noexcept override {
-            return scene_manager;
-        }
-        ugine::TextureManager2D & get_texture_manager() noexcept override {
-            return texture_manager;
-        }
+        TestApplication2D(): ugine::Application2D(std::make_unique<TestWindow2D>(),
+                std::make_unique<TestSceneManager2D>()) {}
         void run() override {
         }
     private:

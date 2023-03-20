@@ -25,33 +25,27 @@ namespace ugine
         SignalDispatcher signals{};
     };
 
-    class UGINE_API Application2D: public Application {
-    public:
-        Application2D() = default;
-        virtual SceneManager<Scene2D> & get_scene_manager() noexcept = 0;
-        virtual TextureManager2D& get_texture_manager() noexcept = 0;
-    };
-
-    class UGINE_API SDLApplication2D: public Application2D
+    class UGINE_API Application2D: public Application
 	{
 	public:
-		explicit SDLApplication2D(std::unique_ptr<Window2D> pt_window = std::make_unique<SDLWindow>(),
-                                  const WindowProps& props = {}
+		explicit Application2D(std::unique_ptr<Window2D> pt_window = std::make_unique<SDLWindow>(),
+		       std::unique_ptr<SceneManager<Scene2D>> scene_manager = std::make_unique<SceneManager2D>(),
+               const WindowProps& props = {}
 		        )
-        : pt_window(std::move(pt_window))
+        : pt_window(std::move(pt_window)), scene_manager(std::move(scene_manager))
         {
             this->pt_window->create(props);
-            this->pt_window->on_event(std::bind(&SDLApplication2D::on_event, this, std::placeholders::_1));
+            this->pt_window->on_event(std::bind(&Application2D::on_event, this, std::placeholders::_1));
         }
-		SDLApplication2D(const SDLApplication2D&) = delete;
-		SDLApplication2D(SDLApplication2D&&) = delete;
-		SDLApplication2D& operator=(const SDLApplication2D&) = delete;
-		SDLApplication2D& operator=(SDLApplication2D&&) = delete;
-		~SDLApplication2D() override = default;
+		Application2D(const Application2D&) = delete;
+		Application2D(Application2D&&) = delete;
+		Application2D& operator=(const Application2D&) = delete;
+		Application2D& operator=(Application2D&&) = delete;
+		~Application2D() override = default;
 		void run() override;
         [[nodiscard]] bool is_running() const noexcept {return running;}
-        SceneManager<Scene2D>& get_scene_manager() noexcept override {return this->scene_manager;}
-        TextureManager2D& get_texture_manager() noexcept override {return this->pt_window->get_texture_manager();}
+        SceneManager<Scene2D>& get_scene_manager() noexcept {return *this->scene_manager;}
+        TextureManager2D& get_texture_manager() noexcept {return this->pt_window->get_texture_manager();}
     private:
         void on_event(const ugine::event::Event&);
         void start_loop();
@@ -59,7 +53,7 @@ namespace ugine
         int fps = 60;
         bool running = false;
         std::unique_ptr<Window2D> pt_window;
-        SceneManager2D scene_manager;
+        std::unique_ptr<SceneManager<Scene2D>> scene_manager;
 	};
 
 	Application* create_application();
