@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "ugine/scene.h"
 #include "ugine/renderer.h"
-#include "gmock/gmock.h"
 
 
 class Mock2DComponent final: public ugine::Component2D {
