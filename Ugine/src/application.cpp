@@ -1,5 +1,4 @@
 #include "ugine/application.h"
-#include <imgui.h>
 
 void ugine::SDLApplication2D::run()
 {

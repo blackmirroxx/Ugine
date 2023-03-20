@@ -46,8 +46,8 @@ void ugine::SDLWindow::create(const WindowProps& props)  {
         UGINE_CORE_ERROR("Error creating sdl_window, details: {0}", SDL_GetError());
         return;
     }
-    SDL_GLContext context = SDL_GL_CreateContext(this->sdl_window);
-    if (context == nullptr) {
+    this->gl_context = SDL_GL_CreateContext(this->sdl_window);
+    if (this->gl_context == nullptr) {
         UGINE_CORE_ERROR("Error creating opengl context, details: {0}", SDL_GetError());
         return;
     }
@@ -112,6 +112,7 @@ void ugine::SDLWindow::on_update() const {
 
 void ugine::SDLWindow::close() const {
     SDL_DestroyRenderer(this->sdl_renderer);
+    SDL_GL_DeleteContext(this->gl_context);
     SDL_DestroyWindow(this->sdl_window);
     UGINE_CORE_INFO("SDLWindow closed");
 }

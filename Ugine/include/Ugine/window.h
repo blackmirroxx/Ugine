@@ -89,6 +89,7 @@ namespace ugine {
     private:
         SDL_Window* sdl_window{nullptr};
         SDL_Renderer* sdl_renderer{nullptr};
+        void* gl_context{nullptr};
         SDLTextureManager texture_manager{sdl_window, sdl_renderer};
         SDLInput input;
     };
