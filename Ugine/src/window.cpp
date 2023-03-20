@@ -37,7 +37,7 @@ ugine::SDLWindow::SDLWindow() {
 }
 
 void ugine::SDLWindow::create(const WindowProps& props)  {
-    if (this->sdl_window != nullptr || this->sdl_renderer != nullptr) {
+    if (this->sdl_window != nullptr || this->sdl_renderer != nullptr || this->gl_context != nullptr) {
         throw ugine::exception::WindowAlreadyCreated();
     }
     this->sdl_window = SDL_CreateWindow(props.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -57,7 +57,7 @@ void ugine::SDLWindow::create(const WindowProps& props)  {
         UGINE_CORE_ERROR("Error creating sdl_renderer, details: {0}", SDL_GetError());
         return;
     }
-    UGINE_CORE_INFO("SDLWindow {0} of {1}x{2}px created", props.title, props.height, props.width);
+    UGINE_CORE_INFO("Window {0} of {1}x{2}px created", props.title, props.height, props.width);
 }
 
 ugine::SDLWindow::~SDLWindow() {
@@ -114,5 +114,5 @@ void ugine::SDLWindow::close() const {
     SDL_DestroyRenderer(this->sdl_renderer);
     SDL_GL_DeleteContext(this->gl_context);
     SDL_DestroyWindow(this->sdl_window);
-    UGINE_CORE_INFO("SDLWindow closed");
+    UGINE_CORE_INFO("Window closed");
 }

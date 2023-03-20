@@ -1,12 +1,10 @@
 #pragma once
 
-#include <string>
-#include <utility>
+#include "ugine/pch.h"
 #include "ugine/core.h"
 #include "ugine/event/event.h"
 #include "ugine/renderer.h"
 #include "ugine/input.h"
-#include <functional>
 
 struct SDL_Window;
 struct SDL_Renderer;

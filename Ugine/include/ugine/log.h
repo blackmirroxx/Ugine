@@ -1,7 +1,7 @@
 #pragma once
+#include "ugine/pch.h"
 #include "ugine/core.h"
 #include <spdlog/spdlog.h>
-#include <memory>
 
 namespace ugine::log
 	{

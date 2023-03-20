@@ -1,8 +1,7 @@
 #pragma once
 
+#include "ugine/pch.h"
 #include "ugine/core.h"
-#include <vector>
-#include <iostream>
 
 namespace ugine::event {
     enum class event_type

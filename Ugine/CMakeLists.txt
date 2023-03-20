@@ -2,7 +2,7 @@
 set(SOURCES
 		src/application.cpp src/component.cpp src/log.cpp
 		src/renderer.cpp src/scene.cpp src/window.cpp
-        src/event.cpp src/input.cpp)
+        src/event.cpp src/input.cpp src/pch.cpp)
 
 set(HEADERS
 		include/ugine/application.h include/ugine/component.h include/ugine/core.h
@@ -12,7 +12,7 @@ set(HEADERS
 		include/ugine/event/event_dispatcher.h include/ugine/event/keyboard_event.h
 		include/ugine/event/mouse_event.h include/ugine/event/window_event.h
 		include/ugine/exception/exception.h
-		include/Ugine/input.h)
+		include/ugine/input.h include/ugine/pch.h)
 
 add_library(Ugine-public-options INTERFACE)
 add_library(Ugine-private-options INTERFACE)
@@ -20,6 +20,7 @@ add_library(Ugine-private-options INTERFACE)
 macro(add_options LIB)
 	target_link_libraries(${LIB} PUBLIC Ugine-public-options)
 	target_link_libraries(${LIB} PRIVATE Ugine-private-options)
+	target_precompile_headers( ${LIB} PRIVATE include/ugine/pch.h )
 endmacro()
 
 target_include_directories(Ugine-public-options

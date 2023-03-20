@@ -1,6 +1,6 @@
 #pragma once
+#include "ugine/pch.h"
 #include "ugine/core.h"
-#include <cmath>
 
 namespace ugine {
 

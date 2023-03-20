@@ -1,9 +1,8 @@
 #pragma once
+#include "ugine/pch.h"
 #include "ugine/component.h"
 #include "ugine/scene.h"
 #include "ugine/log.h"
-#include <string>
-#include <map>
 
 struct SDL_Texture;
 struct SDL_Window;

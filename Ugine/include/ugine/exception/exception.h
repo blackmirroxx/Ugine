@@ -1,6 +1,6 @@
 #pragma once
+#include "ugine/pch.h"
 #include "ugine/core.h"
-#include "stdexcept"
 
 namespace ugine::exception {
     class UGINE_API WindowInitError: public std::runtime_error {

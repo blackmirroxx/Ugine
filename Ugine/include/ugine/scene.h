@@ -1,10 +1,8 @@
 #pragma once
+#include "ugine/pch.h"
 #include "ugine/core.h"
 #include "ugine/component.h"
 #include "ugine/exception/exception.h"
-#include <map>
-#include <vector>
-#include <memory>
 
 namespace ugine {
 

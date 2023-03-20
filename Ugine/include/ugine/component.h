@@ -1,8 +1,7 @@
 #pragma once
+#include "ugine/pch.h"
 #include "ugine/core.h"
 #include "ugine/vector.h"
-#include <tuple>
-#include <string>
 
 namespace ugine {
 
