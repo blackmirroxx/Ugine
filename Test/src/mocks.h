@@ -1,4 +1,5 @@
 #pragma once
+#include "pch.h"
 #include "ugine/window.h"
 #include "ugine/event/window_event.h"
 #include "ugine/renderer.h"
@@ -25,7 +26,8 @@ namespace mocks {
     class TestWindow final: public ugine::Window {
     public:
         TestWindow() = default;
-        void create(const ugine::WindowProps &props = {}) override {};
+
+        MOCK_METHOD(void, create, (const ugine::WindowProps &props), (override));
         void close() const override {}
         void on_update() const override {}
         void render() const override {}
@@ -40,7 +42,7 @@ namespace mocks {
     class TestWindow2D final: public ugine::Window2D {
     public:
         TestWindow2D() = default;
-        void create(const ugine::WindowProps &props = {}) override {};
+        MOCK_METHOD(void, create, (const ugine::WindowProps &props), (override));
         void close() const override {}
         void on_update() const override {}
         void render() const override {}
@@ -64,8 +66,10 @@ namespace mocks {
 
     class TestApplication2D final: public ugine::Application2D {
     public:
-        TestApplication2D(): ugine::Application2D(std::make_unique<TestWindow2D>(),
-                std::make_unique<TestSceneManager2D>()) {}
+        explicit TestApplication2D(std::unique_ptr<ugine::Window2D> window = std::make_unique<TestWindow2D>(),
+                std::unique_ptr<ugine::SceneManager<ugine::Scene2D>> scene_manager = std::make_unique<TestSceneManager2D>()):
+                ugine::Application2D(std::move(window), std::move(scene_manager))
+                {}
         void run() override {
         }
     private:

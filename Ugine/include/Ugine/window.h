@@ -5,6 +5,7 @@
 #include "ugine/event/event.h"
 #include "ugine/renderer.h"
 #include "ugine/input.h"
+#include "ugine/ui/ui.h"
 
 struct SDL_Window;
 struct SDL_Renderer;
@@ -78,7 +79,7 @@ namespace ugine {
         ~SDLWindow() override ;
         void on_update() const override;
         void close() const override;
-        TextureManager2D& get_texture_manager() noexcept override {
+        [[nodiscard]] TextureManager2D& get_texture_manager() noexcept override {
             return texture_manager;
         }
         [[nodiscard]] const Input& get_input() const noexcept override {
@@ -88,6 +89,7 @@ namespace ugine {
         SDL_Window* sdl_window{nullptr};
         SDL_Renderer* sdl_renderer{nullptr};
         void* gl_context{nullptr};
+        ui::SDLImgui ui;
         SDLTextureManager texture_manager{sdl_window, sdl_renderer};
         SDLInput input;
     };

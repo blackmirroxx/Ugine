@@ -32,7 +32,7 @@ namespace ugine
 		       std::unique_ptr<SceneManager<Scene2D>> scene_manager = std::make_unique<SceneManager2D>(),
                const WindowProps& props = {}
 		        )
-        : pt_window(std::move(pt_window)), scene_manager(std::move(scene_manager))
+        : pt_window(std::move(pt_window)), pt_scene_manager(std::move(scene_manager))
         {
             this->pt_window->create(props);
             this->pt_window->on_event(std::bind(&Application2D::on_event, this, std::placeholders::_1));
@@ -44,16 +44,15 @@ namespace ugine
 		~Application2D() override = default;
 		void run() override;
         [[nodiscard]] bool is_running() const noexcept {return running;}
-        SceneManager<Scene2D>& get_scene_manager() noexcept {return *this->scene_manager;}
+        SceneManager<Scene2D>& get_scene_manager() noexcept {return *this->pt_scene_manager;}
         TextureManager2D& get_texture_manager() noexcept {return this->pt_window->get_texture_manager();}
     private:
         void on_event(const ugine::event::Event&);
         void start_loop();
         void on_game_loop();
-        int fps = 60;
         bool running = false;
         std::unique_ptr<Window2D> pt_window;
-        std::unique_ptr<SceneManager<Scene2D>> scene_manager;
+        std::unique_ptr<SceneManager<Scene2D>> pt_scene_manager;
 	};
 
 	Application* create_application();

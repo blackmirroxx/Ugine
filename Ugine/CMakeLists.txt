@@ -2,7 +2,7 @@
 set(SOURCES
 		src/application.cpp src/component.cpp src/log.cpp
 		src/renderer.cpp src/scene.cpp src/window.cpp
-        src/event.cpp src/input.cpp src/pch.cpp)
+        src/event.cpp src/input.cpp src/pch.cpp src/ui.cpp)
 
 set(HEADERS
 		include/ugine/application.h include/ugine/component.h include/ugine/core.h
@@ -12,7 +12,7 @@ set(HEADERS
 		include/ugine/event/event_dispatcher.h include/ugine/event/keyboard_event.h
 		include/ugine/event/mouse_event.h include/ugine/event/window_event.h
 		include/ugine/exception/exception.h
-		include/ugine/input.h include/ugine/pch.h)
+		include/ugine/input.h include/ugine/pch.h include/ugine/ui/ui.h)
 
 add_library(Ugine-public-options INTERFACE)
 add_library(Ugine-private-options INTERFACE)

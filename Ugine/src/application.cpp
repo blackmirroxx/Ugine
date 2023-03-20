@@ -9,7 +9,7 @@ void ugine::Application2D::run()
 
 void ugine::Application2D::start_loop() {
     this->running = true;
-    const int delay_time = 1000 / fps;
+    // const int delay_time = 1000 / fps;
     while (this->is_running()) {
         //const auto frame_start = SDL_GetTicks();
         this->on_game_loop();

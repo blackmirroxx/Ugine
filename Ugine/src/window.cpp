@@ -57,6 +57,7 @@ void ugine::SDLWindow::create(const WindowProps& props)  {
         UGINE_CORE_ERROR("Error creating sdl_renderer, details: {0}", SDL_GetError());
         return;
     }
+    this->ui.create(*this->sdl_window);
     UGINE_CORE_INFO("Window {0} of {1}x{2}px created", props.title, props.height, props.width);
 }
 
