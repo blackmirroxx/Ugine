@@ -4,6 +4,7 @@
 #include "ugine/core.h"
 #include "ugine/signals.h"
 #include "ugine/window/window.h"
+#include "ugine/window/window2D.h"
 #include "ugine/renderer.h"
 #include "ugine/scene.h"
 
@@ -28,7 +29,8 @@ namespace ugine
     class UGINE_API Application2D: public Application
 	{
 	public:
-		explicit Application2D(std::unique_ptr<window::Window2D> pt_window = std::make_unique<window::SDLWindow>(),
+		explicit Application2D(std::unique_ptr<window::Window2D> pt_window =
+                std::make_unique<window::Window2DProxy>(std::make_unique<window::SDLWindow>()),
 		       std::unique_ptr<SceneManager<Scene2D>> scene_manager = std::make_unique<SceneManager2D>(),
                const window::WindowProps& props = {}
 		        )

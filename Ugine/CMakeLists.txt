@@ -12,7 +12,7 @@ set(HEADERS
 		include/ugine/event/event_dispatcher.h include/ugine/event/keyboard_event.h
 		include/ugine/event/mouse_event.h include/ugine/event/window_event.h
 		include/ugine/exception/exception.h
-		include/ugine/input.h include/ugine/pch.h include/ugine/ui/ui.h)
+		include/ugine/input.h include/ugine/pch.h include/ugine/ui/ui.h include/ugine/window/window2D.h)
 
 add_library(Ugine-public-options INTERFACE)
 add_library(Ugine-private-options INTERFACE)

@@ -35,7 +35,7 @@ namespace ugine::window {
          * Dispatch window event
          * @param callback: callback call when an event occurred
          */
-        void on_event(event_callback_type callback) noexcept {
+        virtual void on_event(event_callback_type callback) noexcept {
             this->event_cb = std::move(callback);
         }
         /**
@@ -63,43 +63,6 @@ namespace ugine::window {
         event_callback_type event_cb = nullptr;
     };
 
-    class UGINE_API Window2D: public Window {
-    public:
-        [[nodiscard]] virtual TextureManager2D& get_texture_manager() noexcept = 0;
-    };
 
-    class UGINE_API SDLWindow final: public Window2D
-    {
-    public:
-        SDLWindow();
-        void create(const WindowProps& props) override;
-        void render() const override;
-        SDLWindow(const SDLWindow&) = delete;
-        SDLWindow(SDLWindow&&) = delete;
-        SDLWindow& operator=(const SDLWindow&) = delete;
-        SDLWindow& operator=(SDLWindow&&) = delete;
-        ~SDLWindow() override ;
-        void on_update() const override;
-        void close() const override;
-        [[nodiscard]] const ui::UI& get_ui() const noexcept override {
-            return this->ui;
-        }
-        [[nodiscard]] void* get_native_window() const noexcept override {
-            return this->sdl_window;
-        }
-        [[nodiscard]] TextureManager2D& get_texture_manager() noexcept override {
-            return texture_manager;
-        }
-        [[nodiscard]] const Input& get_input() const noexcept override {
-            return this->input;
-        }
-    private:
-        SDL_Window* sdl_window{nullptr};
-        SDL_Renderer* sdl_renderer{nullptr};
-        void* gl_context{nullptr};
-        ui::SDLImgui ui;
-        SDLTextureManager texture_manager{sdl_window, sdl_renderer};
-        SDLInput input;
-    };
 }
 

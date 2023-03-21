@@ -6,7 +6,7 @@ namespace ugine::window {
 }
 
 namespace ugine::ui {
-    class UI
+    class UGINE_API UI
     {
     public:
         UI() = default;
@@ -18,7 +18,11 @@ namespace ugine::ui {
         virtual ~UI() = default;
     };
 
-    class SDLImgui final: public UI
+    class UGINE_API SDLUI: public UI {
+
+    };
+
+    class UGINE_API SDLImgui final: public SDLUI
     {
     public:
         void create(const ugine::window::Window& window) override;

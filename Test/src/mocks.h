@@ -1,6 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "ugine/window/window.h"
+#include "ugine/window/window2D.h"
 #include "ugine/event/window_event.h"
 #include "ugine/renderer.h"
 #include "ugine/ui/ui.h"
