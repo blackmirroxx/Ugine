@@ -1,7 +1,7 @@
 #pragma once
 #include "ugine/core.h"
 
-namespace ugine {
+namespace ugine::window {
     class Window;
 }
 
@@ -14,13 +14,13 @@ namespace ugine::ui {
         UI(UI&&) noexcept = delete;
         UI& operator=(const UI&) = delete;
         UI& operator=(UI&&) noexcept = delete;
-        virtual void create(const ugine::Window&) = 0;
+        virtual void create(const ugine::window::Window&) = 0;
         virtual ~UI() = default;
     };
 
     class SDLImgui final: public UI
     {
     public:
-        void create(const ugine::Window& window) override;
+        void create(const ugine::window::Window& window) override;
     };
 }

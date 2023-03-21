@@ -3,7 +3,7 @@
 #include "ugine/pch.h"
 #include "ugine/core.h"
 #include "ugine/signals.h"
-#include "ugine/window.h"
+#include "ugine/window/window.h"
 #include "ugine/renderer.h"
 #include "ugine/scene.h"
 
@@ -28,9 +28,9 @@ namespace ugine
     class UGINE_API Application2D: public Application
 	{
 	public:
-		explicit Application2D(std::unique_ptr<Window2D> pt_window = std::make_unique<SDLWindow>(),
+		explicit Application2D(std::unique_ptr<window::Window2D> pt_window = std::make_unique<window::SDLWindow>(),
 		       std::unique_ptr<SceneManager<Scene2D>> scene_manager = std::make_unique<SceneManager2D>(),
-               const WindowProps& props = {}
+               const window::WindowProps& props = {}
 		        )
         : pt_window(std::move(pt_window)), pt_scene_manager(std::move(scene_manager))
         {
@@ -51,7 +51,7 @@ namespace ugine
         void start_loop();
         void on_game_loop();
         bool running = false;
-        std::unique_ptr<Window2D> pt_window;
+        std::unique_ptr<window::Window2D> pt_window;
         std::unique_ptr<SceneManager<Scene2D>> pt_scene_manager;
 	};
 

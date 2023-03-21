@@ -1,8 +1,8 @@
 #include "ugine/renderer.h"
 #include "ugine/exception/exception.h"
 #include "ugine/log.h"
-#include "SDL.h"
-#include "SDL_image.h"
+#include <SDL.h>
+#include <SDL_image.h>
 
 
 void ugine::SDLTextureManager::load_asset(const std::string &asset_path, const std::string& asset_name) {

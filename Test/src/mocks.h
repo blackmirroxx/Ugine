@@ -1,6 +1,6 @@
 #pragma once
 #include "pch.h"
-#include "ugine/window.h"
+#include "ugine/window/window.h"
 #include "ugine/event/window_event.h"
 #include "ugine/renderer.h"
 #include "ugine/ui/ui.h"
@@ -26,14 +26,14 @@ namespace mocks {
 
     class TestUI final: public ugine::ui::UI {
     public:
-        void create(const ugine::Window&) override {}
+        void create(const ugine::window::Window&) override {}
     };
 
-    class TestWindow final: public ugine::Window {
+    class TestWindow final: public ugine::window::Window {
     public:
         TestWindow() = default;
 
-        MOCK_METHOD(void, create, (const ugine::WindowProps &props), (override));
+        MOCK_METHOD(void, create, (const ugine::window::WindowProps &props), (override));
         void close() const override {}
         void on_update() const override {}
         void render() const override {}
@@ -50,10 +50,10 @@ namespace mocks {
         TestUI ui;
     };
 
-    class TestWindow2D final: public ugine::Window2D {
+    class TestWindow2D final: public ugine::window::Window2D {
     public:
         TestWindow2D() = default;
-        MOCK_METHOD(void, create, (const ugine::WindowProps &props), (override));
+        MOCK_METHOD(void, create, (const ugine::window::WindowProps &props), (override));
         void close() const override {}
         [[nodiscard]] void* get_native_window() const noexcept override { return nullptr; }
         void on_update() const override {}
@@ -82,7 +82,7 @@ namespace mocks {
 
     class TestApplication2D final: public ugine::Application2D {
     public:
-        explicit TestApplication2D(std::unique_ptr<ugine::Window2D> window = std::make_unique<TestWindow2D>(),
+        explicit TestApplication2D(std::unique_ptr<ugine::window::Window2D> window = std::make_unique<TestWindow2D>(),
                 std::unique_ptr<ugine::SceneManager<ugine::Scene2D>> scene_manager = std::make_unique<TestSceneManager2D>()):
                 ugine::Application2D(std::move(window), std::move(scene_manager))
                 {}

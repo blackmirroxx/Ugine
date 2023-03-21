@@ -10,7 +10,7 @@
 struct SDL_Window;
 struct SDL_Renderer;
 
-namespace ugine {
+namespace ugine::window {
 
     struct UGINE_API WindowProps {
         std::string title = "Default title";

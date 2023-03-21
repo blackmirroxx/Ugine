@@ -8,7 +8,7 @@ set(HEADERS
 		include/ugine/application.h include/ugine/component.h include/ugine/core.h
 		include/ugine/entrypoint.h include/ugine/log.h include/ugine/renderer.h
 		include/ugine/scene.h include/ugine/signals.h include/ugine/vector.h
-		include/ugine/window.h include/ugine/event/event.h
+        include/ugine/window/window.h include/ugine/event/event.h
 		include/ugine/event/event_dispatcher.h include/ugine/event/keyboard_event.h
 		include/ugine/event/mouse_event.h include/ugine/event/window_event.h
 		include/ugine/exception/exception.h

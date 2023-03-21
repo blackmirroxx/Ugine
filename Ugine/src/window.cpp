@@ -1,6 +1,6 @@
 #include <SDL.h>
 #include <glad/glad.h>
-#include "ugine/window.h"
+#include "ugine/window/window.h"
 #include "ugine/log.h"
 #include "ugine/exception/exception.h"
 #include "ugine/event/window_event.h"
@@ -30,13 +30,13 @@ static ugine::event::mouse_button_type get_mouse_button(Uint8 button) {
     }
 }
 
-ugine::SDLWindow::SDLWindow() {
+ugine::window::SDLWindow::SDLWindow() {
     if (i_count++ == 0) {
         init_sdl();
     }
 }
 
-void ugine::SDLWindow::create(const WindowProps& props)  {
+void ugine::window::SDLWindow::create(const window::WindowProps& props)  {
     if (this->sdl_window != nullptr || this->sdl_renderer != nullptr || this->gl_context != nullptr) {
         throw ugine::exception::WindowAlreadyCreated();
     }
@@ -61,7 +61,7 @@ void ugine::SDLWindow::create(const WindowProps& props)  {
     UGINE_CORE_INFO("Window {0} of {1}x{2}px created", props.title, props.height, props.width);
 }
 
-ugine::SDLWindow::~SDLWindow() {
+ugine::window::SDLWindow::~SDLWindow() {
     this->close();
     if (--i_count == 0) {
         SDL_Quit();
@@ -69,12 +69,12 @@ ugine::SDLWindow::~SDLWindow() {
     }
 }
 
-void ugine::SDLWindow::render() const {
+void ugine::window::SDLWindow::render() const {
     SDL_RenderPresent(this->sdl_renderer);
 }
 
 
-void ugine::SDLWindow::on_update() const {
+void ugine::window::SDLWindow::on_update() const {
     SDL_Event event;
     if (SDL_PollEvent(&event) != 0) {
         if (event.type == SDL_QUIT) {
@@ -111,7 +111,7 @@ void ugine::SDLWindow::on_update() const {
     }
 }
 
-void ugine::SDLWindow::close() const {
+void ugine::window::SDLWindow::close() const {
     SDL_DestroyRenderer(this->sdl_renderer);
     SDL_GL_DeleteContext(this->gl_context);
     SDL_DestroyWindow(this->sdl_window);
