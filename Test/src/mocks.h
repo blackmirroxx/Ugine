@@ -3,6 +3,7 @@
 #include "ugine/window.h"
 #include "ugine/event/window_event.h"
 #include "ugine/renderer.h"
+#include "ugine/ui/ui.h"
 #include "ugine/application.h"
 
 namespace mocks {
@@ -23,6 +24,11 @@ namespace mocks {
         [[nodiscard]] virtual std::pair<float,float> get_mouse_position() const noexcept {return {10.F, 20.F};}
     };
 
+    class TestUI final: public ugine::ui::UI {
+    public:
+        void create(const ugine::Window&) override {}
+    };
+
     class TestWindow final: public ugine::Window {
     public:
         TestWindow() = default;
@@ -31,12 +37,17 @@ namespace mocks {
         void close() const override {}
         void on_update() const override {}
         void render() const override {}
+        [[nodiscard]] const ugine::ui::UI& get_ui() const noexcept override {
+            return this->ui;
+        }
+        [[nodiscard]] void* get_native_window() const noexcept override { return nullptr; }
         void test_dispatch(const ugine::event::Event& event) {
             this->dispatch(event);
         }
         [[nodiscard]] const ugine::Input& get_input() const noexcept override {return this->input;}
     private:
         TestInput input;
+        TestUI ui;
     };
 
     class TestWindow2D final: public ugine::Window2D {
@@ -44,8 +55,12 @@ namespace mocks {
         TestWindow2D() = default;
         MOCK_METHOD(void, create, (const ugine::WindowProps &props), (override));
         void close() const override {}
+        [[nodiscard]] void* get_native_window() const noexcept override { return nullptr; }
         void on_update() const override {}
         void render() const override {}
+        [[nodiscard]] const ugine::ui::UI& get_ui() const noexcept override {
+            return this->ui;
+        }
         void test_dispatch(const ugine::event::Event& event) {
             this->dispatch(event);
         }
@@ -58,6 +73,7 @@ namespace mocks {
     private:
         TestTextureManager2D texture_manager;
         TestInput input;
+        TestUI ui;
     };
 
     class TestSceneManager2D final: public ugine::SceneManager<ugine::Scene2D> {

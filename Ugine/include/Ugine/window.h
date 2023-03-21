@@ -29,6 +29,8 @@ namespace ugine {
         Window(Window&&) = delete;
         Window& operator=(const Window&) = delete;
         Window& operator=(Window&&) = delete;
+        [[nodiscard]] virtual void* get_native_window() const noexcept = 0;
+        [[nodiscard]] virtual const ui::UI& get_ui() const noexcept = 0;
         /**
          * Dispatch window event
          * @param callback: callback call when an event occurred
@@ -79,6 +81,12 @@ namespace ugine {
         ~SDLWindow() override ;
         void on_update() const override;
         void close() const override;
+        [[nodiscard]] const ui::UI& get_ui() const noexcept override {
+            return this->ui;
+        }
+        [[nodiscard]] void* get_native_window() const noexcept override {
+            return this->sdl_window;
+        }
         [[nodiscard]] TextureManager2D& get_texture_manager() noexcept override {
             return texture_manager;
         }

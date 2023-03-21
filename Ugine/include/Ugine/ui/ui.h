@@ -1,10 +1,11 @@
 #pragma once
 #include "ugine/core.h"
 
-struct SDL_Window;
+namespace ugine {
+    class Window;
+}
 
 namespace ugine::ui {
-    template <typename W>
     class UI
     {
     public:
@@ -13,13 +14,13 @@ namespace ugine::ui {
         UI(UI&&) noexcept = delete;
         UI& operator=(const UI&) = delete;
         UI& operator=(UI&&) noexcept = delete;
-        virtual void create(const W&) = 0;
+        virtual void create(const ugine::Window&) = 0;
         virtual ~UI() = default;
     };
 
-    class SDLImgui final: public UI<SDL_Window>
+    class SDLImgui final: public UI
     {
     public:
-        void create(const SDL_Window& window) override;
+        void create(const ugine::Window& window) override;
     };
 }
