@@ -14,7 +14,7 @@ namespace ugine::ui {
         UI(UI&&) noexcept = delete;
         UI& operator=(const UI&) = delete;
         UI& operator=(UI&&) noexcept = delete;
-        virtual void create(const ugine::window::Window&) = 0;
+        virtual void create(const ugine::window::Window&) const = 0;
         virtual ~UI() = default;
     };
 
@@ -25,6 +25,6 @@ namespace ugine::ui {
     class UGINE_API SDLImgui final: public SDLUI
     {
     public:
-        void create(const ugine::window::Window& window) override;
+        void create(const ugine::window::Window& window) const override;
     };
 }

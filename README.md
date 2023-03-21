@@ -14,5 +14,5 @@ The current available options are:
 for instance:
 
 ```shell
-cmake -S . -B build/<build_name> UGINE_TEST=ON UGINE_LOGGING=ON
+cmake -S . -B build/<build_name> -DUGINE_TEST=ON -DUGINE_LOGGING=ON
 ```

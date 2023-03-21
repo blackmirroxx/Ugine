@@ -20,8 +20,9 @@ namespace ugine::window {
         void on_event(event_callback_type callback) noexcept override {
             this->window_impl->on_event(std::move(callback));
         }
-        void create(const ugine::window::WindowProps& props) override {
+        void create(const ugine::window::WindowProps& props = {}) override {
             this->window_impl->create(props);
+            this->get_ui().create(*this);
        }
         void render() const override {
            this->window_impl->render();
