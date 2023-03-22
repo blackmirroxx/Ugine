@@ -1,5 +1,5 @@
 #include "ugine/window/window.h"
-#include "ugine/window/window2D.h"
+#include "ugine/window/window_impl.h"
 #include "ugine/log.h"
 #include "ugine/exception/exception.h"
 #include "ugine/event/window_event.h"
@@ -60,8 +60,6 @@ void ugine::window::SDLWindow::create(const window::WindowProps& props)  {
         UGINE_CORE_ERROR("Error creating sdl_renderer, details: {0}", SDL_GetError());
         return;
     }
-    //this->ui->create(this->sdl_window, this->gl_context,
-         //std::to_string(OPENGL_MAJOR_VERSION) + std::to_string(OPENGL_MINOR_VERSION) + "0");
 }
 
 ugine::window::SDLWindow::~SDLWindow() {

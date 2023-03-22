@@ -4,10 +4,6 @@
 #include "ugine/ui/ui.h"
 
 namespace ugine::window {
-    class UGINE_API Window2D: public ugine::window::Window {
-    public:
-        [[nodiscard]] virtual ugine::TextureManager2D& get_texture_manager() noexcept = 0;
-    };
 
     class UGINE_API Window2DImpl: public Window2D {
     public:

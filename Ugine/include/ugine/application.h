@@ -4,7 +4,7 @@
 #include "ugine/core.h"
 #include "ugine/signals.h"
 #include "ugine/window/window.h"
-#include "ugine/window/window2D.h"
+#include "ugine/window/window_impl.h"
 #include "ugine/renderer.h"
 #include "ugine/scene.h"
 

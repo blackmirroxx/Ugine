@@ -25,19 +25,8 @@ namespace ugine::ui {
     class UGINE_API ImguiUI final: public UI
     {
     public:
-        void create(const ugine::window::Window2DImpl&) const override;
-        void close(const ugine::window::Window2DImpl&) const override;
+        void create(const ugine::window::Window2DImpl& window) const override;
+        void close(const ugine::window::Window2DImpl& window) const override;
     };
 
-    class UGINE_API CreateImguiUI: public ugine::window::Window2DVisitor
-    {
-    public:
-        void visit(const ugine::window::SDLWindow&) const override;
-    };
-
-    class UGINE_API CloseImguiUI: public ugine::window::Window2DVisitor
-    {
-    public:
-        void visit(const ugine::window::SDLWindow&) const override;
-    };
 }
