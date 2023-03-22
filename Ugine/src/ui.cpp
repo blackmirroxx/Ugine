@@ -2,7 +2,7 @@
 #include <imgui.h>
 #include <imgui_impl_sdl2.h>
 #include <imgui_impl_opengl3.h>
-#include <stdio.h>
+#include <glad/glad.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include "ugine/log.h"
@@ -36,6 +36,21 @@ namespace {
             ImGui::DestroyContext();
         }
     };
+
+    class OnUpdateImguiUI: public ugine::window::Window2DVisitor {
+    public:
+        void visit(const ugine::window::SDLWindow& window) const override {
+            ImGui_ImplOpenGL3_NewFrame();
+            ImGui_ImplSDL2_NewFrame();
+            ImGui::NewFrame();
+            bool show_demo = true;
+            ImGui::ShowDemoWindow(&show_demo);
+
+            ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+            SDL_GL_SwapWindow(window.get_sdl_window());
+        }
+    };
 }
 
 
@@ -45,5 +60,9 @@ void ugine::ui::ImguiUI::create(const ugine::window::Window2DImpl& window) const
 
 void ugine::ui::ImguiUI::close(const ugine::window::Window2DImpl& window) const {
     window.accept(CloseImguiUI());
+}
+
+void ugine::ui::ImguiUI::on_update(const ugine::window::Window2DImpl& window) const {
+    window.accept(OnUpdateImguiUI{});
 }
 

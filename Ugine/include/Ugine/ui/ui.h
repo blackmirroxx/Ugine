@@ -20,6 +20,7 @@ namespace ugine::ui {
         virtual ~UI() = default;
         virtual void create(const ugine::window::Window2DImpl&) const = 0;
         virtual void close(const ugine::window::Window2DImpl&) const = 0;
+        virtual void on_update(const ugine::window::Window2DImpl&) const = 0;
     };
 
     class UGINE_API ImguiUI final: public UI
@@ -27,6 +28,7 @@ namespace ugine::ui {
     public:
         void create(const ugine::window::Window2DImpl& window) const override;
         void close(const ugine::window::Window2DImpl& window) const override;
+        void on_update(const ugine::window::Window2DImpl& window) const override;
     };
 
 }

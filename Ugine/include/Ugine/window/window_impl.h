@@ -38,6 +38,7 @@ namespace ugine::window {
        }
         void on_update() const override {
             this->window_impl->on_update();
+            this->ui->on_update(*this->window_impl);
        }
         void close() const override {
            this->ui->close(*this->window_impl);

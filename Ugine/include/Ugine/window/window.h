@@ -18,7 +18,7 @@ namespace ugine::window {
     struct UGINE_API WindowProps {
         std::string title = "Default title";
         int height = 650;
-        int width = 650;
+        int width = 1080;
     };
 
 

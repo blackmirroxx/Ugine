@@ -37,3 +37,16 @@ TEST(Window, CloseWindow) {
     EXPECT_CALL(*pt_test_window_impl, close());
     window_proxy->close();
 }
+
+TEST(Window, OnUpdate) {
+    auto test_ui = std::make_unique<mocks::TestUI>() ;
+    auto test_window_impl = std::make_unique<mocks::TestWindow2DImpl>();
+    auto* const pt_test_window_impl = test_window_impl.get();
+    auto* const pt_test_ui = test_ui.get();
+    const auto window_proxy = std::make_unique<ugine::window::Window2DProxy>(
+            std::move(test_window_impl), std::move(test_ui)
+    );
+    EXPECT_CALL(*pt_test_ui, on_update(testing::_));
+    EXPECT_CALL(*pt_test_window_impl, on_update());
+    window_proxy->on_update();
+}

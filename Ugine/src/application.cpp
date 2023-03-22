@@ -21,7 +21,7 @@ void ugine::Application2D::start_loop() {
 }
 
 void ugine::Application2D::on_game_loop() {
-    this->pt_window->render();
+    // this->pt_window->render();
     this->pt_window->on_update();
 }
 
