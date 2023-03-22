@@ -35,16 +35,14 @@ namespace ugine::window {
          * Dispatch window event
          * @param callback: callback call when an event occurred
          */
-        virtual void on_event(event_callback_type callback) noexcept {
-            this->event_cb = std::move(callback);
-        }
+        virtual void on_event(event_callback_type callback) noexcept = 0;
         /**
          * Create a new OS window, if the window is already created a
          * WindowAlreadyCreated exception is thrown, to recreate the window you
          * must call close before.
          * @param props Property of the window
          */
-        virtual void create(const WindowProps& props = {}) = 0;
+        virtual void create(const WindowProps& props) = 0;
         /**
          * Close the window if it has been created, otherwise does nothing
          */
@@ -55,12 +53,6 @@ namespace ugine::window {
          */
         virtual void on_update() const = 0;
         [[nodiscard]] virtual const Input& get_input() const noexcept = 0;
-    protected:
-        void dispatch(const ugine::event::Event& event) const noexcept {
-            this->event_cb(event);
-        }
-    private:
-        event_callback_type event_cb = nullptr;
     };
 
 

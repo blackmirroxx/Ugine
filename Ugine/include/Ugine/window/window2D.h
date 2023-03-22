@@ -1,6 +1,6 @@
 #pragma once
 
-#include "window.h"
+#include "ugine/window/window.h"
 
 namespace ugine::window {
     class UGINE_API Window2D: public ugine::window::Window {
@@ -11,6 +11,15 @@ namespace ugine::window {
     class UGINE_API Window2DImpl: public Window2D {
     public:
         Window2DImpl() = default;
+        void on_event(event_callback_type callback) noexcept override {
+            this->event_cb = std::move(callback);
+        }
+    protected:
+        void dispatch(const ugine::event::Event& event) const noexcept {
+            this->event_cb(event);
+        }
+    private:
+        event_callback_type event_cb = nullptr;
     };
 
     class UGINE_API Window2DProxy final: public Window2D {
@@ -23,6 +32,7 @@ namespace ugine::window {
         void create(const ugine::window::WindowProps& props = {}) override {
             this->window_impl->create(props);
             this->get_ui().create(*this);
+            UGINE_CORE_INFO("Window {0} of {1}x{2}px created", props.title, props.height, props.width);
        }
         void render() const override {
            this->window_impl->render();

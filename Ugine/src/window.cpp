@@ -32,7 +32,7 @@ static ugine::event::mouse_button_type get_mouse_button(Uint8 button) {
 }
 
 ugine::window::SDLWindow::SDLWindow(std::unique_ptr<ui::SDLUI> sdl_ui):
-ui(std::move(sdl_ui))
+    ui(std::move(sdl_ui))
 {
     if (i_count++ == 0) {
         init_sdl();
@@ -60,7 +60,6 @@ void ugine::window::SDLWindow::create(const window::WindowProps& props)  {
         UGINE_CORE_ERROR("Error creating sdl_renderer, details: {0}", SDL_GetError());
         return;
     }
-    UGINE_CORE_INFO("Window {0} of {1}x{2}px created", props.title, props.height, props.width);
 }
 
 ugine::window::SDLWindow::~SDLWindow() {
