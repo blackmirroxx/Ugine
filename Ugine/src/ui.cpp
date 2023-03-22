@@ -25,7 +25,7 @@ void ugine::ui::CreateImguiUI::visit(const ugine::window::SDLWindow & window) co
     io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
     io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
     ImGui::StyleColorsDark();
-    ImGui_ImplSDL2_InitForOpenGL(window.sdl_window, window.gl_context);
+    ImGui_ImplSDL2_InitForOpenGL(window.get_sdl_window(), window.get_gl_context());
     ImGui_ImplOpenGL3_Init(std::string("#version " + std::to_string(
             ugine::window::SDLWindow::OPENGL_MAJOR_VERSION) + std::to_string(ugine::window::SDLWindow::OPENGL_MINOR_VERSION) + "0"
             ).c_str());

@@ -60,7 +60,9 @@ namespace ugine::window {
 
     class UGINE_API SDLWindow final: public Window2DImpl
     {
-        friend ui::CreateImguiUI;
+    public:
+        static constexpr int OPENGL_MAJOR_VERSION = 4;
+        static constexpr int OPENGL_MINOR_VERSION = 1;
     public:
         SDLWindow();
         SDLWindow(const SDLWindow&) = delete;
@@ -81,8 +83,8 @@ namespace ugine::window {
         [[nodiscard]] const ugine::Input& get_input() const noexcept override {
             return this->input;
         }
-        static constexpr int OPENGL_MAJOR_VERSION = 4;
-        static constexpr int OPENGL_MINOR_VERSION = 1;
+        [[nodiscard]] SDL_Window* get_sdl_window() const noexcept {return this->sdl_window;}
+        [[nodiscard]] void* get_gl_context() const noexcept {return this->gl_context;}
     private:
         SDL_Window* sdl_window{nullptr};
         SDL_Renderer* sdl_renderer{nullptr};
