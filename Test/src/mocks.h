@@ -27,7 +27,8 @@ namespace mocks {
 
     class TestUI final: public ugine::ui::UI {
     public:
-        MOCK_METHOD(void, create, (const ugine::window::Window& props), (const, override));
+        MOCK_METHOD(void, create, (const ugine::window::Window2DImpl&), (const, override));
+        MOCK_METHOD(void, close, (const ugine::window::Window2DImpl&), (const, override));
     };
 
     class TestWindow2DImpl final: public ugine::window::Window2DImpl {
@@ -36,14 +37,12 @@ namespace mocks {
         : ui(std::move(test_ui))
         {
         }
+        void accept(const ugine::window::Window2DVisitor& visitor)  const override {
+        }
         MOCK_METHOD(void, create, (const ugine::window::WindowProps &props), (override));
-        void close() const override {}
-        [[nodiscard]] void* get_native_window() const noexcept override { return nullptr; }
+        MOCK_METHOD(void, close, (), (const, override));
         void on_update() const override {}
         void render() const override {}
-        [[nodiscard]] const ugine::ui::UI& get_ui() const noexcept override {
-            return *this->ui;
-        }
         void test_dispatch(const ugine::event::Event& event) {
             this->dispatch(event);
         }

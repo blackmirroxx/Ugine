@@ -5,10 +5,13 @@
 #include "ugine/event/event.h"
 #include "ugine/renderer.h"
 #include "ugine/input.h"
-#include "ugine/ui/ui.h"
 
 struct SDL_Window;
 struct SDL_Renderer;
+
+namespace ugine::ui {
+    class UI;
+}
 
 namespace ugine::window {
 
@@ -29,8 +32,6 @@ namespace ugine::window {
         Window(Window&&) = delete;
         Window& operator=(const Window&) = delete;
         Window& operator=(Window&&) = delete;
-        [[nodiscard]] virtual void* get_native_window() const noexcept = 0;
-        [[nodiscard]] virtual const ui::UI& get_ui() const noexcept = 0;
         /**
          * Dispatch window event
          * @param callback: callback call when an event occurred

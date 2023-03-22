@@ -30,7 +30,8 @@ namespace ugine
 	{
 	public:
 		explicit Application2D(std::unique_ptr<window::Window2D> pt_window =
-                std::make_unique<window::Window2DProxy>(std::make_unique<window::SDLWindow>()),
+                std::make_unique<window::Window2DProxy>(std::make_unique<window::SDLWindow>(),
+                        std::make_unique<ui::ImguiUI>()),
 		       std::unique_ptr<SceneManager<Scene2D>> scene_manager = std::make_unique<SceneManager2D>(),
                const window::WindowProps& props = {}
 		        )
