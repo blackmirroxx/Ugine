@@ -29,7 +29,8 @@ namespace mocks {
     public:
         MOCK_METHOD(void, create, (const ugine::window::Window2DImpl&), (const, override));
         MOCK_METHOD(void, close, (const ugine::window::Window2DImpl&), (const, override));
-        MOCK_METHOD(void, on_update, (const ugine::window::Window2DImpl&), (const, override));
+        MOCK_METHOD(void, render, (const ugine::window::Window2DImpl&), (const, override));
+        MOCK_METHOD(void, handle, (const ugine::event::WindowQuit&), ());
     };
 
     class TestWindow2DImpl final: public ugine::window::Window2DImpl {
@@ -43,7 +44,7 @@ namespace mocks {
         MOCK_METHOD(void, create, (const ugine::window::WindowProps &props), (override));
         MOCK_METHOD(void, close, (), (const, override));
         MOCK_METHOD(void, on_update, (), (const, override));
-        void render() const override {}
+        MOCK_METHOD(void, render, (), (const, override));
         void test_dispatch(const ugine::event::Event& event) {
             this->dispatch(event);
         }

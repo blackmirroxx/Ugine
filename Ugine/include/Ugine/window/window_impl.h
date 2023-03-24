@@ -1,7 +1,9 @@
 #pragma once
+#include "ugine/pch.h"
 #include "ugine/window/window.h"
 #include "ugine/window/window_visitor.h"
 #include "ugine/ui/ui.h"
+
 
 namespace ugine::window {
 
@@ -9,39 +11,45 @@ namespace ugine::window {
     public:
         Window2DImpl() = default;
         void on_event(event_callback_type callback) noexcept override {
-            this->event_cb = std::move(callback);
+            this->event_callbacks.push_back(std::move(callback));
         }
         virtual void accept(const Window2DVisitor&) const = 0;
     protected:
         void dispatch(const ugine::event::Event& event) const noexcept {
-            this->event_cb(event);
+            for (const auto& callback: this->event_callbacks) {
+                callback(event);
+            }
         }
     private:
-        event_callback_type event_cb = nullptr;
+        std::vector<event_callback_type> event_callbacks;
     };
 
     class UGINE_API Window2DProxy final: public Window2D {
     public:
        explicit Window2DProxy(std::unique_ptr<Window2DImpl> window_impl,
-                              std::unique_ptr<ui::UI> ui):
-           window_impl(std::move(window_impl)), ui(std::move(ui)) {}
+                              std::unique_ptr<ui::UI> ui = nullptr):
+           window_impl(std::move(window_impl)), ui(std::move(ui)) {
+           this->window_impl->on_event([this](const ugine::event::Event& event){
+             this->ui->handle_event(event);
+           });
+       }
         void on_event(event_callback_type callback) noexcept override {
             this->window_impl->on_event(std::move(callback));
         }
         void create(const ugine::window::WindowProps& props = {}) override {
             this->window_impl->create(props);
-            this->ui->create(*this->window_impl);
+            this->call_ui(&ugine::ui::UI::create);
             UGINE_CORE_INFO("Window {0} of {1}x{2}px created", props.title, props.height, props.width);
        }
         void render() const override {
+            this->call_ui(&ugine::ui::UI::render);
            this->window_impl->render();
        }
         void on_update() const override {
             this->window_impl->on_update();
-            this->ui->on_update(*this->window_impl);
        }
         void close() const override {
-           this->ui->close(*this->window_impl);
+           this->call_ui(&ugine::ui::UI::close);
            this->window_impl->close();
        }
         [[nodiscard]] ugine::TextureManager2D& get_texture_manager() noexcept override {
@@ -51,6 +59,12 @@ namespace ugine::window {
             return this->window_impl->get_input();
         }
     private:
+        template <typename F>
+        void call_ui(F ui_method) const {
+            if (this->ui) {
+                (*this->ui.*ui_method)(*this->window_impl);
+            }
+         }
         std::unique_ptr<Window2DImpl> window_impl;
         std::unique_ptr<ugine::ui::UI> ui;
     };

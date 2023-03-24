@@ -1,6 +1,7 @@
 #pragma once
 #include "ugine/core.h"
 #include "ugine/window/window_visitor.h"
+#include "ugine/event/event_handler.h"
 
 struct SDL_Window;
 namespace ugine::window {
@@ -9,7 +10,7 @@ namespace ugine::window {
 }
 
 namespace ugine::ui {
-    class UGINE_API UI
+    class UGINE_API UI: public ugine::event::EventHandler
     {
     public:
         UI() = default;
@@ -20,7 +21,7 @@ namespace ugine::ui {
         virtual ~UI() = default;
         virtual void create(const ugine::window::Window2DImpl&) const = 0;
         virtual void close(const ugine::window::Window2DImpl&) const = 0;
-        virtual void on_update(const ugine::window::Window2DImpl&) const = 0;
+        virtual void render(const ugine::window::Window2DImpl&) const = 0;
     };
 
     class UGINE_API ImguiUI final: public UI
@@ -28,7 +29,7 @@ namespace ugine::ui {
     public:
         void create(const ugine::window::Window2DImpl& window) const override;
         void close(const ugine::window::Window2DImpl& window) const override;
-        void on_update(const ugine::window::Window2DImpl& window) const override;
+        void render(const ugine::window::Window2DImpl& window) const override;
     };
 
 }

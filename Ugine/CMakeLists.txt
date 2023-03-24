@@ -9,10 +9,11 @@ set(HEADERS
 		include/ugine/entrypoint.h include/ugine/log.h include/ugine/renderer.h
 		include/ugine/scene.h include/ugine/signals.h include/ugine/vector.h
         include/ugine/window/window.h include/ugine/event/event.h
-		include/ugine/event/event_dispatcher.h include/ugine/event/keyboard_event.h
+        include/ugine/event/keyboard_event.h
 		include/ugine/event/mouse_event.h include/ugine/event/window_event.h
 		include/ugine/exception/exception.h
-		include/ugine/input.h include/ugine/pch.h include/ugine/ui/ui.h include/ugine/window/window_impl.h include/ugine/window/window_visitor.h)
+		include/ugine/input.h include/ugine/pch.h include/ugine/ui/ui.h include/ugine/window/window_impl.h
+		include/ugine/window/window_visitor.h include/ugine/event/event_handler.h)
 
 add_library(Ugine-public-options INTERFACE)
 add_library(Ugine-private-options INTERFACE)

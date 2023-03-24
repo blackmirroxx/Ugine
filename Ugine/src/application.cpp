@@ -21,13 +21,6 @@ void ugine::Application2D::start_loop() {
 }
 
 void ugine::Application2D::on_game_loop() {
-    // this->pt_window->render();
     this->pt_window->on_update();
-}
-
-void ugine::Application2D::on_event(const ugine::event::Event& event) {
-    UGINE_CORE_TRACE("Event {0}", event.to_string());
-    if (event.get_event_type() == ugine::event::event_type::window_quit) {
-        this->running = false;
-    }
+    this->pt_window->render();
 }

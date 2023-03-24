@@ -1,8 +1,30 @@
 #include "pch.h"
+#include "ugine/event/event_handler.h"
 #include "ugine/event/mouse_event.h"
 #include "ugine/event/keyboard_event.h"
 #include "ugine/event/window_event.h"
 
+class TestEventHandler: public ugine::event::EventHandler {
+public:
+    MOCK_METHOD(void, handle, (const ugine::event::MouseUp&), (override));
+};
+
+TEST(EventHandler, HandleEvent) {
+    const std::unique_ptr<ugine::event::Event> mouse_up = std::make_unique<ugine::event::MouseUp>(
+            ugine::event::mouse_button_type::right, 10.F, 20.F);
+    auto handler = TestEventHandler();
+    EXPECT_CALL(handler, handle(testing::_)).Times(1);
+    handler.handle_event(*mouse_up);
+}
+
+TEST(EventHandler, NoHandleIfStopPropagation) {
+    const std::unique_ptr<ugine::event::Event> mouse_up = std::make_unique<ugine::event::MouseUp>(
+            ugine::event::mouse_button_type::right, 10.F, 20.F);
+    mouse_up->stop_propagation();
+    auto handler = TestEventHandler();
+    EXPECT_CALL(handler, handle(testing::_)).Times(0);
+    handler.handle_event(*mouse_up);
+}
 
 TEST(Events, MouseUpCategories) {
     const std::unique_ptr<ugine::event::MouseButtonEvent> mouse_up = std::make_unique<ugine::event::MouseUp>(

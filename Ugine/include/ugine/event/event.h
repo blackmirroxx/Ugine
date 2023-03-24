@@ -4,6 +4,7 @@
 #include "ugine/core.h"
 
 namespace ugine::event {
+    class EventHandler;
     enum class event_type
     {
         mouse_up, mouse_down, mouse_wheel, mouse_move, key_up, key_down,
@@ -35,24 +36,16 @@ namespace ugine::event {
         [[nodiscard]] bool is_in_category(event_category category) const {
             return this->category_flags & category;
         }
+        virtual void accept(EventHandler& handler ) const = 0;
+        /**
+         * Stop the propagation of an event, the next handler won't be called
+         */
+        void stop_propagation() const noexcept {this->handle = true;}
+        [[nodiscard]] bool is_handled() const noexcept {return this->handle;}
     private:
-        bool handled = false;
+        bool mutable handle = false;
         int category_flags = event_category::none;
         event_type event;
-    };
-
-
-    template <typename E=Event>
-    class UGINE_API Listener
-    {
-    public:
-        Listener() = default;
-        Listener(const Listener&) = delete;
-        Listener(Listener&&) = delete;
-        void operator=(const Listener&) = delete;
-        void operator=(Listener&&) = delete;
-        virtual void operator()(const E& evt) = 0;
-        virtual ~Listener() = default;
     };
 
 }

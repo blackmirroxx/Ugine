@@ -1,6 +1,7 @@
 #pragma once
 #include "ugine/core.h"
 #include "ugine//event/event.h"
+#include "ugine/event/event_handler.h"
 
 namespace ugine::event {
     class UGINE_API KeyboardEvent: public Event
@@ -20,6 +21,7 @@ namespace ugine::event {
         [[nodiscard]] std::string to_string() const noexcept override {
             return  "KeyUp " + std::to_string(key_code);
         }
+        void accept(EventHandler& handler ) const override {handler.handle(*this);}
     };
 
     class UGINE_API KeyDown final: public KeyboardEvent
@@ -31,6 +33,7 @@ namespace ugine::event {
         [[nodiscard]] std::string to_string() const noexcept override {
             return  "KeyDown " + std::to_string(key_code) + (repeat ? " repeated" : "");
         }
+        void accept(EventHandler& handler ) const  override {handler.handle(*this);}
     private:
         bool repeat;
     };

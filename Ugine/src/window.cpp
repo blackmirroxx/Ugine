@@ -71,7 +71,10 @@ ugine::window::SDLWindow::~SDLWindow() {
 }
 
 void ugine::window::SDLWindow::render() const {
-    SDL_RenderPresent(this->sdl_renderer);
+    // TODO sdl_renderer must not be used when using opengl.
+    // It has to be removed
+    SDL_GL_SwapWindow(this->sdl_window);
+    //SDL_RenderPresent(this->sdl_renderer);
 }
 
 

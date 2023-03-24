@@ -37,7 +37,7 @@ namespace {
         }
     };
 
-    class OnUpdateImguiUI: public ugine::window::Window2DVisitor {
+    class RenderImguiUI: public ugine::window::Window2DVisitor {
     public:
         void visit(const ugine::window::SDLWindow& window) const override {
             ImGui_ImplOpenGL3_NewFrame();
@@ -48,7 +48,6 @@ namespace {
 
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-            SDL_GL_SwapWindow(window.get_sdl_window());
         }
     };
 }
@@ -62,7 +61,7 @@ void ugine::ui::ImguiUI::close(const ugine::window::Window2DImpl& window) const 
     window.accept(CloseImguiUI());
 }
 
-void ugine::ui::ImguiUI::on_update(const ugine::window::Window2DImpl& window) const {
-    window.accept(OnUpdateImguiUI{});
+void ugine::ui::ImguiUI::render(const ugine::window::Window2DImpl& window) const {
+    window.accept(RenderImguiUI{});
 }
 

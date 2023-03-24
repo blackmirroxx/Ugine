@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "mocks.h"
+#include "ugine/event/window_event.h"
 
 
 TEST(Window, EventCallback) {
@@ -8,8 +9,11 @@ TEST(Window, EventCallback) {
     test_window.on_event([&i](const ugine::event::Event &event) {
         ++i;
     });
+    test_window.on_event([&i](const ugine::event::Event &event) {
+        ++i;
+    });
     test_window.test_dispatch( ugine::event::WindowQuit() );
-    EXPECT_EQ(i, 1);
+    EXPECT_EQ(i, 2);
 }
 
 TEST(Window, CreateWindow) {
@@ -38,7 +42,7 @@ TEST(Window, CloseWindow) {
     window_proxy->close();
 }
 
-TEST(Window, OnUpdate) {
+TEST(Window, Rendering) {
     auto test_ui = std::make_unique<mocks::TestUI>() ;
     auto test_window_impl = std::make_unique<mocks::TestWindow2DImpl>();
     auto* const pt_test_window_impl = test_window_impl.get();
@@ -46,7 +50,19 @@ TEST(Window, OnUpdate) {
     const auto window_proxy = std::make_unique<ugine::window::Window2DProxy>(
             std::move(test_window_impl), std::move(test_ui)
     );
-    EXPECT_CALL(*pt_test_ui, on_update(testing::_));
-    EXPECT_CALL(*pt_test_window_impl, on_update());
-    window_proxy->on_update();
+    EXPECT_CALL(*pt_test_ui, render(testing::_));
+    EXPECT_CALL(*pt_test_window_impl, render());
+    window_proxy->render();
+}
+
+TEST(UI, HandleWindowEvent) {
+    auto test_ui = std::make_unique<mocks::TestUI>() ;
+    auto* const pt_test_ui = test_ui.get();
+    auto test_window_impl = std::make_unique<mocks::TestWindow2DImpl>();
+    auto* const pt_test_window_impl = test_window_impl.get();
+    const auto window_proxy = std::make_unique<ugine::window::Window2DProxy>(
+            std::move(test_window_impl), std::move(test_ui)
+    );
+    EXPECT_CALL(*pt_test_ui, handle(testing::_));
+    pt_test_window_impl->test_dispatch(ugine::event::WindowQuit());
 }
