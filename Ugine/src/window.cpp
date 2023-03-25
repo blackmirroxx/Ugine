@@ -114,11 +114,11 @@ void ugine::window::SDLWindow::on_update() const {
         }
         if (event.type == SDL_KEYUP) {
             auto *key_up_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
-            this->dispatch(ugine::event::KeyUp(ugine::utils::sdl_scancode_to_keycode(key_up_event->keysym.scancode)));
+            this->dispatch(ugine::event::KeyUp(ugine::utils::sdl_keycode_to_keycode(key_up_event->keysym.sym)));
         }
         if (event.type == SDL_KEYDOWN) {
             auto *key_down_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
-            this->dispatch(ugine::event::KeyDown( ugine::utils::sdl_scancode_to_keycode(key_down_event->keysym.scancode), bool(key_down_event->repeat)));
+            this->dispatch(ugine::event::KeyDown( ugine::utils::sdl_keycode_to_keycode(key_down_event->keysym.sym), bool(key_down_event->repeat)));
         }
     }
 }

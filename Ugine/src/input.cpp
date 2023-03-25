@@ -13,7 +13,9 @@ static Uint8 get_mouse_button(ugine::event::mouse_button_type button) {
 
 bool ugine::SDLInput::is_key_pressed(ugine::utils::keycode key) const noexcept {
     const auto *const keys_array = SDL_GetKeyboardState(nullptr);
-    return static_cast<bool>(keys_array[ugine::utils::keycode_to_sdl_scancode(key)]);
+    return static_cast<bool>(keys_array[SDL_GetScancodeFromKey(
+                ugine::utils::keycode_to_sdl_keycode(key)
+            )]);
 }
 
 bool ugine::SDLInput::is_mouse_button_pressed(ugine::event::mouse_button_type button) const noexcept {

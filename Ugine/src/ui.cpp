@@ -90,14 +90,14 @@ void ugine::ui::ImguiUI::handle(const ugine::event::MouseWheel &event) {
 
 void ugine::ui::ImguiUI::handle(const ugine::event::KeyUp& event) {
     ImGuiIO& gui_io = ImGui::GetIO();
-    ImGui_ImplSDL2_ProcessEvent();
     ImGuiKey key = ugine::utils::keycode_to_imguikey(event.get_key_code());
-    //gui_io.AddKeyEvent(static_cast<ImGuiKey>(event.get_key_code()), false);
+    gui_io.AddKeyEvent(key, false);
 }
 
 void ugine::ui::ImguiUI::handle(const ugine::event::KeyDown &event) {
     ImGuiIO& gui_io = ImGui::GetIO();
-    //gui_io.AddKeyEvent(static_cast<ImGuiKey>(event.get_key_code()), true);
+    ImGuiKey key = ugine::utils::keycode_to_imguikey(event.get_key_code());
+    gui_io.AddKeyEvent(key, true);
 }
 
 
