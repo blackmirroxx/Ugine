@@ -3,13 +3,14 @@
 #include "ugine/event/mouse_event.h"
 #include "ugine/event/keyboard_event.h"
 #include "ugine/event/window_event.h"
+#include "ugine/utils/keycode.h"
 
-class TestEventHandler: public ugine::event::EventHandler {
+class TestEventHandler: public ugine::event::EventHandlerMixin {
 public:
     MOCK_METHOD(void, handle, (const ugine::event::MouseUp&), (override));
 };
 
-TEST(EventHandler, HandleEvent) {
+TEST(EventHandlerMixin, HandleEvent) {
     const std::unique_ptr<ugine::event::Event> mouse_up = std::make_unique<ugine::event::MouseUp>(
             ugine::event::mouse_button_type::right, 10.F, 20.F);
     auto handler = TestEventHandler();
@@ -17,7 +18,7 @@ TEST(EventHandler, HandleEvent) {
     handler.handle_event(*mouse_up);
 }
 
-TEST(EventHandler, NoHandleIfStopPropagation) {
+TEST(EventHandlerMixin, NoHandleIfStopPropagation) {
     const std::unique_ptr<ugine::event::Event> mouse_up = std::make_unique<ugine::event::MouseUp>(
             ugine::event::mouse_button_type::right, 10.F, 20.F);
     mouse_up->stop_propagation();
@@ -72,8 +73,8 @@ TEST(Events, MouseMoveCategories) {
 }
 
 TEST(Events, KeyUpCategories) {
-    const std::unique_ptr<ugine::event::KeyboardEvent> key_up = std::make_unique<ugine::event::KeyUp>(12);
-    EXPECT_EQ(key_up->get_key_code(), 12);
+    const std::unique_ptr<ugine::event::KeyboardEvent> key_up = std::make_unique<ugine::event::KeyUp>(ugine::utils::keycode::R);
+    EXPECT_EQ(key_up->get_key_code(), ugine::utils::keycode::R);
     EXPECT_EQ(key_up->get_event_type(), ugine::event::event_type::key_up);
     EXPECT_TRUE(key_up->is_in_category(ugine::event::event_category::keyboard_category));
     EXPECT_TRUE(key_up->is_in_category(ugine::event::event_category::input_category) );
@@ -82,9 +83,9 @@ TEST(Events, KeyUpCategories) {
 }
 
 TEST(Events, KeyDownCategories) {
-    const std::unique_ptr<ugine::event::KeyDown> key_down = std::make_unique<ugine::event::KeyDown>(97, true);
+    const std::unique_ptr<ugine::event::KeyDown> key_down = std::make_unique<ugine::event::KeyDown>(ugine::utils::keycode::A, true);
     EXPECT_TRUE(key_down->is_repeated());
-    EXPECT_EQ(key_down->get_key_code(), 97);
+    EXPECT_EQ(key_down->get_key_code(), ugine::utils::keycode::A);
     EXPECT_EQ(key_down->get_event_type(), ugine::event::event_type::key_down);
     EXPECT_TRUE(key_down->is_in_category(ugine::event::event_category::keyboard_category));
     EXPECT_TRUE(key_down->is_in_category(ugine::event::event_category::input_category) );

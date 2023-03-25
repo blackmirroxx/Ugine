@@ -4,7 +4,7 @@
 #include "ugine/core.h"
 
 namespace ugine::event {
-    class EventHandler;
+    class EventHandlerMixin;
     enum class event_type
     {
         mouse_up, mouse_down, mouse_wheel, mouse_move, key_up, key_down,
@@ -36,7 +36,7 @@ namespace ugine::event {
         [[nodiscard]] bool is_in_category(event_category category) const {
             return this->category_flags & category;
         }
-        virtual void accept(EventHandler& handler ) const = 0;
+        virtual void accept(EventHandlerMixin& handler ) const = 0;
         /**
          * Stop the propagation of an event, the next handler won't be called
          */

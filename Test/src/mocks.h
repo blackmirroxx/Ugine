@@ -20,7 +20,7 @@ namespace mocks {
 
     class TestInput final: public ugine::Input {
     public:
-        [[nodiscard]] bool is_key_pressed(int key_code) const noexcept override {return false;}
+        [[nodiscard]] bool is_key_pressed(ugine::utils::keycode key_code) const noexcept override {return false;}
         [[nodiscard]] bool is_mouse_button_pressed(ugine::event::mouse_button_type button) const noexcept override {return false;}
         [[nodiscard]] std::pair<float,float> get_mouse_position() const noexcept override {return {10.F, 20.F};}
     };
@@ -45,7 +45,7 @@ namespace mocks {
         MOCK_METHOD(void, close, (), (const, override));
         MOCK_METHOD(void, on_update, (), (const, override));
         MOCK_METHOD(void, render, (), (const, override));
-        void test_dispatch(const ugine::event::Event& event) {
+        void test_dispatch(const ugine::event::Event& event) const {
             this->dispatch(event);
         }
         [[nodiscard]] ugine::TextureManager2D& get_texture_manager() noexcept override {

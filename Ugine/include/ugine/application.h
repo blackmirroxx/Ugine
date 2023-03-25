@@ -12,7 +12,7 @@
 
 namespace ugine
 {
-    class UGINE_API Application: public ugine::event::EventHandler
+    class UGINE_API Application: public ugine::event::EventHandlerMixin
         {
         public:
             Application() = default;

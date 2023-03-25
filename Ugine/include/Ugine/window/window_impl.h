@@ -42,7 +42,7 @@ namespace ugine::window {
             UGINE_CORE_INFO("Window {0} of {1}x{2}px created", props.title, props.height, props.width);
        }
         void render() const override {
-            this->call_ui(&ugine::ui::UI::render);
+           this->call_ui(&ugine::ui::UI::render);
            this->window_impl->render();
        }
         void on_update() const override {

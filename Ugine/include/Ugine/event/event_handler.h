@@ -10,15 +10,21 @@ namespace ugine::event {
     class MouseWheel;
     class MouseMove;
     class WindowQuit;
-    class UGINE_API EventHandler
+
+    class UGINE_API EventHandlerMixin
     {
     public:
-        EventHandler() = default;
-        virtual ~EventHandler() = default;
-        EventHandler(const EventHandler&) = default;
-        EventHandler(EventHandler&&) noexcept = default;
-        EventHandler& operator=(const EventHandler&) = default;
-        EventHandler& operator=(EventHandler&&) noexcept = default;
+        EventHandlerMixin() = default;
+        virtual ~EventHandlerMixin() = default;
+        EventHandlerMixin(const EventHandlerMixin&) = default;
+        EventHandlerMixin(EventHandlerMixin&&) noexcept = default;
+        EventHandlerMixin& operator=(const EventHandlerMixin&) = default;
+        EventHandlerMixin& operator=(EventHandlerMixin&&) noexcept = default;
+        void handle_event(const ugine::event::Event& event) {
+            if (!event.is_handled()) {
+                event.accept(*this);
+            }
+        }
         virtual void handle(const KeyDown& event) {};
         virtual void handle(const KeyUp& event) {};
         virtual void handle(const MouseUp& event) {};
@@ -26,10 +32,5 @@ namespace ugine::event {
         virtual void handle(const MouseWheel& event) {};
         virtual void handle(const MouseMove& event) {};
         virtual void handle(const WindowQuit& event) {};
-        void handle_event(const ugine::event::Event& event) {
-            if (!event.is_handled()) {
-                event.accept(*this);
-            }
-        }
     };
 }

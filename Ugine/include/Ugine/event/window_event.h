@@ -15,6 +15,6 @@ namespace ugine::event {
         [[nodiscard]] std::string to_string() const noexcept override {
             return  "WindowQuit";
         }
-        void accept(EventHandler& handler ) const override {handler.handle(*this);}
+        void accept(EventHandlerMixin& handler ) const override {handler.handle(*this);}
     };
 }

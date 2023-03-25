@@ -7,6 +7,8 @@
 #include <SDL_opengl.h>
 #include "ugine/log.h"
 #include "ugine/window/window_impl.h"
+#include "ugine/event/keyboard_event.h"
+#include "utils/keyboard_mapping.h"
 
 namespace {
     class CreateImguiUI: public ugine::window::Window2DVisitor
@@ -64,4 +66,37 @@ void ugine::ui::ImguiUI::close(const ugine::window::Window2DImpl& window) const 
 void ugine::ui::ImguiUI::render(const ugine::window::Window2DImpl& window) const {
     window.accept(RenderImguiUI{});
 }
+
+void ugine::ui::ImguiUI::handle(const ugine::event::MouseDown &event) {
+    ImGuiIO& gui_io = ImGui::GetIO();
+    gui_io.AddMouseButtonEvent(event.get_mouse_button(), true);
+}
+
+void ugine::ui::ImguiUI::handle(const ugine::event::MouseUp &event) {
+    ImGuiIO& gui_io = ImGui::GetIO();
+    gui_io.AddMouseButtonEvent(event.get_mouse_button(), false);
+}
+
+void ugine::ui::ImguiUI::handle(const ugine::event::MouseMove &event) {
+    ImGuiIO& gui_io = ImGui::GetIO();
+    ImVec2 mouse_pos(event.get_mouse_x(), event.get_mouse_y());
+    gui_io.AddMousePosEvent(mouse_pos.x, mouse_pos.y);
+}
+
+void ugine::ui::ImguiUI::handle(const ugine::event::MouseWheel &event) {
+    ImGuiIO& gui_io = ImGui::GetIO();
+    gui_io.AddMouseWheelEvent(event.get_offset_x(), event.get_offset_y());
+}
+
+void ugine::ui::ImguiUI::handle(const ugine::event::KeyUp& event) {
+    ImGuiIO& gui_io = ImGui::GetIO();
+    ImGuiKey key = ugine::utils::keycode_to_imguikey(event.get_key_code());
+    //gui_io.AddKeyEvent(static_cast<ImGuiKey>(event.get_key_code()), false);
+}
+
+void ugine::ui::ImguiUI::handle(const ugine::event::KeyDown &event) {
+    ImGuiIO& gui_io = ImGui::GetIO();
+    //gui_io.AddKeyEvent(static_cast<ImGuiKey>(event.get_key_code()), true);
+}
+
 

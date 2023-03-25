@@ -10,7 +10,7 @@ namespace ugine::window {
 }
 
 namespace ugine::ui {
-    class UGINE_API UI: public ugine::event::EventHandler
+    class UGINE_API UI: public ugine::event::EventHandlerMixin
     {
     public:
         UI() = default;
@@ -30,6 +30,13 @@ namespace ugine::ui {
         void create(const ugine::window::Window2DImpl& window) const override;
         void close(const ugine::window::Window2DImpl& window) const override;
         void render(const ugine::window::Window2DImpl& window) const override;
+    private:
+        void handle(const ugine::event::MouseUp& event) override;
+        void handle(const ugine::event::MouseDown& event) override;
+        void handle(const ugine::event::MouseMove& event) override;
+        void handle(const ugine::event::MouseWheel& event) override;
+        void handle(const ugine::event::KeyUp& event) override;
+        void handle(const ugine::event::KeyDown& event) override;
     };
 
 }

@@ -5,11 +5,19 @@
 #include "ugine/event/window_event.h"
 #include "ugine/event/mouse_event.h"
 #include "ugine/event/keyboard_event.h"
+#include "utils/keyboard_mapping.h"
 #include <SDL.h>
 #include <glad/glad.h>
 
 static int i_count = 0;
 
+static constexpr ugine::utils::keycode keycode_mapping(SDL_KeyCode key) {
+    using namespace ugine::utils;
+    switch(key) {
+
+    }
+    return keycode::Unknown;
+}
 
 static void init_sdl() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
@@ -106,11 +114,11 @@ void ugine::window::SDLWindow::on_update() const {
         }
         if (event.type == SDL_KEYUP) {
             auto *key_up_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
-            this->dispatch(ugine::event::KeyUp(key_up_event->keysym.sym));
+            this->dispatch(ugine::event::KeyUp(ugine::utils::sdl_keycode_to_keycode(key_up_event->keysym.sym)));
         }
         if (event.type == SDL_KEYDOWN) {
             auto *key_down_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
-            this->dispatch(ugine::event::KeyDown(key_down_event->keysym.sym, bool(key_down_event->repeat)));
+            this->dispatch(ugine::event::KeyDown( ugine::utils::sdl_keycode_to_keycode(key_down_event->keysym.sym), bool(key_down_event->repeat)));
         }
     }
 }

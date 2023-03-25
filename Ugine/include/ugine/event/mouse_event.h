@@ -5,7 +5,7 @@
 #include "ugine/event/event_handler.h"
 
 namespace ugine::event {
-    enum class mouse_button_type {
+    enum mouse_button_type {
         left, right, middle, unknown
     };
 
@@ -42,7 +42,7 @@ namespace ugine::event {
         [[nodiscard]] std::string to_string() const noexcept override {
             return  this->mouse_button_to_string() + " MouseUp " + std::to_string(offset_x) + "x" + std::to_string(offset_y);;;
         }
-        void accept(EventHandler& handler ) const override {handler.handle(*this);}
+        void accept(EventHandlerMixin& handler ) const override {handler.handle(*this);}
     };
 
     class UGINE_API MouseDown final : public MouseButtonEvent
@@ -53,7 +53,7 @@ namespace ugine::event {
         [[nodiscard]] std::string to_string() const noexcept override {
             return this->mouse_button_to_string() + " MouseDown " + std::to_string(offset_x) + "x" + std::to_string(offset_y);;
         }
-        void accept(EventHandler& handler ) const override {handler.handle(*this);}
+        void accept(EventHandlerMixin& handler ) const override {handler.handle(*this);}
     };
 
     class UGINE_API MouseWheel final : public Event
@@ -68,7 +68,7 @@ namespace ugine::event {
         [[nodiscard]] std::string to_string() const noexcept override {
             return  "MouseWheel " + std::to_string(offset_x) + "x" + std::to_string(offset_y);
         }
-        void accept(EventHandler& handler ) const override {handler.handle(*this);}
+        void accept(EventHandlerMixin& handler ) const override {handler.handle(*this);}
     private:
         float offset_x;
         float offset_y;
@@ -84,7 +84,7 @@ namespace ugine::event {
         [[nodiscard]] std::string to_string() const noexcept override {
             return  "MouseMove " + std::to_string(mouse_x) + "x" + std::to_string(mouse_y);
         }
-        void accept(EventHandler& handler ) const override {handler.handle(*this);}
+        void accept(EventHandlerMixin& handler ) const override {handler.handle(*this);}
     private:
         float mouse_y;
         float mouse_x;

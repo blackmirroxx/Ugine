@@ -2,7 +2,7 @@
 set(SOURCES
 		src/application.cpp src/component.cpp src/log.cpp
 		src/renderer.cpp src/scene.cpp src/window.cpp
-        src/event.cpp src/input.cpp src/pch.cpp src/ui.cpp)
+        src/event.cpp src/input.cpp src/pch.cpp src/ui.cpp src/utils/keyboard_mapping.cpp)
 
 set(HEADERS
 		include/ugine/application.h include/ugine/component.h include/ugine/core.h
@@ -13,7 +13,8 @@ set(HEADERS
 		include/ugine/event/mouse_event.h include/ugine/event/window_event.h
 		include/ugine/exception/exception.h
 		include/ugine/input.h include/ugine/pch.h include/ugine/ui/ui.h include/ugine/window/window_impl.h
-		include/ugine/window/window_visitor.h include/ugine/event/event_handler.h)
+		include/ugine/window/window_visitor.h include/ugine/event/event_handler.h include/ugine/utils/keycode.h
+		src/utils/keyboard_mapping.h)
 
 add_library(Ugine-public-options INTERFACE)
 add_library(Ugine-private-options INTERFACE)
@@ -27,6 +28,7 @@ endmacro()
 target_include_directories(Ugine-public-options
 		INTERFACE include
 		)
+
 
 target_compile_definitions(Ugine-private-options
 		INTERFACE U_BUILD_DLL
