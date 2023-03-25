@@ -2,14 +2,10 @@
 #include <imgui.h>
 #include <imgui_impl_sdl2.h>
 #include <imgui_impl_opengl3.h>
-#include <glad/glad.h>
 #include <SDL.h>
-#include <SDL_opengl.h>
 #include "ugine/log.h"
 #include "ugine/window/window_impl.h"
 #include "ugine/event/keyboard_event.h"
-#include "ugine/utils/keycode.h"
-#include "utils/keyboard_mapping.h"
 
 namespace {
     class CreateImguiUI final: public ugine::window::Window2DVisitor

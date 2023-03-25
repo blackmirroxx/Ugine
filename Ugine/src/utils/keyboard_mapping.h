@@ -5,7 +5,6 @@
 
 
 namespace ugine::utils {
-    ImGuiKey keycode_to_imguikey(ugine::utils::keycode key);
     ugine::utils::keycode sdl_keycode_to_keycode(SDL_Keycode key);
     SDL_Keycode keycode_to_sdl_keycode(ugine::utils::keycode key);
 }

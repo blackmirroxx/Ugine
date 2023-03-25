@@ -83,7 +83,7 @@ namespace ugine::window {
         void close() const override;
         /**
          * Listen to the native sdl event before they are converting to ugine's events
-         * @param callback: call at each new event
+         * @param callback: Call at each new event
          */
         void on_sdl_event(sdl_event_cb_type callback) noexcept;
 
