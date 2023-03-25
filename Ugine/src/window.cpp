@@ -89,6 +89,7 @@ void ugine::window::SDLWindow::render() const {
 void ugine::window::SDLWindow::on_update() const {
     SDL_Event event;
     if (SDL_PollEvent(&event) != 0) {
+        this->dispatch_sdl_event(event);
         if (event.type == SDL_QUIT) {
             this->dispatch(ugine::event::WindowQuit());
         }
@@ -128,5 +129,15 @@ void ugine::window::SDLWindow::close() const {
     SDL_GL_DeleteContext(this->gl_context);
     SDL_DestroyWindow(this->sdl_window);
     UGINE_CORE_INFO("Window closed");
+}
+
+void ugine::window::SDLWindow::dispatch_sdl_event(const SDL_Event &sdl_event) const noexcept {
+    for (const auto& callback: this->sdl_event_cb) {
+        callback(sdl_event);
+    }
+}
+
+void ugine::window::SDLWindow::on_sdl_event(ugine::window::SDLWindow::sdl_event_cb_type callback) noexcept {
+    this->sdl_event_cb.push_back(std::move(callback));
 }
 

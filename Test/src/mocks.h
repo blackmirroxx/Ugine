@@ -27,9 +27,9 @@ namespace mocks {
 
     class TestUI final: public ugine::ui::UI {
     public:
-        MOCK_METHOD(void, create, (const ugine::window::Window2DImpl&), (const, override));
-        MOCK_METHOD(void, close, (const ugine::window::Window2DImpl&), (const, override));
-        MOCK_METHOD(void, render, (const ugine::window::Window2DImpl&), (const, override));
+        MOCK_METHOD(void, create, (), (const, override));
+        MOCK_METHOD(void, close, (), (const, override));
+        MOCK_METHOD(void, render, (), (const, override));
         MOCK_METHOD(void, handle, (const ugine::event::WindowQuit&), ());
     };
 
@@ -39,7 +39,7 @@ namespace mocks {
         : ui(std::move(test_ui))
         {
         }
-        void accept(const ugine::window::Window2DVisitor& visitor)  const override {
+        void accept(const ugine::window::Window2DVisitor& visitor)  override {
         }
         MOCK_METHOD(void, create, (const ugine::window::WindowProps &props), (override));
         MOCK_METHOD(void, close, (), (const, override));

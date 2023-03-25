@@ -10,6 +10,6 @@ namespace ugine::window {
             Window2DVisitor(Window2DVisitor&&) noexcept = delete;
             Window2DVisitor(const Window2DVisitor&) = delete;
             virtual ~Window2DVisitor() = default;
-            virtual void visit(const SDLWindow&) const = 0;
+            virtual void visit(SDLWindow&) const = 0;
     };
 }

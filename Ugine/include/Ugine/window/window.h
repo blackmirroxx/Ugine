@@ -25,7 +25,7 @@ namespace ugine::window {
     class UGINE_API Window
     {
     public:
-        using event_callback_type = std::function<void(const ugine::event::Event&)>;
+        using event_cb_type = std::function<void(const ugine::event::Event&)>;
         Window() = default;
         virtual ~Window() = default;
         Window(const Window&) = delete;
@@ -36,7 +36,7 @@ namespace ugine::window {
          * Dispatch window event
          * @param callback: callback call when an event occurred
          */
-        virtual void on_event(event_callback_type callback) noexcept = 0;
+        virtual void on_event(event_cb_type callback) noexcept = 0;
         /**
          * Create a new OS window, if the window is already created a
          * WindowAlreadyCreated exception is thrown, to recreate the window you

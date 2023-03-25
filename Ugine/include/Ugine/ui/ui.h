@@ -10,7 +10,7 @@ namespace ugine::window {
 }
 
 namespace ugine::ui {
-    class UGINE_API UI: public ugine::event::EventHandlerMixin
+    class UGINE_API UI
     {
     public:
         UI() = default;
@@ -19,24 +19,22 @@ namespace ugine::ui {
         UI& operator=(const UI&) = delete;
         UI& operator=(UI&&) noexcept = delete;
         virtual ~UI() = default;
-        virtual void create(const ugine::window::Window2DImpl&) const = 0;
-        virtual void close(const ugine::window::Window2DImpl&) const = 0;
-        virtual void render(const ugine::window::Window2DImpl&) const = 0;
+        virtual void create() const = 0;
+        virtual void close() const = 0;
+        virtual void render() const = 0;
+        void set_window(ugine::window::Window2DImpl* window_impl) noexcept {
+            this->pt_window_impl = window_impl;
+        }
+    protected:
+        ugine::window::Window2DImpl* pt_window_impl{nullptr};
     };
 
     class UGINE_API ImguiUI final: public UI
     {
     public:
-        void create(const ugine::window::Window2DImpl& window) const override;
-        void close(const ugine::window::Window2DImpl& window) const override;
-        void render(const ugine::window::Window2DImpl& window) const override;
-    private:
-        void handle(const ugine::event::MouseUp& event) override;
-        void handle(const ugine::event::MouseDown& event) override;
-        void handle(const ugine::event::MouseMove& event) override;
-        void handle(const ugine::event::MouseWheel& event) override;
-        void handle(const ugine::event::KeyUp& event) override;
-        void handle(const ugine::event::KeyDown& event) override;
+        void create() const override;
+        void close() const override;
+        void render() const override;
     };
 
 }
