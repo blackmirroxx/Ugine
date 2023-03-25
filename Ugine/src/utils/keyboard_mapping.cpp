@@ -1,6 +1,6 @@
 #include "keyboard_mapping.h"
 
-constexpr ImGuiKey ugine::utils::keycode_to_imguikey(ugine::utils::keycode key)
+ImGuiKey ugine::utils::keycode_to_imguikey(ugine::utils::keycode key)
 {
     using namespace ugine::utils;
     switch (key)
@@ -114,7 +114,7 @@ constexpr ImGuiKey ugine::utils::keycode_to_imguikey(ugine::utils::keycode key)
     return ImGuiKey_None;
 }
 
-constexpr ugine::utils::keycode ugine::utils::sdl_keycode_to_keycode(SDL_Keycode key) {
+ugine::utils::keycode ugine::utils::sdl_keycode_to_keycode(SDL_Keycode key) {
     using namespace ugine::utils;
     switch (key) {
 
@@ -122,7 +122,7 @@ constexpr ugine::utils::keycode ugine::utils::sdl_keycode_to_keycode(SDL_Keycode
    return  keycode::Unknown;
 }
 
-constexpr SDL_Scancode ugine::utils::keycode_to_sdl_scancode(ugine::utils::keycode key) {
+SDL_Scancode ugine::utils::keycode_to_sdl_scancode(ugine::utils::keycode key) {
     using namespace ugine::utils;
     switch (key) {
 
