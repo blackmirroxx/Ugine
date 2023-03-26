@@ -53,18 +53,15 @@ namespace {
 }
 
 
-void ugine::ui::ImguiUI::create() const {
-    assert(this->pt_window_impl);
-    this->pt_window_impl->accept(CreateImguiUI());
+void ugine::ui::ImguiUI::_create(ugine::window::Window2DImpl& window_impl) const {
+    window_impl.accept(CreateImguiUI());
 }
 
-void ugine::ui::ImguiUI::close() const {
-    assert(this->pt_window_impl);
+void ugine::ui::ImguiUI::_close() const {
     this->pt_window_impl->accept(CloseImguiUI());
 }
 
-void ugine::ui::ImguiUI::render() const {
-    assert(this->pt_window_impl);
+void ugine::ui::ImguiUI::_render() const {
     this->pt_window_impl->accept(RenderImguiUI{});
 }
 

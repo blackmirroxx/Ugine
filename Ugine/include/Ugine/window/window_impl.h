@@ -12,17 +12,17 @@ namespace ugine::window {
     public:
         Window2DImpl() = default;
         void on_event(event_cb_type callback) noexcept override {
-            this->event_callbacks.push_back(std::move(callback));
+            this->event_cb.push_back(std::move(callback));
         }
         virtual void accept(const Window2DVisitor&) = 0;
     protected:
         void dispatch(const ugine::event::Event& event) const noexcept {
-            for (const auto& callback: this->event_callbacks) {
+            for (const auto& callback: this->event_cb) {
                 callback(event);
             }
         }
     private:
-        std::vector<event_cb_type> event_callbacks;
+        std::vector<event_cb_type> event_cb;
     };
 
     class UGINE_API Window2DProxy final: public Window2D {
@@ -30,16 +30,13 @@ namespace ugine::window {
        explicit Window2DProxy(std::unique_ptr<Window2DImpl> window_impl,
                               std::unique_ptr<ui::UI> ui = nullptr):
            window_impl(std::move(window_impl)), ui(std::move(ui)) {
-           if (this->ui) {
-               this->ui->set_window(this->window_impl.get());
-           }
        }
         void on_event(event_cb_type callback) noexcept override {
             this->window_impl->on_event(std::move(callback));
         }
         void create(const ugine::window::WindowProps& props = {}) override {
             this->window_impl->create(props);
-            if (this->ui) this->ui->create();
+            if (this->ui) this->ui->create(*this->window_impl);
             UGINE_CORE_INFO("Window {0} of {1}x{2}px created", props.title, props.height, props.width);
        }
         void render() const override {

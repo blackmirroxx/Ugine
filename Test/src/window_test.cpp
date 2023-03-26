@@ -24,7 +24,7 @@ TEST(Window, CreateWindow) {
     const auto window_proxy = std::make_unique<ugine::window::Window2DProxy>(
             std::move(test_window_impl), std::move(test_ui)
             );
-    EXPECT_CALL(*pt_test_ui, create());
+    EXPECT_CALL(*pt_test_ui, _create(testing::_));
     EXPECT_CALL(*pt_test_window_impl, create(testing::_));
     window_proxy->create();
 }
@@ -37,7 +37,8 @@ TEST(Window, CloseWindow) {
     const auto window_proxy = std::make_unique<ugine::window::Window2DProxy>(
             std::move(test_window_impl), std::move(test_ui)
     );
-    EXPECT_CALL(*pt_test_ui, close());
+    window_proxy->create();
+    EXPECT_CALL(*pt_test_ui, _close());
     EXPECT_CALL(*pt_test_window_impl, close());
     window_proxy->close();
 }
@@ -50,7 +51,35 @@ TEST(Window, Rendering) {
     const auto window_proxy = std::make_unique<ugine::window::Window2DProxy>(
             std::move(test_window_impl), std::move(test_ui)
     );
-    EXPECT_CALL(*pt_test_ui, render());
+    window_proxy->create();
+    EXPECT_CALL(*pt_test_ui, _render());
     EXPECT_CALL(*pt_test_window_impl, render());
     window_proxy->render();
+}
+
+TEST(UI, UiAlreadyCreated) {
+    auto test_ui = mocks::TestUI() ;
+    auto test_window_impl = mocks::TestWindow2DImpl();
+    EXPECT_CALL(test_ui, _create(testing::_)).Times(1);
+    test_ui.create(test_window_impl);
+    EXPECT_CALL(test_ui, _create(testing::_)).Times(0);
+    EXPECT_THROW(
+            test_ui.create(test_window_impl),
+            ugine::exception::ui::UIAlreadyCreated
+    );
+}
+
+TEST(UI, UINotCreated) {
+    auto test_ui = mocks::TestUI() ;
+    auto test_window_impl = mocks::TestWindow2DImpl();
+    EXPECT_CALL(test_ui, _render()).Times(0);
+    EXPECT_THROW(
+            test_ui.render(),
+            ugine::exception::ui::UINotCreated
+    );
+    EXPECT_CALL(test_ui, _close()).Times(0);
+    EXPECT_THROW(
+            test_ui.close(),
+            ugine::exception::ui::UINotCreated
+    );
 }
