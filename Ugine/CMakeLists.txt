@@ -39,6 +39,7 @@ target_link_libraries(Ugine-private-options
 		INTERFACE SDL2_image::SDL2_image-static
 		INTERFACE glad::4.1-static
 		INTERFACE imgui-static
+		INTERFACE glm::glm_static
 		)
 
 target_link_libraries(Ugine-public-options

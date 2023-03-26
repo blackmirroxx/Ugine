@@ -15,11 +15,13 @@ function(build_dependencies folder)
     set(SDL2IMAGE_SAMPLES OFF)
     set(IMGUI_USE_SDL2 ON)
     set(IMGUI_USE_OPENGL3 ON)
+    set(BUILD_STATIC_LIBS ON) # for glm
     add_subdirectory(${folder}/spdlog)
     add_subdirectory(${folder}/SDL)
     add_subdirectory(${folder}/SDL_image)
     add_subdirectory(${folder}/glad)
     add_subdirectory(${folder}/imgui)
+    add_subdirectory(${folder}/glm)
 endfunction()
 
 function(build_tests)
