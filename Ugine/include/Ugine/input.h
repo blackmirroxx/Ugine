@@ -2,6 +2,7 @@
 #include "ugine/core.h"
 #include "ugine/event/mouse_event.h"
 #include "ugine/utils/keycode.h"
+#include "ugine/utils/mouse_button.h"
 
 namespace ugine {
     class UGINE_API Input
@@ -14,7 +15,7 @@ namespace ugine {
         Input& operator=(Input&&) = delete;
         virtual ~Input() = default;
         [[nodiscard]] virtual bool is_key_pressed(ugine::utils::keycode key) const noexcept = 0;
-        [[nodiscard]] virtual bool is_mouse_button_pressed(event::mouse_button_type button) const noexcept = 0;
+        [[nodiscard]] virtual bool is_mouse_button_pressed(ugine::utils::mouse_button button) const noexcept = 0;
         [[nodiscard]] virtual std::pair<float,float> get_mouse_position() const noexcept = 0;
         [[nodiscard]] float get_mouse_x() const noexcept {
             const auto [x,_] = this->get_mouse_position();
@@ -30,7 +31,7 @@ namespace ugine {
     {
     public:
         [[nodiscard]] bool is_key_pressed(ugine::utils::keycode key) const noexcept override;
-        [[nodiscard]] bool is_mouse_button_pressed(event::mouse_button_type button) const noexcept override;
+        [[nodiscard]] bool is_mouse_button_pressed(ugine::utils::mouse_button button) const noexcept override;
         [[nodiscard]] std::pair<float,float> get_mouse_position() const noexcept override;
     };
 }

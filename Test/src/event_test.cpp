@@ -4,6 +4,7 @@
 #include "ugine/event/keyboard_event.h"
 #include "ugine/event/window_event.h"
 #include "ugine/utils/keycode.h"
+#include "ugine/utils/mouse_button.h"
 
 class TestEventHandler: public ugine::event::EventHandlerMixin {
 public:
@@ -12,7 +13,7 @@ public:
 
 TEST(EventHandlerMixin, HandleEvent) {
     const std::unique_ptr<ugine::event::Event> mouse_up = std::make_unique<ugine::event::MouseUp>(
-            ugine::event::mouse_button_type::right, 10.F, 20.F);
+            ugine::utils::mouse_button::ButtonRight, 10.F, 20.F);
     auto handler = TestEventHandler();
     EXPECT_CALL(handler, handle(testing::_)).Times(1);
     handler.handle_event(*mouse_up);
@@ -20,7 +21,7 @@ TEST(EventHandlerMixin, HandleEvent) {
 
 TEST(EventHandlerMixin, NoHandleIfStopPropagation) {
     const std::unique_ptr<ugine::event::Event> mouse_up = std::make_unique<ugine::event::MouseUp>(
-            ugine::event::mouse_button_type::right, 10.F, 20.F);
+            ugine::utils::mouse_button::ButtonRight, 10.F, 20.F);
     mouse_up->stop_propagation();
     auto handler = TestEventHandler();
     EXPECT_CALL(handler, handle(testing::_)).Times(0);
@@ -29,10 +30,10 @@ TEST(EventHandlerMixin, NoHandleIfStopPropagation) {
 
 TEST(Events, MouseUpCategories) {
     const std::unique_ptr<ugine::event::MouseButtonEvent> mouse_up = std::make_unique<ugine::event::MouseUp>(
-            ugine::event::mouse_button_type::right, 10.F, 20.F);
+            ugine::utils::mouse_button::ButtonRight, 10.F, 20.F);
     EXPECT_EQ(mouse_up->get_offset_x(), 10);
     EXPECT_EQ(mouse_up->get_offset_y(), 20);
-    EXPECT_EQ(mouse_up->get_mouse_button(), ugine::event::mouse_button_type::right);
+    EXPECT_EQ(mouse_up->get_mouse_button(), ugine::utils::mouse_button::ButtonRight);
     EXPECT_EQ(mouse_up->get_event_type(), ugine::event::event_type::mouse_up);
     EXPECT_TRUE(mouse_up->is_in_category(ugine::event::event_category::input_category) );
     EXPECT_TRUE(mouse_up->is_in_category(ugine::event::event_category::mouse_button_category) );
@@ -42,8 +43,8 @@ TEST(Events, MouseUpCategories) {
 
 TEST(Events, MouseDownCategories) {
     const std::unique_ptr<ugine::event::MouseButtonEvent> mouse_down = std::make_unique<ugine::event::MouseDown>(
-            ugine::event::mouse_button_type::left, 100.F, 5000.F);
-    EXPECT_EQ(mouse_down->get_mouse_button(), ugine::event::mouse_button_type::left);
+            ugine::utils::mouse_button::ButtonLeft, 100.F, 5000.F);
+    EXPECT_EQ(mouse_down->get_mouse_button(), ugine::utils::mouse_button::ButtonLeft);
     EXPECT_EQ(mouse_down->get_event_type(), ugine::event::event_type::mouse_down);
     EXPECT_TRUE(mouse_down->is_in_category(ugine::event::event_category::input_category) );
     EXPECT_TRUE(mouse_down->is_in_category(ugine::event::event_category::mouse_button_category) );

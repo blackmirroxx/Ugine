@@ -6,6 +6,8 @@
 #include "ugine/renderer.h"
 #include "ugine/ui/ui.h"
 #include "ugine/application.h"
+#include "ugine/utils/keycode.h"
+#include "ugine/utils/mouse_button.h"
 
 namespace mocks {
     class TestTextureManager2D final: public ugine::TextureManager2D {
@@ -21,7 +23,7 @@ namespace mocks {
     class TestInput final: public ugine::Input {
     public:
         [[nodiscard]] bool is_key_pressed(ugine::utils::keycode key_code) const noexcept override {return false;}
-        [[nodiscard]] bool is_mouse_button_pressed(ugine::event::mouse_button_type button) const noexcept override {return false;}
+        [[nodiscard]] bool is_mouse_button_pressed(ugine::utils::mouse_button button) const noexcept override {return false;}
         [[nodiscard]] std::pair<float,float> get_mouse_position() const noexcept override {return {10.F, 20.F};}
     };
 
@@ -35,9 +37,7 @@ namespace mocks {
     class TestWindow2DImpl final: public ugine::window::Window2DImpl {
     public:
         explicit TestWindow2DImpl(std::unique_ptr<ugine::ui::UI> test_ui = std::make_unique<TestUI>())
-        : ui(std::move(test_ui))
-        {
-        }
+        : ui(std::move(test_ui)) {}
         void accept(const ugine::window::Window2DVisitor& visitor)  override {
         }
         MOCK_METHOD(void, create, (const ugine::window::WindowProps &props), (override));

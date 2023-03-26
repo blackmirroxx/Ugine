@@ -5,7 +5,7 @@
 #include "ugine/event/window_event.h"
 #include "ugine/event/mouse_event.h"
 #include "ugine/event/keyboard_event.h"
-#include "utils/keyboard_mapping.h"
+#include "utils/key_mapping.h"
 #include <SDL.h>
 #include <glad/glad.h>
 
@@ -23,14 +23,6 @@ static void init_sdl() {
     UGINE_CORE_INFO("SDL initialized");
 }
 
-static ugine::event::mouse_button_type get_mouse_button(Uint8 button) {
-    switch(button) {
-        case SDL_BUTTON_LEFT: return ugine::event::mouse_button_type::left;
-        case SDL_BUTTON_RIGHT: return ugine::event::mouse_button_type::right;
-        case SDL_BUTTON_MIDDLE: return ugine::event::mouse_button_type::middle;
-        default: return ugine::event::mouse_button_type::unknown;
-    }
-}
 
 ugine::window::SDLWindow::SDLWindow()
 {
@@ -39,8 +31,9 @@ ugine::window::SDLWindow::SDLWindow()
     }
 }
 
+// TODO add Graphic Context as parameter
 void ugine::window::SDLWindow::create(const window::WindowProps& props)  {
-    if (this->sdl_window != nullptr || this->sdl_renderer != nullptr || this->gl_context != nullptr) {
+    if (this->sdl_window != nullptr) {
         throw ugine::exception::window::WindowAlreadyCreated();
     }
     this->sdl_window = SDL_CreateWindow(props.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
@@ -91,13 +84,13 @@ void ugine::window::SDLWindow::on_update() const {
         }
         if (event.type == SDL_MOUSEBUTTONUP) {
             auto *button_up_event = reinterpret_cast<SDL_MouseButtonEvent*>(&event);
-            this->dispatch(ugine::event::MouseUp{get_mouse_button(button_up_event->button),
+            this->dispatch(ugine::event::MouseUp{ugine::utils::sdl_button_to_mouse_button(button_up_event->button),
                           static_cast<float>(button_up_event->x), static_cast<float>(button_up_event->y)
                     });
         }
         if (event.type == SDL_MOUSEBUTTONDOWN) {
             auto *button_down_event = reinterpret_cast<SDL_MouseButtonEvent*>(&event);
-            this->dispatch(ugine::event::MouseDown{get_mouse_button(button_down_event->button),
+            this->dispatch(ugine::event::MouseDown{ugine::utils::sdl_button_to_mouse_button(button_down_event->button),
                           static_cast<float>(button_down_event->x), static_cast<float>(button_down_event->y)
             });
         }

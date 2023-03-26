@@ -1,15 +1,8 @@
 #include <SDL.h>
-#include "utils/keyboard_mapping.h"
+#include "utils/key_mapping.h"
 #include "ugine/input.h"
+#include "utils/key_mapping.h"
 
-static Uint8 get_mouse_button(ugine::event::mouse_button_type button) {
-    switch(button) {
-        case ugine::event::mouse_button_type::left: return SDL_BUTTON_LEFT;
-        case ugine::event::mouse_button_type::right: return SDL_BUTTON_RIGHT;
-        case ugine::event::mouse_button_type::middle : return SDL_BUTTON_MIDDLE;
-        default: return 0;
-    }
-}
 
 bool ugine::SDLInput::is_key_pressed(ugine::utils::keycode key) const noexcept {
     const auto *const keys_array = SDL_GetKeyboardState(nullptr);
@@ -18,8 +11,8 @@ bool ugine::SDLInput::is_key_pressed(ugine::utils::keycode key) const noexcept {
             )]);
 }
 
-bool ugine::SDLInput::is_mouse_button_pressed(ugine::event::mouse_button_type button) const noexcept {
-    return SDL_BUTTON(get_mouse_button(button)) == SDL_GetMouseState(nullptr, nullptr);
+bool ugine::SDLInput::is_mouse_button_pressed(ugine::utils::mouse_button button) const noexcept {
+    return SDL_BUTTON(ugine::utils::mouse_button_to_sdl_button(button)) == SDL_GetMouseState(nullptr, nullptr);
 }
 
 std::pair<float, float> ugine::SDLInput::get_mouse_position() const noexcept {

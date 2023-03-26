@@ -3,33 +3,21 @@
 #include "ugine/core.h"
 #include "ugine/event/event.h"
 #include "ugine/event/event_handler.h"
+#include "ugine/utils/mouse_button.h"
 
 namespace ugine::event {
-    enum mouse_button_type {
-        left, right, middle, unknown
-    };
-
-
     class UGINE_API MouseButtonEvent: public Event
     {
     public:
-        MouseButtonEvent(event_type event_type , mouse_button_type mouse_button,
+        MouseButtonEvent(event_type event_type , ugine::utils::mouse_button mouse_button,
                          float offset_x, float offset_y) : Event(event_type, input_category | mouse_category | mouse_button_category ),
                                                                                    mouse_button(mouse_button),
                                                                                    offset_x{offset_x}, offset_y{offset_y} {}
-        [[nodiscard]] mouse_button_type get_mouse_button() const {return this->mouse_button; }
+        [[nodiscard]] ugine::utils::mouse_button get_mouse_button() const {return this->mouse_button; }
         [[nodiscard]] float get_offset_x() const noexcept {return offset_x;}
         [[nodiscard]] float get_offset_y() const noexcept {return offset_y;}
     protected:
-        [[nodiscard]] std::string mouse_button_to_string() const {
-            switch(this->mouse_button) {
-                case mouse_button_type::left: return "Left";
-                case mouse_button_type::right: return "Right";
-                case mouse_button_type::middle: return "Middle";
-                default: return "Unknown";
-            }
-        }
-        mouse_button_type mouse_button;
+        ugine::utils::mouse_button mouse_button;
         float offset_x;
         float offset_y;
     };
@@ -37,10 +25,10 @@ namespace ugine::event {
     class UGINE_API MouseUp final: public MouseButtonEvent
     {
     public:
-        MouseUp(mouse_button_type mouse_button, float offset_x, float offset_y):
+        MouseUp(ugine::utils::mouse_button mouse_button, float offset_x, float offset_y):
             MouseButtonEvent(event_type::mouse_up, mouse_button, offset_x, offset_y) {}
         [[nodiscard]] std::string to_string() const noexcept override {
-            return  this->mouse_button_to_string() + " MouseUp " + std::to_string(offset_x) + "x" + std::to_string(offset_y);;;
+            return  std::to_string(this->mouse_button) + " MouseUp " + std::to_string(offset_x) + "x" + std::to_string(offset_y);;;
         }
         void accept(EventHandlerMixin& handler ) const override {handler.handle(*this);}
     };
@@ -48,10 +36,10 @@ namespace ugine::event {
     class UGINE_API MouseDown final : public MouseButtonEvent
     {
     public:
-        MouseDown(mouse_button_type mouse_button, float offset_x, float offset_y): MouseButtonEvent(event_type::mouse_down,
+        MouseDown(ugine::utils::mouse_button mouse_button, float offset_x, float offset_y): MouseButtonEvent(event_type::mouse_down,
                                                                              mouse_button, offset_x, offset_y) {}
         [[nodiscard]] std::string to_string() const noexcept override {
-            return this->mouse_button_to_string() + " MouseDown " + std::to_string(offset_x) + "x" + std::to_string(offset_y);;
+            return std::to_string(this->mouse_button) + " MouseDown " + std::to_string(offset_x) + "x" + std::to_string(offset_y);;
         }
         void accept(EventHandlerMixin& handler ) const override {handler.handle(*this);}
     };

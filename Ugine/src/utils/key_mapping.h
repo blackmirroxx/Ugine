@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <imgui.h>
 #include "ugine/utils/keycode.h"
+#include "ugine/utils/mouse_button.h"
 
 
 namespace ugine::utils {
@@ -249,5 +250,28 @@ namespace ugine::utils {
             case keycode::F24: return SDLK_F24;
         }
         return SDLK_UNKNOWN;
+    }
+
+
+    constexpr Uint8 mouse_button_to_sdl_button(ugine::utils::mouse_button button) {
+        switch(button) {
+            case ugine::utils::mouse_button::ButtonLeft: return SDL_BUTTON_LEFT;
+            case ugine::utils::mouse_button::ButtonRight: return SDL_BUTTON_RIGHT;
+            case ugine::utils::mouse_button::ButtonMiddle: return SDL_BUTTON_MIDDLE;
+            case ugine::utils::mouse_button::Button3: return SDL_BUTTON_X1;
+            case ugine::utils::mouse_button::Button4: return SDL_BUTTON_X2;
+        }
+        return 0;
+    }
+
+    constexpr mouse_button sdl_button_to_mouse_button(Uint8 button) {
+        switch(button) {
+            case SDL_BUTTON_LEFT: return mouse_button::ButtonLeft;
+            case SDL_BUTTON_RIGHT: return mouse_button::ButtonRight;
+            case SDL_BUTTON_MIDDLE: return mouse_button::ButtonMiddle;
+            case SDL_BUTTON_X1: return mouse_button::Button3;
+            case SDL_BUTTON_X2: return mouse_button::Button4;
+        }
+        return mouse_button::Button0;
     }
 }
