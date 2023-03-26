@@ -11,17 +11,9 @@
 
 static int i_count = 0;
 
-static constexpr ugine::utils::keycode keycode_mapping(SDL_KeyCode key) {
-    using namespace ugine::utils;
-    switch(key) {
-
-    }
-    return keycode::Unknown;
-}
-
 static void init_sdl() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        throw ugine::exception::WindowInitError(SDL_GetError());
+        throw ugine::exception::window::WindowInitError(SDL_GetError());
     }
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, ugine::window::SDLWindow::OPENGL_MAJOR_VERSION);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, ugine::window::SDLWindow::OPENGL_MINOR_VERSION);
@@ -49,7 +41,7 @@ ugine::window::SDLWindow::SDLWindow()
 
 void ugine::window::SDLWindow::create(const window::WindowProps& props)  {
     if (this->sdl_window != nullptr || this->sdl_renderer != nullptr || this->gl_context != nullptr) {
-        throw ugine::exception::WindowAlreadyCreated();
+        throw ugine::exception::window::WindowAlreadyCreated();
     }
     this->sdl_window = SDL_CreateWindow(props.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                      props.width, props.height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);

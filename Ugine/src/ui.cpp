@@ -53,8 +53,8 @@ namespace {
 }
 
 
-void ugine::ui::ImguiUI::_create(ugine::window::Window2DImpl& window_impl) const {
-    window_impl.accept(CreateImguiUI());
+void ugine::ui::ImguiUI::_create() const {
+    this->pt_window_impl->accept(CreateImguiUI());
 }
 
 void ugine::ui::ImguiUI::_close() const {

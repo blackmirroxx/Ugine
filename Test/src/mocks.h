@@ -27,7 +27,7 @@ namespace mocks {
 
     class TestUI final: public ugine::ui::UI {
     public:
-        MOCK_METHOD(void, _create, (ugine::window::Window2DImpl&), (const, override));
+        MOCK_METHOD(void, _create, (), (const, override));
         MOCK_METHOD(void, _close, (), (const, override));
         MOCK_METHOD(void, _render, (), (const, override));
     };

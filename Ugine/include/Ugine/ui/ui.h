@@ -29,7 +29,7 @@ namespace ugine::ui {
                 throw ugine::exception::ui::UIAlreadyCreated();
             }
             this->pt_window_impl = &window_impl;
-            this->_create(window_impl);
+            this->_create();
         }
         void close() const {
             if (this->pt_window_impl == nullptr) {
@@ -44,7 +44,7 @@ namespace ugine::ui {
             this->_render();
         }
     protected:
-        virtual void _create(ugine::window::Window2DImpl& window_impl) const = 0;
+        virtual void _create() const = 0;
         virtual void _close() const = 0;
         virtual void _render() const = 0;
         ugine::window::Window2DImpl* pt_window_impl{nullptr};
@@ -53,7 +53,7 @@ namespace ugine::ui {
     class UGINE_API ImguiUI final: public UI
     {
     private:
-        void _create(ugine::window::Window2DImpl& window_impl) const override;
+        void _create() const override;
         void _close() const override;
         void _render() const override;
     };
