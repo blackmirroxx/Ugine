@@ -45,7 +45,7 @@ void ugine::window::SDLGlWindow::create(const window::WindowProps& props)  {
         UGINE_CORE_ERROR("Error creating opengl context, details: {0}", SDL_GetError());
         return;
     }
-    this->opengl.load_gl_load(SDL_GL_GetProcAddress);
+    this->opengl.load_gl_loader(SDL_GL_GetProcAddress);
 }
 
 ugine::window::SDLWindow::~SDLWindow() {

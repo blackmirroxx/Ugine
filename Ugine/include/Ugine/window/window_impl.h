@@ -34,8 +34,7 @@ namespace ugine::window {
        explicit WindowProxy(std::unique_ptr<WindowImplFactory> window_factory,
                             graphic::context context = graphic::context::opengl,
                             std::unique_ptr<ui::UI> ui = nullptr):
-            ui(std::move(ui)) {
-           this->window_impl = window_factory->create(context);
+           window_impl(window_factory->create(context)) ,ui(std::move(ui)) {
        }
         void on_event(event_cb_type callback) noexcept override {
             this->window_impl->on_event(std::move(callback));
