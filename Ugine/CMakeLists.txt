@@ -1,8 +1,8 @@
 
 set(SOURCES
 		src/application.cpp src/component.cpp src/log.cpp
-		src/renderer.cpp src/scene.cpp src/window.cpp
-        src/event.cpp src/input.cpp src/pch.cpp src/ui.cpp)
+		src/renderer.cpp src/scene.cpp src/window/sdl_window.cpp
+        src/event.cpp src/input.cpp src/pch.cpp src/ui/imgui.cpp)
 
 set(HEADERS
 		include/ugine/application.h include/ugine/component.h include/ugine/core.h

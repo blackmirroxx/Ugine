@@ -5,9 +5,9 @@
 #include "ugine/event/window_event.h"
 #include "ugine/event/mouse_event.h"
 #include "ugine/event/keyboard_event.h"
-#include "utils/key_mapping.h"
-#include <SDL.h>
-#include <glad/glad.h>
+#include "../utils/key_mapping.h"
+#include "SDL.h"
+#include "glad/glad.h"
 
 static int i_count = 0;
 
@@ -65,7 +65,7 @@ ugine::window::SDLWindow::~SDLWindow() {
 
 void ugine::window::SDLWindow::render() const {
     // TODO sdl_renderer must not be used when using opengl.
-    // It has to be removed
+    SDL_GL_MakeCurrent(this->sdl_window, this->gl_context); // The gl context may have changed from ui
     SDL_GL_SwapWindow(this->sdl_window);
     //SDL_RenderPresent(this->sdl_renderer);
 }

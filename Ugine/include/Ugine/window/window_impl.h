@@ -94,6 +94,11 @@ namespace ugine::window {
             return this->input;
         }
         [[nodiscard]] SDL_Window* get_sdl_window() const noexcept {return this->sdl_window;}
+        /**
+         * Return the current sdl_gl_context if the current GraphicContext is Opengl otherwise
+         * return nullptr
+         * @return SDL_GLContext
+         */
         [[nodiscard]] void* get_gl_context() const noexcept {return this->gl_context;}
     private:
         void dispatch_sdl_event(const SDL_Event& sdl_event) const noexcept;

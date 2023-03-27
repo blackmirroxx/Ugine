@@ -1,7 +1,6 @@
 #include <SDL.h>
 #include "utils/key_mapping.h"
 #include "ugine/input.h"
-#include "utils/key_mapping.h"
 
 
 bool ugine::SDLInput::is_key_pressed(ugine::utils::keycode key) const noexcept {
