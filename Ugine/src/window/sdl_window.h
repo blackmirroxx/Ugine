@@ -54,7 +54,7 @@ namespace ugine::window {
             visitor.visit(*this);
         }
 
-        [[nodiscard]] void *get_gl_context() const noexcept { return this->gl_context; }
+        [[nodiscard]] SDL_GLContext get_gl_context() const noexcept { return this->gl_context; }
 
         void create(const window::WindowProps &props) override;
 
@@ -64,6 +64,6 @@ namespace ugine::window {
 
     private:
         graphic::OpenGl opengl;
-        void *gl_context{nullptr};
+        SDL_GLContext gl_context{nullptr};
     };
 }
