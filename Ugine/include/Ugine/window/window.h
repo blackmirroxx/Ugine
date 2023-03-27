@@ -56,10 +56,5 @@ namespace ugine::window {
         [[nodiscard]] virtual const Input& get_input() const noexcept = 0;
     };
 
-    class UGINE_API Window2D: public ugine::window::Window {
-    public:
-        [[nodiscard]] virtual ugine::TextureManager2D& get_texture_manager() noexcept = 0;
-    };
-
 }
 

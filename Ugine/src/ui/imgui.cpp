@@ -7,10 +7,10 @@
 #include "ugine/event/keyboard_event.h"
 
 namespace {
-    class CreateImguiUI final: public ugine::window::Window2DVisitor
+    class CreateImguiUI final: public ugine::window::WindowImplVisitor
     {
     public:
-        void visit(ugine::window::SDLWindow& window) const override {
+        void visit(ugine::window::SDLGlWindow& window) const override {
             UGINE_CORE_INFO("Creating Imgui");
             const auto glsl_version =  std::string("#version " + std::to_string(
                     ugine::window::SDLWindow::OPENGL_MAJOR_VERSION) + std::to_string(ugine::window::SDLWindow::OPENGL_MINOR_VERSION)
@@ -30,14 +30,14 @@ namespace {
         }
     };
 
-    class RenderImguiUI final: public ugine::window::Window2DVisitor {
+    class RenderImguiUI final: public ugine::window::WindowImplVisitor {
     public:
-        void visit(ugine::window::SDLWindow& window) const override {
+        void visit(ugine::window::SDLGlWindow& window) const override {
+            bool show_demo = true;
             ImGuiIO& gui_io = ImGui::GetIO();
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplSDL2_NewFrame();
             ImGui::NewFrame();
-            bool show_demo = true;
             ImGui::ShowDemoWindow(&show_demo);
 
             ImGui::Render();
@@ -50,10 +50,10 @@ namespace {
         }
     };
 
-    class CloseImguiUI final: public ugine::window::Window2DVisitor
+    class CloseImguiUI final: public ugine::window::WindowImplVisitor
     {
     public:
-        void visit(ugine::window::SDLWindow& window) const override {
+        void visit(ugine::window::SDLGlWindow& window) const override {
             ImGui_ImplOpenGL3_Shutdown();
             ImGui_ImplSDL2_Shutdown();
             ImGui::DestroyContext();

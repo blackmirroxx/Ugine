@@ -6,7 +6,7 @@
 
 struct SDL_Window;
 namespace ugine::window {
-    class Window2DImpl;
+    class WindowImpl;
     class SDLWindow;
 }
 
@@ -24,7 +24,7 @@ namespace ugine::ui {
          * Create the ui for a specific window
          * @param window_impl
          */
-        void create(ugine::window::Window2DImpl& window_impl) {
+        void create(ugine::window::WindowImpl& window_impl) {
             if (this->pt_window_impl != nullptr) {
                 throw ugine::exception::ui::UIAlreadyCreated();
             }
@@ -47,7 +47,7 @@ namespace ugine::ui {
         virtual void _create() const = 0;
         virtual void _close() const = 0;
         virtual void _render() const = 0;
-        ugine::window::Window2DImpl* pt_window_impl{nullptr};
+        ugine::window::WindowImpl* pt_window_impl{nullptr};
     };
 
     class UGINE_API ImguiUI final: public UI

@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "ugine/window/window.h"
 #include "ugine/window/window_impl.h"
+#include "ugine/window/window_factory.h"
 #include "ugine/event/window_event.h"
 #include "ugine/renderer.h"
 #include "ugine/ui/ui.h"
@@ -34,11 +35,11 @@ namespace mocks {
         MOCK_METHOD(void, _render, (), (const, override));
     };
 
-    class TestWindow2DImpl final: public ugine::window::Window2DImpl {
+    class TestWindowImpl final: public ugine::window::WindowImpl {
     public:
-        explicit TestWindow2DImpl(std::unique_ptr<ugine::ui::UI> test_ui = std::make_unique<TestUI>())
+        explicit TestWindowImpl(std::unique_ptr<ugine::ui::UI> test_ui = std::make_unique<TestUI>())
         : ui(std::move(test_ui)) {}
-        void accept(const ugine::window::Window2DVisitor& visitor)  override {
+        void accept(const ugine::window::WindowImplVisitor& visitor)  override {
         }
         MOCK_METHOD(void, create, (const ugine::window::WindowProps &props), (override));
         MOCK_METHOD(void, close, (), (const, override));
@@ -47,14 +48,10 @@ namespace mocks {
         void test_dispatch(const ugine::event::Event& event) const {
             this->dispatch(event);
         }
-        [[nodiscard]] ugine::TextureManager2D& get_texture_manager() noexcept override {
-            return texture_manager;
-        }
         [[nodiscard]] const ugine::Input& get_input() const noexcept override {
             return this->input;
         }
     private:
-        TestTextureManager2D texture_manager;
         TestInput input;
         std::unique_ptr<ugine::ui::UI> ui;
     };
@@ -63,9 +60,19 @@ namespace mocks {
 
     };
 
+    class TestWindowFactory final: public ugine::window::WindowImplFactory {
+    public:
+        explicit TestWindowFactory(ugine::window::WindowImpl* test_gl_window): test_gl_window{test_gl_window} {}
+        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create(ugine::graphic::context context) const override {
+            return std::unique_ptr<ugine::window::WindowImpl>{this->test_gl_window};
+        }
+    private:
+        ugine::window::WindowImpl* test_gl_window;
+    };
+
     class TestApplication2D final: public ugine::Application2D {
     public:
-        explicit TestApplication2D(std::unique_ptr<ugine::window::Window2D> window = std::make_unique<TestWindow2DImpl>(),
+        explicit TestApplication2D(std::unique_ptr<ugine::window::Window> window = std::make_unique<TestWindowImpl>(),
                 std::unique_ptr<ugine::SceneManager<ugine::Scene2D>> scene_manager = std::make_unique<TestSceneManager2D>()):
                 ugine::Application2D(std::move(window), std::move(scene_manager))
                 {}
@@ -73,7 +80,6 @@ namespace mocks {
         }
     private:
         TestSceneManager2D scene_manager;
-        TestTextureManager2D texture_manager;
     };
 }
 

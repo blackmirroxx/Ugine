@@ -7,7 +7,6 @@
 #include "ugine/event/keyboard_event.h"
 #include "../utils/key_mapping.h"
 #include "SDL.h"
-#include "glad/glad.h"
 
 static int i_count = 0;
 
@@ -15,11 +14,6 @@ static void init_sdl() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         throw ugine::exception::window::WindowInitError(SDL_GetError());
     }
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, ugine::window::SDLWindow::OPENGL_MAJOR_VERSION);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, ugine::window::SDLWindow::OPENGL_MINOR_VERSION);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
     UGINE_CORE_INFO("SDL initialized");
 }
 
@@ -31,11 +25,15 @@ ugine::window::SDLWindow::SDLWindow()
     }
 }
 
-// TODO add Graphic Context as parameter
-void ugine::window::SDLWindow::create(const window::WindowProps& props)  {
+void ugine::window::SDLGlWindow::create(const window::WindowProps& props)  {
     if (this->sdl_window != nullptr) {
         throw ugine::exception::window::WindowAlreadyCreated();
     }
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, graphic::OpenGl::OPENGL_MAJOR_VERSION);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, graphic::OpenGl::OPENGL_MINOR_VERSION);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
     this->sdl_window = SDL_CreateWindow(props.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                      props.width, props.height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
     if (this->sdl_window == nullptr) {
@@ -47,12 +45,7 @@ void ugine::window::SDLWindow::create(const window::WindowProps& props)  {
         UGINE_CORE_ERROR("Error creating opengl context, details: {0}", SDL_GetError());
         return;
     }
-    gladLoadGLLoader(SDL_GL_GetProcAddress);
-    this->sdl_renderer = SDL_CreateRenderer(sdl_window, -1, SDL_RENDERER_ACCELERATED);
-    if (this->sdl_renderer == nullptr) {
-        UGINE_CORE_ERROR("Error creating sdl_renderer, details: {0}", SDL_GetError());
-        return;
-    }
+    this->opengl.load_gl_load(SDL_GL_GetProcAddress);
 }
 
 ugine::window::SDLWindow::~SDLWindow() {
@@ -63,11 +56,9 @@ ugine::window::SDLWindow::~SDLWindow() {
     }
 }
 
-void ugine::window::SDLWindow::render() const {
-    // TODO sdl_renderer must not be used when using opengl.
+void ugine::window::SDLGlWindow::render() const {
     SDL_GL_MakeCurrent(this->sdl_window, this->gl_context); // The gl context may have changed from ui
     SDL_GL_SwapWindow(this->sdl_window);
-    //SDL_RenderPresent(this->sdl_renderer);
 }
 
 
@@ -110,10 +101,13 @@ void ugine::window::SDLWindow::on_update() const {
 }
 
 void ugine::window::SDLWindow::close() const {
-    SDL_DestroyRenderer(this->sdl_renderer);
-    SDL_GL_DeleteContext(this->gl_context);
     SDL_DestroyWindow(this->sdl_window);
     UGINE_CORE_INFO("Window closed");
+}
+
+void ugine::window::SDLGlWindow::close() const {
+    SDL_GL_DeleteContext(this->gl_context);
+    SDLWindow::close();
 }
 
 void ugine::window::SDLWindow::dispatch_sdl_event(const SDL_Event &sdl_event) const noexcept {

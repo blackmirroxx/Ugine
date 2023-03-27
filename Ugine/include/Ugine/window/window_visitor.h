@@ -1,15 +1,15 @@
 #pragma once
 
 namespace ugine::window {
-    class SDLWindow;
-    class UGINE_API Window2DVisitor {
-            public:
-            Window2DVisitor() = default;
-            Window2DVisitor& operator=(Window2DVisitor&&) noexcept = delete;
-            Window2DVisitor& operator=(const Window2DVisitor&) noexcept = delete;
-            Window2DVisitor(Window2DVisitor&&) noexcept = delete;
-            Window2DVisitor(const Window2DVisitor&) = delete;
-            virtual ~Window2DVisitor() = default;
-            virtual void visit(SDLWindow&) const = 0;
+    class SDLGlWindow;
+    class UGINE_API WindowImplVisitor {
+        public:
+            WindowImplVisitor() = default;
+            WindowImplVisitor& operator=(WindowImplVisitor&&) noexcept = delete;
+            WindowImplVisitor& operator=(const WindowImplVisitor&) noexcept = delete;
+            WindowImplVisitor(WindowImplVisitor&&) noexcept = delete;
+            WindowImplVisitor(const WindowImplVisitor&) = delete;
+            virtual ~WindowImplVisitor() = default;
+            virtual void visit(SDLGlWindow&) const = 0;
     };
 }

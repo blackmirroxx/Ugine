@@ -31,9 +31,9 @@ namespace ugine
     class UGINE_API Application2D: public Application
 	{
 	public:
-		explicit Application2D(std::unique_ptr<window::Window2D> pt_window =
-                std::make_unique<window::Window2DProxy>(std::make_unique<window::SDLWindow>(),
-                        std::make_unique<ui::ImguiUI>()),
+		explicit Application2D(std::unique_ptr<window::Window> pt_window =
+                std::make_unique<window::WindowProxy>(std::make_unique<window::SDLFactory>(), graphic::context::opengl,
+                                                      std::make_unique<ui::ImguiUI>()),
 		       std::unique_ptr<SceneManager<Scene2D>> scene_manager = std::make_unique<SceneManager2D>(),
                const window::WindowProps& props = {}
 		        )
@@ -53,7 +53,6 @@ namespace ugine
 		void run() override;
         [[nodiscard]] bool is_running() const noexcept {return running;}
         SceneManager<Scene2D>& get_scene_manager() noexcept {return *this->pt_scene_manager;}
-        TextureManager2D& get_texture_manager() noexcept {return this->pt_window->get_texture_manager();}
     private:
         void handle(const ugine::event::WindowQuit& event) final {
             this->running = false;
@@ -62,7 +61,7 @@ namespace ugine
         void start_loop();
         void on_game_loop();
         bool running = false;
-        std::unique_ptr<window::Window2D> pt_window;
+        std::unique_ptr<window::Window> pt_window;
         std::unique_ptr<SceneManager<Scene2D>> pt_scene_manager;
 	};
 
