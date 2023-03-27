@@ -60,15 +60,6 @@ namespace mocks {
 
     };
 
-    class TestWindowFactory final: public ugine::window::WindowImplFactory {
-    public:
-        explicit TestWindowFactory(ugine::window::WindowImpl* test_gl_window): test_gl_window{test_gl_window} {}
-        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create(ugine::graphic::context context) const override {
-            return std::unique_ptr<ugine::window::WindowImpl>{this->test_gl_window};
-        }
-    private:
-        ugine::window::WindowImpl* test_gl_window;
-    };
 
     class TestApplication2D final: public ugine::Application2D {
     public:

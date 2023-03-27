@@ -1,8 +1,7 @@
 #include "ugine/application.h"
 
-void ugine::Application2D::run()
-{
-	this->signals.on_start.emit();
+void ugine::Application2D::run() {
+    this->signals.on_start.emit();
     this->start_loop();
 }
 
@@ -13,10 +12,10 @@ void ugine::Application2D::start_loop() {
     while (this->is_running()) {
         //const auto frame_start = SDL_GetTicks();
         this->on_game_loop();
-       // const auto frame_time = SDL_GetTicks() - frame_start;
-       // if (frame_time < delay_time) {
-       //     SDL_Delay(delay_time - frame_time);
-       // }
+        // const auto frame_time = SDL_GetTicks() - frame_start;
+        // if (frame_time < delay_time) {
+        //     SDL_Delay(delay_time - frame_time);
+        // }
     }
 }
 

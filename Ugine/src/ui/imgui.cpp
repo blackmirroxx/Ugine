@@ -3,24 +3,25 @@
 #include "backends/imgui_impl_sdl2.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "ugine/log.h"
-#include "ugine/window/window_impl.h"
 #include "ugine/event/keyboard_event.h"
+#include "../window/sdl_window.h"
+
 
 namespace {
-    class CreateImguiUI final: public ugine::window::WindowImplVisitor
-    {
+    class CreateImguiUI final : public ugine::window::WindowImplVisitor {
     public:
-        void visit(ugine::window::SDLGlWindow& window) const override {
+        void visit(ugine::window::SDLGlWindow &window) const override {
             UGINE_CORE_INFO("Creating Imgui");
-            const auto glsl_version =  std::string("#version " + std::to_string(
-                    ugine::window::SDLWindow::OPENGL_MAJOR_VERSION) + std::to_string(ugine::window::SDLWindow::OPENGL_MINOR_VERSION)
-                            + "0" );
-            window.on_sdl_event([](const SDL_Event& sdl_event){
+            const auto glsl_version = std::string("#version " + std::to_string(
+                    ugine::graphic::OpenGl::OPENGL_MAJOR_VERSION) +
+                                                  std::to_string(ugine::graphic::OpenGl::OPENGL_MINOR_VERSION)
+                                                  + "0");
+            window.on_sdl_event([](const SDL_Event &sdl_event) {
                 ImGui_ImplSDL2_ProcessEvent(&sdl_event);
             });
             IMGUI_CHECKVERSION();
             ImGui::CreateContext();
-            ImGuiIO& gui_io = ImGui::GetIO();
+            ImGuiIO &gui_io = ImGui::GetIO();
             gui_io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
             gui_io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
             gui_io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
@@ -30,11 +31,11 @@ namespace {
         }
     };
 
-    class RenderImguiUI final: public ugine::window::WindowImplVisitor {
+    class RenderImguiUI final : public ugine::window::WindowImplVisitor {
     public:
-        void visit(ugine::window::SDLGlWindow& window) const override {
+        void visit(ugine::window::SDLGlWindow &window) const override {
             bool show_demo = true;
-            ImGuiIO& gui_io = ImGui::GetIO();
+            ImGuiIO &gui_io = ImGui::GetIO();
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplSDL2_NewFrame();
             ImGui::NewFrame();
@@ -42,18 +43,16 @@ namespace {
 
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-            if ((gui_io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) != 0)
-            {
+            if ((gui_io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) != 0) {
                 ImGui::UpdatePlatformWindows();
                 ImGui::RenderPlatformWindowsDefault();
             }
         }
     };
 
-    class CloseImguiUI final: public ugine::window::WindowImplVisitor
-    {
+    class CloseImguiUI final : public ugine::window::WindowImplVisitor {
     public:
-        void visit(ugine::window::SDLGlWindow& window) const override {
+        void visit(ugine::window::SDLGlWindow &window) const override {
             ImGui_ImplOpenGL3_Shutdown();
             ImGui_ImplSDL2_Shutdown();
             ImGui::DestroyContext();

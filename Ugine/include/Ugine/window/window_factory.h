@@ -13,12 +13,12 @@ namespace ugine::window {
         WindowImplFactory& operator=(const WindowImplFactory&) = default;
         WindowImplFactory& operator=(WindowImplFactory&&) = default;
         virtual ~WindowImplFactory() = default;
-        [[nodiscard]] virtual std::unique_ptr<ugine::window::WindowImpl> create(ugine::graphic::context) const = 0;
+        [[nodiscard]] virtual std::unique_ptr<ugine::window::WindowImpl> create_with_opengl() const = 0;
     };
 
     class UGINE_API SDLFactory final: public WindowImplFactory {
     public:
-        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create(graphic::context graphic) const override;
+        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create_with_opengl() const override;
     };
 
 }

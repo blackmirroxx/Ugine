@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "mocks.h"
 #include "ugine/event/window_event.h"
-#include "ugine/graphic/graphic_context.h"
 
 
 TEST(Window, EventCallback) {
@@ -19,12 +18,11 @@ TEST(Window, EventCallback) {
 
 TEST(Window, CreateWindow) {
     auto test_ui = std::make_unique<mocks::TestUI>() ;
-    auto* const pt_test_window_impl = new mocks::TestWindowImpl();
+    auto test_window_impl = std::make_unique<mocks::TestWindowImpl>();
+    auto* const pt_test_window_impl = test_window_impl.get();
     auto* const pt_test_ui = test_ui.get();
     const auto window_proxy = std::make_unique<ugine::window::WindowProxy>(
-            std::make_unique<mocks::TestWindowFactory>(pt_test_window_impl),
-                    ugine::graphic::context::opengl,
-                    std::move(test_ui)
+            std::move(test_window_impl), std::move(test_ui)
             );
     EXPECT_CALL(*pt_test_ui, _create());
     EXPECT_CALL(*pt_test_window_impl, create(testing::_));
@@ -33,12 +31,11 @@ TEST(Window, CreateWindow) {
 
 TEST(Window, CloseWindow) {
     auto test_ui = std::make_unique<mocks::TestUI>() ;
-    auto* const pt_test_window_impl = new mocks::TestWindowImpl();
+    auto test_window_impl = std::make_unique<mocks::TestWindowImpl>();
+    auto* const pt_test_window_impl = test_window_impl.get();
     auto* const pt_test_ui = test_ui.get();
     const auto window_proxy = std::make_unique<ugine::window::WindowProxy>(
-            std::make_unique<mocks::TestWindowFactory>(pt_test_window_impl),
-                    ugine::graphic::context::opengl,
-                    std::move(test_ui)
+            std::move(test_window_impl), std::move(test_ui)
     );
     window_proxy->create();
     EXPECT_CALL(*pt_test_ui, _close());
@@ -48,12 +45,11 @@ TEST(Window, CloseWindow) {
 
 TEST(Window, Rendering) {
     auto test_ui = std::make_unique<mocks::TestUI>() ;
-    auto* const pt_test_window_impl = new mocks::TestWindowImpl();
+    auto test_window_impl = std::make_unique<mocks::TestWindowImpl>();
+    auto* const pt_test_window_impl = test_window_impl.get();
     auto* const pt_test_ui = test_ui.get();
     const auto window_proxy = std::make_unique<ugine::window::WindowProxy>(
-            std::make_unique<mocks::TestWindowFactory>(pt_test_window_impl),
-            ugine::graphic::context::opengl,
-            std::move(test_ui)
+            std::move(test_window_impl), std::move(test_ui)
     );
     window_proxy->create();
     EXPECT_CALL(*pt_test_ui, _render());

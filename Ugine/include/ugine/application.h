@@ -5,6 +5,7 @@
 #include "ugine/signals.h"
 #include "ugine/window/window.h"
 #include "ugine/window/window_impl.h"
+#include "ugine/window/window_factory.h"
 #include "ugine/renderer.h"
 #include "ugine/scene.h"
 #include "ugine/event/event_handler.h"
@@ -32,7 +33,7 @@ namespace ugine
 	{
 	public:
 		explicit Application2D(std::unique_ptr<window::Window> pt_window =
-                std::make_unique<window::WindowProxy>(std::make_unique<window::SDLFactory>(), graphic::context::opengl,
+                std::make_unique<window::WindowProxy>(window::SDLFactory().create_with_opengl(),
                                                       std::make_unique<ui::ImguiUI>()),
 		       std::unique_ptr<SceneManager<Scene2D>> scene_manager = std::make_unique<SceneManager2D>(),
                const window::WindowProps& props = {}
