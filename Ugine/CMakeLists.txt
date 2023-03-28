@@ -14,7 +14,7 @@ set(HEADERS
         include/ugine/exception/exception.h
         include/ugine/input.h include/ugine/pch.h include/ugine/ui/ui.h include/ugine/window/window_impl.h
         include/ugine/window/window_visitor.h include/ugine/event/event_handler.h include/ugine/utils/keycode.h
-        src/utils/key_mapping.h include/ugine/utils/mouse_button.h include/ugine/window/window_factory.h include/ugine/graphic/graphic_context.h src/window/sdl_window.h src/graphic/opengl.h)
+        src/utils/key_mapping.h include/ugine/utils/mouse_button.h include/ugine/window/window_factory.h include/ugine/graphic/graphic_context.h src/window/sdl_window.h src/graphic/opengl.h include/ugine/platfrom.h)
 
 add_library(Ugine-public-options INTERFACE)
 add_library(Ugine-private-options INTERFACE)
