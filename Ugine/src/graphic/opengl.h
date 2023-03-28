@@ -9,6 +9,6 @@ namespace ugine::graphic {
         static constexpr int OPENGL_MAJOR_VERSION = 4;
         static constexpr int OPENGL_MINOR_VERSION = 1;
 
-        void load_gl_loader(GLADloadproc proc) const;
+        static void load_gl_loader(GLADloadproc proc) ;
     };
 }

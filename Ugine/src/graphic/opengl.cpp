@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 
 
-void ugine::graphic::OpenGl::load_gl_loader(GLADloadproc proc) const {
+void ugine::graphic::OpenGl::load_gl_loader(GLADloadproc proc) {
     gladLoadGLLoader(proc);
 }
 

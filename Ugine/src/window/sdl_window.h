@@ -50,6 +50,20 @@ namespace ugine::window {
 
     class SDLGlWindow final : public SDLWindow {
     public:
+        SDLGlWindow() = default;
+
+        SDLGlWindow(const SDLGlWindow &) = delete;
+
+        SDLGlWindow(SDLGlWindow &&) = delete;
+
+        SDLGlWindow &operator=(const SDLGlWindow &) = delete;
+
+        SDLGlWindow &operator=(SDLGlWindow &&) = delete;
+
+        ~SDLGlWindow() override {
+            this->close();
+        }
+
         void accept(const WindowImplVisitor &visitor) override {
             visitor.visit(*this);
         }
@@ -63,7 +77,6 @@ namespace ugine::window {
         void close() const override;
 
     private:
-        graphic::OpenGl opengl;
         SDL_GLContext gl_context{nullptr};
     };
 }

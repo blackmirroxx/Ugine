@@ -43,11 +43,10 @@ void ugine::window::SDLGlWindow::create(const window::WindowProps &props) {
         UGINE_CORE_ERROR("Error creating opengl context, details: {0}", SDL_GetError());
         return;
     }
-    this->opengl.load_gl_loader(SDL_GL_GetProcAddress);
+    graphic::OpenGl::load_gl_loader(SDL_GL_GetProcAddress);
 }
 
 ugine::window::SDLWindow::~SDLWindow() {
-    this->close();
     if (--i_count == 0) {
         SDL_Quit();
         UGINE_CORE_INFO("SDL cleaned up");
@@ -109,6 +108,7 @@ void ugine::window::SDLWindow::close() const {
 
 void ugine::window::SDLGlWindow::close() const {
     SDL_GL_DeleteContext(this->gl_context);
+    UGINE_CORE_INFO("Opengl context deleted");
     SDLWindow::close();
 }
 
