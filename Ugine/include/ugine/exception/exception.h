@@ -25,7 +25,7 @@ namespace ugine::exception {
     namespace ui {
         class UGINE_API UIAlreadyCreated : public std::runtime_error {
         public:
-            UIAlreadyCreated() : std::runtime_error("The UI is already created for a window, you must call close"
+            UIAlreadyCreated() : std::runtime_error("The UI is already created for a window, you must call remove"
                                                     "before creating a new one") {}
         };
 

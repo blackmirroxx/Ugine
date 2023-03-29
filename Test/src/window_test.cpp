@@ -44,7 +44,7 @@ TEST(Window, CloseWindow) {
             std::move(test_window_impl), std::move(test_ui)
     );
     window_proxy->open();
-    EXPECT_CALL(*pt_test_ui, _close());
+    EXPECT_CALL(*pt_test_ui, _remove());
     EXPECT_CALL(*pt_test_window_impl, close());
     window_proxy->close();
 }
@@ -83,9 +83,9 @@ TEST(UI, UINotCreated) {
             test_ui.render(),
             ugine::exception::ui::UINotCreated
     );
-    EXPECT_CALL(test_ui, _close()).Times(0);
+    EXPECT_CALL(test_ui, _remove()).Times(0);
     EXPECT_THROW(
-            test_ui.close(),
+            test_ui.remove(),
             ugine::exception::ui::UINotCreated
     );
 }

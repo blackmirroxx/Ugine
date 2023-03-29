@@ -72,7 +72,7 @@ namespace ugine::window {
         }
 
         void close() const override {
-            if (this->ui) this->ui->close();
+            if (this->ui) this->ui->remove();
             this->window_impl->close();
         }
 

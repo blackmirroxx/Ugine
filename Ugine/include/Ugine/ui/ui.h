@@ -29,7 +29,7 @@ namespace ugine::ui {
 
         /**
          * Create the ui for a specific window
-         * @throw UIAlreadyCreated If the ui is already created for another window, close()
+         * @throw UIAlreadyCreated If the ui is already created for another window, remove()
          * must be called
          * @param window_impl
          */
@@ -42,14 +42,14 @@ namespace ugine::ui {
         }
 
         /**
-         * Close the ui
-         * @throw UINotCreated If close is called before creation
+         * Remove the ui
+         * @throw UINotCreated If remove is called before creation
          */
-        void close() const {
+        void remove() const {
             if (this->pt_window_impl == nullptr) {
                 throw ugine::exception::ui::UINotCreated();
             }
-            this->_close();
+            this->_remove();
         }
 
         /**
@@ -66,7 +66,7 @@ namespace ugine::ui {
     protected:
         virtual void _create() const = 0;
 
-        virtual void _close() const = 0;
+        virtual void _remove() const = 0;
 
         virtual void _render() const = 0;
 
@@ -77,7 +77,7 @@ namespace ugine::ui {
     private:
         void _create() const override;
 
-        void _close() const override;
+        void _remove() const override;
 
         void _render() const override;
     };

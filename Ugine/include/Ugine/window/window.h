@@ -43,7 +43,7 @@ namespace ugine::window {
 
         /**
          * Open a new OS window.
-         * @throw WindowAlreadyCreated If the window is already opened, close() must be called before
+         * @throw WindowAlreadyCreated If the window is already opened, remove() must be called before
          * @param props Property of the window
          */
         virtual void open(const WindowProps &props) = 0;

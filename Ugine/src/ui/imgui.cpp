@@ -66,7 +66,7 @@ void ugine::ui::ImguiUI::_create() const {
     this->pt_window_impl->accept(CreateImguiUI());
 }
 
-void ugine::ui::ImguiUI::_close() const {
+void ugine::ui::ImguiUI::_remove() const {
     this->pt_window_impl->accept(CloseImguiUI());
 }
 
