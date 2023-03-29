@@ -12,11 +12,11 @@ namespace ugine::window {
 
         WindowImplFactory(const WindowImplFactory &) = default;
 
-        WindowImplFactory(WindowImplFactory &&) = default;
+        WindowImplFactory(WindowImplFactory &&) noexcept = default;
 
         WindowImplFactory &operator=(const WindowImplFactory &) = default;
 
-        WindowImplFactory &operator=(WindowImplFactory &&) = default;
+        WindowImplFactory &operator=(WindowImplFactory &&) noexcept = default;
 
         virtual ~WindowImplFactory() = default;
 

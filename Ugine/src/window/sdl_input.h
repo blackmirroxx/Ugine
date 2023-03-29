@@ -3,7 +3,7 @@
 #include "ugine/window/input.h"
 
 namespace ugine::window {
-        class UGINE_API SDLInput final : public Input {
+        class SDLInput final : public Input {
         public:
         [[nodiscard]] bool is_key_pressed(ugine::utils::keycode key) const noexcept override;
 

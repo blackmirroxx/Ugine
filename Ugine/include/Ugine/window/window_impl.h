@@ -5,10 +5,10 @@
 #include "ugine/window/window_visitor.h"
 #include "ugine/ui/ui.h"
 
-
 namespace ugine::window {
 
     class UGINE_API WindowImpl : public Window {
+        /// TODO must be hidden from public api
     public:
         WindowImpl() = default;
 
