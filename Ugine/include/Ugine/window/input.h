@@ -5,7 +5,7 @@
 #include "ugine/utils/keycode.h"
 #include "ugine/utils/mouse_button.h"
 
-namespace ugine {
+namespace ugine::window {
     class UGINE_API Input {
     public:
         Input() = default;
@@ -37,12 +37,4 @@ namespace ugine {
         }
     };
 
-    class UGINE_API SDLInput final : public Input {
-    public:
-        [[nodiscard]] bool is_key_pressed(ugine::utils::keycode key) const noexcept override;
-
-        [[nodiscard]] bool is_mouse_button_pressed(ugine::utils::mouse_button button) const noexcept override;
-
-        [[nodiscard]] std::pair<float, float> get_mouse_position() const noexcept override;
-    };
 }

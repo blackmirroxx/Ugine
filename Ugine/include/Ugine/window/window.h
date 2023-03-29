@@ -4,7 +4,7 @@
 #include "ugine/core.h"
 #include "ugine/event/event.h"
 #include "ugine/renderer.h"
-#include "ugine/input.h"
+#include "ugine/window/input.h"
 
 struct SDL_Window;
 struct SDL_Renderer;

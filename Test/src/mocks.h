@@ -21,7 +21,7 @@ namespace mocks {
         }
     };
 
-    class TestInput final: public ugine::Input {
+    class TestInput final: public ugine::window::Input {
     public:
         [[nodiscard]] bool is_key_pressed(ugine::utils::keycode key_code) const noexcept override {return false;}
         [[nodiscard]] bool is_mouse_button_pressed(ugine::utils::mouse_button button) const noexcept override {return false;}
@@ -48,7 +48,7 @@ namespace mocks {
         void test_dispatch(const ugine::event::Event& event) const {
             this->dispatch(event);
         }
-        [[nodiscard]] const ugine::Input& get_input() const noexcept override {
+        [[nodiscard]] const ugine::window::Input& get_input() const noexcept override {
             return this->input;
         }
     private:

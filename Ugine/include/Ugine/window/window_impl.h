@@ -60,7 +60,7 @@ namespace ugine::window {
             this->window_impl->close();
         }
 
-        [[nodiscard]] const ugine::Input &get_input() const noexcept override {
+        [[nodiscard]] const ugine::window::Input &get_input() const noexcept override {
             return this->window_impl->get_input();
         }
 

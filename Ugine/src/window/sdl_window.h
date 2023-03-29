@@ -2,6 +2,7 @@
 
 #include "ugine/pch.h"
 #include "ugine/window/window_impl.h"
+#include "sdl_input.h"
 #include <SDL.h>
 
 
@@ -32,7 +33,7 @@ namespace ugine::window {
          */
         void on_sdl_event(sdl_event_cb_type callback) noexcept;
 
-        [[nodiscard]] const ugine::Input &get_input() const noexcept override {
+        [[nodiscard]] const ugine::window::Input &get_input() const noexcept override {
             return this->input;
         }
 
@@ -42,7 +43,7 @@ namespace ugine::window {
         void dispatch_sdl_event(const SDL_Event &sdl_event) const noexcept;
 
         SDL_Window *sdl_window{nullptr};
-        ugine::SDLInput input;
+        ugine::window::SDLInput input;
         std::vector<sdl_event_cb_type> sdl_event_cb;
     };
 
