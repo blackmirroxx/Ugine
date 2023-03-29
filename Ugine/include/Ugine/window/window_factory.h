@@ -2,8 +2,6 @@
 
 #include "ugine/pch.h"
 #include "ugine/core.h"
-#include "ugine/graphic/graphic_context.h"
-#include "ugine/platfrom.h"
 
 namespace ugine::window {
     class WindowImpl;
@@ -26,22 +24,22 @@ namespace ugine::window {
          * Create a window embedded with a graphic api which fit best the current platform.
          * @return WindowImpl
          */
-        [[nodiscard]] virtual std::unique_ptr<ugine::window::WindowImpl> create() const = 0;
+        [[nodiscard]] virtual std::unique_ptr<WindowImpl> create() const = 0;
     };
 
     class UGINE_API WindowsWindowFactory final : public WindowImplFactory {
     public:
-        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create() const override;
+        [[nodiscard]] std::unique_ptr<WindowImpl> create() const override;
     };
 
     class UGINE_API LinuxWindowFactory final : public WindowImplFactory {
     public:
-        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create() const override;
+        [[nodiscard]] std::unique_ptr<WindowImpl> create() const override;
     };
 
     class UGINE_API AppleWindowFactory final : public WindowImplFactory {
     public:
-        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create() const override;
+        [[nodiscard]] std::unique_ptr<WindowImpl> create() const override;
     };
 
 }

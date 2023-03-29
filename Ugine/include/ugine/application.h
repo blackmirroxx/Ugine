@@ -1,6 +1,5 @@
 #pragma once
 
-#include "ugine/pch.h"
 #include "ugine/core.h"
 #include "ugine/signals.h"
 #include "ugine/window/window.h"
@@ -12,7 +11,7 @@
 #include "ugine/event/window_event.h"
 
 namespace ugine {
-    class UGINE_API Application : public ugine::event::EventHandlerMixin {
+    class UGINE_API Application : public event::EventHandlerMixin {
     public:
         Application() = default;
 
@@ -65,7 +64,7 @@ namespace ugine {
 
         [[nodiscard]] bool is_running() const noexcept { return running; }
 
-        SceneManager<Scene2D> &get_scene_manager() noexcept { return *this->pt_scene_manager; }
+        [[nodiscard]] SceneManager<Scene2D> &get_scene_manager() const noexcept { return *this->pt_scene_manager; }
 
     private:
         void handle(const ugine::event::WindowQuit &event) final {
@@ -75,7 +74,7 @@ namespace ugine {
 
         void start_loop();
 
-        void on_game_loop();
+        void on_game_loop() const;
 
         bool running = false;
         std::unique_ptr<window::Window> pt_window;

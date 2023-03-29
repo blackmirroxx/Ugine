@@ -19,7 +19,7 @@ void ugine::Application2D::start_loop() {
     }
 }
 
-void ugine::Application2D::on_game_loop() {
+void ugine::Application2D::on_game_loop() const {
     this->pt_window->on_update();
     this->pt_window->render();
 }

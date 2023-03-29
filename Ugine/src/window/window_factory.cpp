@@ -3,13 +3,13 @@
 #include "sdl_window.h"
 
 std::unique_ptr<ugine::window::WindowImpl> ugine::window::WindowsWindowFactory::create() const {
-    return std::make_unique<ugine::window::SDLGlWindow>();
+    return std::make_unique<SDLGlWindow>();
 }
 
 std::unique_ptr<ugine::window::WindowImpl> ugine::window::LinuxWindowFactory::create() const {
-    return std::make_unique<ugine::window::SDLGlWindow>();
+    return std::make_unique<SDLGlWindow>();
 }
 
 std::unique_ptr<ugine::window::WindowImpl> ugine::window::AppleWindowFactory::create() const {
-    return std::make_unique<ugine::window::SDLGlWindow>();
+    return std::make_unique<SDLGlWindow>();
 }

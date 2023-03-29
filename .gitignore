@@ -71,3 +71,6 @@ out
 # jetbrains
 *.DotSettings.user
 .idea
+
+# other
+*.ini

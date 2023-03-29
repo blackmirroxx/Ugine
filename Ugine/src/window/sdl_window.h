@@ -2,8 +2,6 @@
 
 #include "ugine/pch.h"
 #include "ugine/window/window_impl.h"
-#include "ugine/graphic/graphic_context.h"
-#include "../graphic/opengl.h"
 #include <SDL.h>
 
 

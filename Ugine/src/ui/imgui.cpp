@@ -3,7 +3,7 @@
 #include "backends/imgui_impl_sdl2.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "ugine/log.h"
-#include "ugine/event/keyboard_event.h"
+#include "../graphic/opengl.h"
 #include "../window/sdl_window.h"
 
 
@@ -12,11 +12,7 @@ namespace {
     public:
         void visit(ugine::window::SDLGlWindow &window) const override {
             UGINE_CORE_INFO("Creating Imgui");
-            const auto glsl_version = std::string("#version " + std::to_string(
-                    ugine::graphic::OpenGl::OPENGL_MAJOR_VERSION) +
-                                                  std::to_string(ugine::graphic::OpenGl::OPENGL_MINOR_VERSION)
-                                                  + "0");
-            window.on_sdl_event([](const SDL_Event &sdl_event) {
+		    window.on_sdl_event([](const SDL_Event &sdl_event) {
                 ImGui_ImplSDL2_ProcessEvent(&sdl_event);
             });
             IMGUI_CHECKVERSION();
@@ -27,7 +23,12 @@ namespace {
             gui_io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;       // Enable Multi-Viewport / Platform Windows
             ImGui::StyleColorsDark();
             ImGui_ImplSDL2_InitForOpenGL(window.get_sdl_window(), window.get_gl_context());
-            ImGui_ImplOpenGL3_Init(glsl_version.c_str());
+            ImGui_ImplOpenGL3_Init(
+	std::string("#version " + std::to_string( ugine::graphic::OpenGl::OPENGL_MAJOR_VERSION) +
+                                                  std::to_string(ugine::graphic::OpenGl::OPENGL_MINOR_VERSION)
+                                                  + "0").c_str()
+
+            );
         }
     };
 
@@ -35,7 +36,7 @@ namespace {
     public:
         void visit(ugine::window::SDLGlWindow &window) const override {
             bool show_demo = true;
-            ImGuiIO &gui_io = ImGui::GetIO();
+            const ImGuiIO &gui_io = ImGui::GetIO();
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplSDL2_NewFrame();
             ImGui::NewFrame();

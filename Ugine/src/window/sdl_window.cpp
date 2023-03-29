@@ -5,6 +5,7 @@
 #include "ugine/event/mouse_event.h"
 #include "ugine/event/keyboard_event.h"
 #include "../utils/key_mapping.h"
+#include "../graphic/opengl.h"
 #include "sdl_window.h"
 
 static int i_count = 0;
@@ -67,36 +68,36 @@ void ugine::window::SDLWindow::on_update() const {
             this->dispatch(ugine::event::WindowQuit());
         }
         if (event.type == SDL_MOUSEMOTION) {
-            auto *motion_event = reinterpret_cast<SDL_MouseMotionEvent *>(&event);
+            const auto *motion_event = reinterpret_cast<SDL_MouseMotionEvent *>(&event);
             this->dispatch(
                     ugine::event::MouseMove{static_cast<float>(motion_event->x), static_cast<float>(motion_event->y)});
         }
         if (event.type == SDL_MOUSEBUTTONUP) {
-            auto *button_up_event = reinterpret_cast<SDL_MouseButtonEvent *>(&event);
+            const auto *button_up_event = reinterpret_cast<SDL_MouseButtonEvent *>(&event);
             this->dispatch(ugine::event::MouseUp{ugine::utils::sdl_button_to_mouse_button(button_up_event->button),
                                                  static_cast<float>(button_up_event->x),
                                                  static_cast<float>(button_up_event->y)
             });
         }
         if (event.type == SDL_MOUSEBUTTONDOWN) {
-            auto *button_down_event = reinterpret_cast<SDL_MouseButtonEvent *>(&event);
+            const auto *button_down_event = reinterpret_cast<SDL_MouseButtonEvent *>(&event);
             this->dispatch(ugine::event::MouseDown{ugine::utils::sdl_button_to_mouse_button(button_down_event->button),
                                                    static_cast<float>(button_down_event->x),
                                                    static_cast<float>(button_down_event->y)
             });
         }
         if (event.type == SDL_MOUSEWHEEL) {
-            auto *mouse_wheel_event = reinterpret_cast<SDL_MouseWheelEvent *>(&event);
+            const auto *mouse_wheel_event = reinterpret_cast<SDL_MouseWheelEvent *>(&event);
             this->dispatch(ugine::event::MouseWheel{mouse_wheel_event->preciseX, mouse_wheel_event->preciseY});
         }
         if (event.type == SDL_KEYUP) {
-            auto *key_up_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
+            const auto *key_up_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
             this->dispatch(ugine::event::KeyUp(ugine::utils::sdl_keycode_to_keycode(key_up_event->keysym.sym)));
         }
         if (event.type == SDL_KEYDOWN) {
-            auto *key_down_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
+            const auto *key_down_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
             this->dispatch(ugine::event::KeyDown(ugine::utils::sdl_keycode_to_keycode(key_down_event->keysym.sym),
-                                                 bool(key_down_event->repeat)));
+                                                 static_cast<bool>(key_down_event->repeat)));
         }
     }
 }

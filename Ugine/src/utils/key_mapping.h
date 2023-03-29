@@ -488,17 +488,17 @@ namespace ugine::utils {
     }
 
 
-    constexpr Uint8 mouse_button_to_sdl_button(ugine::utils::mouse_button button) {
+    constexpr Uint8 mouse_button_to_sdl_button(mouse_button button) {
         switch (button) {
-            case ugine::utils::mouse_button::ButtonLeft:
+            case ButtonLeft:
                 return SDL_BUTTON_LEFT;
-            case ugine::utils::mouse_button::ButtonRight:
+            case ButtonRight:
                 return SDL_BUTTON_RIGHT;
-            case ugine::utils::mouse_button::ButtonMiddle:
+            case ButtonMiddle:
                 return SDL_BUTTON_MIDDLE;
-            case ugine::utils::mouse_button::Button3:
+            case Button3:
                 return SDL_BUTTON_X1;
-            case ugine::utils::mouse_button::Button4:
+            case Button4:
                 return SDL_BUTTON_X2;
         }
         return 0;
@@ -507,16 +507,16 @@ namespace ugine::utils {
     constexpr mouse_button sdl_button_to_mouse_button(Uint8 button) {
         switch (button) {
             case SDL_BUTTON_LEFT:
-                return mouse_button::ButtonLeft;
+                return ButtonLeft;
             case SDL_BUTTON_RIGHT:
-                return mouse_button::ButtonRight;
+                return ButtonRight;
             case SDL_BUTTON_MIDDLE:
-                return mouse_button::ButtonMiddle;
+                return ButtonMiddle;
             case SDL_BUTTON_X1:
-                return mouse_button::Button3;
+                return Button3;
             case SDL_BUTTON_X2:
-                return mouse_button::Button4;
+                return Button4;
         }
-        return mouse_button::Button0;
+        return Button0;
     }
 }
