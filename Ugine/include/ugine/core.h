@@ -2,10 +2,6 @@
 
 #define SDL_MAIN_HANDLED
 
-#ifndef _WIN64
-#error Ugine only support Windows
-#endif
-
 
 #if defined(UGINE_SHARED_LIB)
 #if defined(_MSC_VER)

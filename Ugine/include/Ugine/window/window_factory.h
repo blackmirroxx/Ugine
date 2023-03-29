@@ -22,30 +22,34 @@ namespace ugine::window {
 
         virtual ~WindowImplFactory() = default;
 
-        [[nodiscard]] virtual std::unique_ptr<ugine::window::WindowImpl> create_with_opengl() const = 0;
+        /**
+         * Create a window embedded with a graphic api which fit best the current platform.
+         * @return WindowImpl
+         */
+        [[nodiscard]] virtual std::unique_ptr<ugine::window::WindowImpl> create() const = 0;
     };
 
     class UGINE_API WindowsWindowFactory final : public WindowImplFactory {
     public:
-        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create_with_opengl() const override;
+        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create() const override;
     };
 
     class UGINE_API LinuxWindowFactory final : public WindowImplFactory {
     public:
-        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create_with_opengl() const override;
+        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create() const override;
     };
 
     class UGINE_API AppleWindowFactory final : public WindowImplFactory {
     public:
-        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create_with_opengl() const override;
+        [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create() const override;
     };
 
 }
 
 #ifdef UGINE_PLATFORM_APPLE
-    #define UGINE_WINDOW_FACTORY ugine::window::AppleWindowFactor()
-#elif UGINE_PLATFORM_LINUX
-    #define UGINE_WINDOW_FACTORY ugine::window::LinuxWindowFactor()
+    #define UGINE_WINDOW_FACTORY ugine::window::AppleWindowFactor
+#elif defined(UGINE_PLATFORM_LINUX)
+    #define UGINE_WINDOW_FACTORY ugine::window::LinuxWindowFactory
 #else
-    #define UGINE_WINDOW_FACTORY ugine::window::WindowsWindowFactory()
+    #define UGINE_WINDOW_FACTORY ugine::window::WindowsWindowFactory
 #endif

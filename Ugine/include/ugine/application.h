@@ -38,7 +38,7 @@ namespace ugine {
     class UGINE_API Application2D : public Application {
     public:
         explicit Application2D(std::unique_ptr<window::Window> pt_window =
-        std::make_unique<window::WindowProxy>(UGINE_WINDOW_FACTORY.create_with_opengl(),
+        std::make_unique<window::WindowProxy>(UGINE_WINDOW_FACTORY().create(),
                                               std::make_unique<ui::ImguiUI>()),
                                std::unique_ptr<SceneManager<Scene2D>> scene_manager = std::make_unique<SceneManager2D>(),
                                const window::WindowProps &props = {}
