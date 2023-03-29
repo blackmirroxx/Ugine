@@ -65,38 +65,38 @@ void ugine::window::SDLWindow::on_update() const {
     if (SDL_PollEvent(&event) != 0) {
         this->dispatch_sdl_event(event);
         if (event.type == SDL_QUIT) {
-            this->dispatch(ugine::event::WindowQuit());
+            this->dispatch(event::WindowQuit());
         }
         if (event.type == SDL_MOUSEMOTION) {
-            const auto *motion_event = reinterpret_cast<SDL_MouseMotionEvent *>(&event);
+            const auto *const motion_event = reinterpret_cast<SDL_MouseMotionEvent *>(&event);
             this->dispatch(
-                    ugine::event::MouseMove{static_cast<float>(motion_event->x), static_cast<float>(motion_event->y)});
+                    event::MouseMove{static_cast<float>(motion_event->x), static_cast<float>(motion_event->y)});
         }
         if (event.type == SDL_MOUSEBUTTONUP) {
-            const auto *button_up_event = reinterpret_cast<SDL_MouseButtonEvent *>(&event);
-            this->dispatch(ugine::event::MouseUp{ugine::utils::sdl_button_to_mouse_button(button_up_event->button),
+            const auto *const button_up_event = reinterpret_cast<SDL_MouseButtonEvent *>(&event);
+            this->dispatch(event::MouseUp{utils::sdl_button_to_mouse_button(button_up_event->button),
                                                  static_cast<float>(button_up_event->x),
                                                  static_cast<float>(button_up_event->y)
             });
         }
         if (event.type == SDL_MOUSEBUTTONDOWN) {
-            const auto *button_down_event = reinterpret_cast<SDL_MouseButtonEvent *>(&event);
-            this->dispatch(ugine::event::MouseDown{ugine::utils::sdl_button_to_mouse_button(button_down_event->button),
+            const auto *const button_down_event = reinterpret_cast<SDL_MouseButtonEvent *>(&event);
+            this->dispatch(event::MouseDown{utils::sdl_button_to_mouse_button(button_down_event->button),
                                                    static_cast<float>(button_down_event->x),
                                                    static_cast<float>(button_down_event->y)
             });
         }
         if (event.type == SDL_MOUSEWHEEL) {
-            const auto *mouse_wheel_event = reinterpret_cast<SDL_MouseWheelEvent *>(&event);
-            this->dispatch(ugine::event::MouseWheel{mouse_wheel_event->preciseX, mouse_wheel_event->preciseY});
+            const auto *const mouse_wheel_event = reinterpret_cast<SDL_MouseWheelEvent *>(&event);
+            this->dispatch(event::MouseWheel{mouse_wheel_event->preciseX, mouse_wheel_event->preciseY});
         }
         if (event.type == SDL_KEYUP) {
-            const auto *key_up_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
-            this->dispatch(ugine::event::KeyUp(ugine::utils::sdl_keycode_to_keycode(key_up_event->keysym.sym)));
+            const auto *const key_up_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
+            this->dispatch(event::KeyUp(utils::sdl_keycode_to_keycode(key_up_event->keysym.sym)));
         }
         if (event.type == SDL_KEYDOWN) {
-            const auto *key_down_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
-            this->dispatch(ugine::event::KeyDown(ugine::utils::sdl_keycode_to_keycode(key_down_event->keysym.sym),
+            const auto *const key_down_event = reinterpret_cast<SDL_KeyboardEvent *>(&event);
+            this->dispatch(event::KeyDown(utils::sdl_keycode_to_keycode(key_down_event->keysym.sym),
                                                  static_cast<bool>(key_down_event->repeat)));
         }
     }
@@ -119,7 +119,7 @@ void ugine::window::SDLWindow::dispatch_sdl_event(const SDL_Event &sdl_event) co
     }
 }
 
-void ugine::window::SDLWindow::on_sdl_event(ugine::window::SDLWindow::sdl_event_cb_type callback) noexcept {
+void ugine::window::SDLWindow::on_sdl_event(sdl_event_cb_type callback) noexcept {
     this->sdl_event_cb.push_back(std::move(callback));
 }
 
