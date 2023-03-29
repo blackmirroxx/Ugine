@@ -69,7 +69,7 @@ namespace ugine::window {
 
         [[nodiscard]] SDL_GLContext get_gl_context() const noexcept { return this->gl_context; }
 
-        void create(const window::WindowProps &props) override;
+        void open(const window::WindowProps &props) override;
 
         void render() const override;
 

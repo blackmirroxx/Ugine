@@ -24,7 +24,7 @@ ugine::window::SDLWindow::SDLWindow() {
     }
 }
 
-void ugine::window::SDLGlWindow::create(const window::WindowProps &props) {
+void ugine::window::SDLGlWindow::open(const window::WindowProps &props) {
     if (this->sdl_window != nullptr) {
         throw ugine::exception::window::WindowAlreadyCreated();
     }

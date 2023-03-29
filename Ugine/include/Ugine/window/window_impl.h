@@ -7,12 +7,28 @@
 
 namespace ugine::window {
 
-    class UGINE_API WindowImpl : public Window {
+    class UGINE_API WindowImpl {
         /// TODO must be hidden from public api
     public:
+        using event_cb_type = std::function<void(const ugine::event::Event &)>;
         WindowImpl() = default;
+        WindowImpl(const WindowImpl&) = delete;
+        WindowImpl(WindowImpl&&) = delete;
+        WindowImpl& operator=(const WindowImpl&) = delete;
+        WindowImpl& operator=(WindowImpl&&) = delete;
+        virtual ~WindowImpl() = default;
 
-        void on_event(event_cb_type callback) noexcept override {
+        virtual void open(const WindowProps &props) = 0;
+
+        virtual void close() const = 0;
+
+        virtual void render() const = 0;
+
+        virtual void on_update() const = 0;
+
+        [[nodiscard]] virtual const Input &get_input() const noexcept = 0;
+
+        void on_event(event_cb_type callback) noexcept {
             this->event_cb.push_back(std::move(callback));
         }
 
@@ -29,10 +45,10 @@ namespace ugine::window {
         std::vector<event_cb_type> event_cb;
     };
 
-    class UGINE_API WindowProxy final : public Window {
+    class UGINE_API BaseWindow : public Window {
     public:
-        explicit WindowProxy(std::unique_ptr<WindowImpl> window_impl,
-                             std::unique_ptr<ui::UI> ui = nullptr) :
+        explicit BaseWindow(std::unique_ptr<WindowImpl> window_impl,
+                            std::unique_ptr<ui::UI> ui) :
                 window_impl(std::move(window_impl)), ui(std::move(ui)) {
         }
 
@@ -40,8 +56,8 @@ namespace ugine::window {
             this->window_impl->on_event(std::move(callback));
         }
 
-        void create(const ugine::window::WindowProps &props = {}) override {
-            this->window_impl->create(props);
+        void open(const ugine::window::WindowProps &props = {}) override {
+            this->window_impl->open(props);
             if (this->ui) this->ui->create(*this->window_impl);
             UGINE_CORE_INFO("Window {0} of {1}x{2}px created", props.title, props.height, props.width);
         }
@@ -64,9 +80,37 @@ namespace ugine::window {
             return this->window_impl->get_input();
         }
 
+        [[nodiscard]] virtual std::unique_ptr<WindowImpl> create() const = 0;
+
     private:
         std::unique_ptr<WindowImpl> window_impl;
         std::unique_ptr<ugine::ui::UI> ui;
     };
 
+    class UGINE_API WindowsWindow final : public BaseWindow {
+    public:
+        explicit WindowsWindow(std::unique_ptr<ui::UI> ui = nullptr): BaseWindow(this->create(), std::move(ui)) {}
+        [[nodiscard]] std::unique_ptr<WindowImpl> create() const override;
+    };
+
+    class UGINE_API LinuxWindow final : public BaseWindow {
+    public:
+        explicit LinuxWindow(std::unique_ptr<ui::UI> ui = nullptr): BaseWindow(this->create(), std::move(ui)) {}
+        [[nodiscard]] std::unique_ptr<WindowImpl> create() const override;
+    };
+
+    class UGINE_API AppleWindow final : public BaseWindow {
+    public:
+        explicit AppleWindow(std::unique_ptr<ui::UI> ui = nullptr): BaseWindow(this->create(), std::move(ui)) {}
+        [[nodiscard]] std::unique_ptr<WindowImpl> create() const override;
+    };
 }
+
+#ifdef UGINE_PLATFORM_APPLE
+#define UGINE_WINDOW_FACTORY ugine::window::AppleWindow
+#elif defined(UGINE_PLATFORM_LINUX)
+#define UGINE_WINDOW_FACTORY ugine::window::LinuxWindow
+#else
+#define UGINE_WINDOW_FACTORY ugine::window::WindowsWindow
+#endif
+

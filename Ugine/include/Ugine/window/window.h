@@ -9,12 +9,9 @@
 struct SDL_Window;
 struct SDL_Renderer;
 
-namespace ugine::ui {
-    class UI;
-}
 
 namespace ugine::window {
-
+    class WindowImpl;
     struct UGINE_API WindowProps {
         std::string title = "Default title";
         int height = 650;
@@ -45,12 +42,11 @@ namespace ugine::window {
         virtual void on_event(event_cb_type callback) noexcept = 0;
 
         /**
-         * Create a new OS window, if the window is already created a
-         * WindowAlreadyCreated exception is thrown, to recreate the window you
-         * must call close before.
+         * Open a new OS window.
+         * @throw WindowAlreadyCreated If the window is already opened, close() must be called before
          * @param props Property of the window
          */
-        virtual void create(const WindowProps &props) = 0;
+        virtual void open(const WindowProps &props) = 0;
 
         /**
          * Close the window if it has been created, otherwise does nothing
@@ -65,7 +61,9 @@ namespace ugine::window {
         virtual void on_update() const = 0;
 
         [[nodiscard]] virtual const Input &get_input() const noexcept = 0;
+
     };
 
 }
+
 

@@ -4,7 +4,6 @@
 #include "ugine/signals.h"
 #include "ugine/window/window.h"
 #include "ugine/window/window_impl.h"
-#include "ugine/window/window_factory.h"
 #include "ugine/renderer.h"
 #include "ugine/scene.h"
 #include "ugine/event/event_handler.h"
@@ -37,13 +36,12 @@ namespace ugine {
     class UGINE_API Application2D : public Application {
     public:
         explicit Application2D(std::unique_ptr<window::Window> pt_window =
-        std::make_unique<window::WindowProxy>(UGINE_WINDOW_FACTORY().create(),
-                                              std::make_unique<ui::ImguiUI>()),
+        std::make_unique<UGINE_WINDOW_FACTORY>( std::make_unique<ui::ImguiUI>()),
                                std::unique_ptr<SceneManager<Scene2D>> scene_manager = std::make_unique<SceneManager2D>(),
                                const window::WindowProps &props = {}
         )
                 : pt_window(std::move(pt_window)), pt_scene_manager(std::move(scene_manager)) {
-            this->pt_window->create(props);
+            this->pt_window->open(props);
             this->pt_window->on_event([this](const ugine::event::Event &event) {
                 UGINE_CORE_TRACE("Event {0}", event.to_string());
                 this->handle_event(event);

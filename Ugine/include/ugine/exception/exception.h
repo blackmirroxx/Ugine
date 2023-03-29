@@ -31,7 +31,7 @@ namespace ugine::exception {
 
         class UGINE_API UINotCreated : public std::runtime_error {
         public:
-            UINotCreated() : std::runtime_error("No UI is created, you must call create before") {}
+            UINotCreated() : std::runtime_error("No UI is created, you must call open before") {}
         };
     }
 }

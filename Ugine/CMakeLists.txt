@@ -2,7 +2,7 @@
 set(SOURCES
         src/application.cpp src/component.cpp src/log.cpp
         src/renderer.cpp src/scene.cpp src/window/sdl_window.cpp
-        src/event.cpp src/window/input.cpp src/pch.cpp src/ui/imgui.cpp src/window/window_factory.cpp src/graphic/opengl.cpp)
+        src/event.cpp src/window/input.cpp src/pch.cpp src/ui/imgui.cpp src/window/window.cpp src/graphic/opengl.cpp)
 
 set(HEADERS
         include/ugine/application.h include/ugine/component.h include/ugine/core.h
@@ -14,7 +14,7 @@ set(HEADERS
         include/ugine/exception/exception.h
         "include/ugine/window/input.h" include/ugine/pch.h include/ugine/ui/ui.h include/ugine/window/window_impl.h
         include/ugine/window/window_visitor.h include/ugine/event/event_handler.h include/ugine/utils/keycode.h
-        src/utils/key_mapping.h include/ugine/utils/mouse_button.h include/ugine/window/window_factory.h include/ugine/graphic/graphic_context.h src/window/sdl_window.h src/graphic/opengl.h include/ugine/platfrom.h src/window/sdl_input.h)
+        src/utils/key_mapping.h include/ugine/utils/mouse_button.h include/ugine/graphic/graphic_context.h src/window/sdl_window.h src/graphic/opengl.h include/ugine/platfrom.h src/window/sdl_input.h)
 
 add_library(Ugine-public-options INTERFACE)
 add_library(Ugine-private-options INTERFACE)

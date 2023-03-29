@@ -29,6 +29,8 @@ namespace ugine::ui {
 
         /**
          * Create the ui for a specific window
+         * @throw UIAlreadyCreated If the ui is already created for another window, close()
+         * must be called
          * @param window_impl
          */
         void create(ugine::window::WindowImpl &window_impl) {
@@ -39,6 +41,10 @@ namespace ugine::ui {
             this->_create();
         }
 
+        /**
+         * Close the ui
+         * @throw UINotCreated If close is called before creation
+         */
         void close() const {
             if (this->pt_window_impl == nullptr) {
                 throw ugine::exception::ui::UINotCreated();
@@ -46,6 +52,10 @@ namespace ugine::ui {
             this->_close();
         }
 
+        /**
+         * Render the ui on the window
+         * @throw UINotCreated If render is called before creation
+         */
         void render() const {
             if (this->pt_window_impl == nullptr) {
                 throw ugine::exception::ui::UINotCreated();
