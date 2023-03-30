@@ -5,7 +5,7 @@
 
 #if defined(UGINE_SHARED_LIB)
 #if defined(_MSC_VER)
-#ifdef U_BUILD_DLL
+#ifdef UGINE_BUILD
 #define UGINE_API __declspec(dllexport)
 #else
 #define UGINE_API _declspec(dllimport)

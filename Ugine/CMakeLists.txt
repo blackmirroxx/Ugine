@@ -30,19 +30,19 @@ target_include_directories(Ugine-public-options
         )
 
 target_compile_definitions(Ugine-private-options
-        INTERFACE U_BUILD_DLL
+        INTERFACE UGINE_BUILD
         )
 
 target_link_libraries(Ugine-private-options
         INTERFACE SDL2::SDL2-static
         INTERFACE SDL2_image::SDL2_image-static
         INTERFACE glad::4.1-static
-        INTERFACE imgui-static
+        INTERFACE imgui::imgui-static
         INTERFACE glm::glm_static
         )
 
 target_link_libraries(Ugine-public-options
-        INTERFACE spdlog::spdlog
+            INTERFACE spdlog::spdlog
         )
 
 if (UGINE_SHARED_LIBRARY OR BUILD_SHARED_LIBS)

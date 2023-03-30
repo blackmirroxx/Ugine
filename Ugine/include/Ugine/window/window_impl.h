@@ -8,7 +8,6 @@
 namespace ugine::window {
 
     class UGINE_API WindowImpl {
-        /// TODO must be hidden from public api
     public:
         using event_cb_type = std::function<void(const ugine::event::Event &)>;
         WindowImpl() = default;
@@ -32,6 +31,7 @@ namespace ugine::window {
             this->event_cb.push_back(std::move(callback));
         }
 
+        /// TODO must be hidden from public api (can be hidden thank to UGINE_BUILD macro)
         virtual void accept(const WindowImplVisitor &) = 0;
 
     protected:
@@ -49,8 +49,7 @@ namespace ugine::window {
     public:
         explicit BaseWindow(std::unique_ptr<WindowImpl> window_impl,
                             std::unique_ptr<ui::UI> ui) :
-                window_impl(std::move(window_impl)), ui(std::move(ui)) {
-        }
+                window_impl(std::move(window_impl)), ui(std::move(ui)) {}
 
         void on_event(event_cb_type callback) noexcept override {
             this->window_impl->on_event(std::move(callback));
