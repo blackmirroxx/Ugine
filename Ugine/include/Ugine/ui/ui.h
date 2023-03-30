@@ -33,12 +33,12 @@ namespace ugine::ui {
          * must be called
          * @param window_impl
          */
-        void create(ugine::window::WindowImpl &window_impl) {
+        void add(ugine::window::WindowImpl &window_impl) {
             if (this->pt_window_impl != nullptr) {
                 throw ugine::exception::ui::UIAlreadyCreated();
             }
             this->pt_window_impl = &window_impl;
-            this->_create();
+            this->_add();
         }
 
         /**
@@ -64,7 +64,7 @@ namespace ugine::ui {
         }
 
     protected:
-        virtual void _create() const = 0;
+        virtual void _add() const = 0;
 
         virtual void _remove() const = 0;
 
@@ -75,7 +75,7 @@ namespace ugine::ui {
 
     class UGINE_API ImguiUI final : public UI {
     private:
-        void _create() const override;
+        void _add() const override;
 
         void _remove() const override;
 

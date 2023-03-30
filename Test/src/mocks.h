@@ -29,7 +29,7 @@ namespace mocks {
 
     class TestUI final: public ugine::ui::UI {
     public:
-        MOCK_METHOD(void, _create, (), (const, override));
+        MOCK_METHOD(void, _add, (), (const, override));
         MOCK_METHOD(void, _remove, (), (const, override));
         MOCK_METHOD(void, _render, (), (const, override));
     };

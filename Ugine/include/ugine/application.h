@@ -10,7 +10,7 @@
 #include "ugine/event/window_event.h"
 
 namespace ugine {
-    class UGINE_API Application : public event::EventHandlerMixin {
+    class UGINE_API Application : protected event::EventHandlerMixin {
     public:
         Application() = default;
 
@@ -36,7 +36,7 @@ namespace ugine {
     class UGINE_API Application2D : public Application {
     public:
         explicit Application2D(std::unique_ptr<window::Window> pt_window =
-        std::make_unique<UGINE_WINDOW_FACTORY>( std::make_unique<ui::ImguiUI>()),
+        std::make_unique<UGINE_WINDOW>( std::make_unique<ui::ImguiUI>()),
                                std::unique_ptr<SceneManager<Scene2D>> scene_manager = std::make_unique<SceneManager2D>(),
                                const window::WindowProps &props = {}
         )

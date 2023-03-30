@@ -58,7 +58,7 @@ namespace ugine::window {
 
         void open(const ugine::window::WindowProps &props = {}) override {
             this->window_impl->open(props);
-            if (this->ui) this->ui->create(*this->window_impl);
+            if (this->ui) this->ui->add(*this->window_impl);
             UGINE_CORE_INFO("Window {0} of {1}x{2}px created", props.title, props.height, props.width);
         }
 
@@ -80,6 +80,7 @@ namespace ugine::window {
             return this->window_impl->get_input();
         }
 
+    protected:
         [[nodiscard]] virtual std::unique_ptr<WindowImpl> create() const = 0;
 
     private:
@@ -90,27 +91,30 @@ namespace ugine::window {
     class UGINE_API WindowsWindow final : public BaseWindow {
     public:
         explicit WindowsWindow(std::unique_ptr<ui::UI> ui = nullptr): BaseWindow(this->create(), std::move(ui)) {}
+    private:
         [[nodiscard]] std::unique_ptr<WindowImpl> create() const override;
     };
 
     class UGINE_API LinuxWindow final : public BaseWindow {
     public:
         explicit LinuxWindow(std::unique_ptr<ui::UI> ui = nullptr): BaseWindow(this->create(), std::move(ui)) {}
+    private:
         [[nodiscard]] std::unique_ptr<WindowImpl> create() const override;
     };
 
     class UGINE_API AppleWindow final : public BaseWindow {
     public:
         explicit AppleWindow(std::unique_ptr<ui::UI> ui = nullptr): BaseWindow(this->create(), std::move(ui)) {}
+    private:
         [[nodiscard]] std::unique_ptr<WindowImpl> create() const override;
     };
 }
 
 #ifdef UGINE_PLATFORM_APPLE
-#define UGINE_WINDOW_FACTORY ugine::window::AppleWindow
+#define UGINE_WINDOW ugine::window::AppleWindow
 #elif defined(UGINE_PLATFORM_LINUX)
-#define UGINE_WINDOW_FACTORY ugine::window::LinuxWindow
+#define UGINE_WINDOW ugine::window::LinuxWindow
 #else
-#define UGINE_WINDOW_FACTORY ugine::window::WindowsWindow
+#define UGINE_WINDOW ugine::window::WindowsWindow
 #endif
 

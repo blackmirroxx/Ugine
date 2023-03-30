@@ -62,7 +62,7 @@ namespace {
 }
 
 
-void ugine::ui::ImguiUI::_create() const {
+void ugine::ui::ImguiUI::_add() const {
     this->pt_window_impl->accept(CreateImguiUI());
 }
 
