@@ -2,8 +2,8 @@
 
 #include "ugine/pch.h"
 #include "ugine/window/window.h"
-#include "ugine/window/window_visitor.h"
 #include "ugine/ui/ui.h"
+#include "ugine/window/window_visitor.h"
 
 namespace ugine::window {
 
@@ -31,7 +31,7 @@ namespace ugine::window {
             this->event_cb.push_back(std::move(callback));
         }
 
-        /// TODO must be hidden from public api (can be hidden thank to UGINE_BUILD macro)
+        // TODO must be hidden from public api (can be hidden thank to UGINE_BUILD macro)
         virtual void accept(const WindowImplVisitor &) = 0;
 
     protected:

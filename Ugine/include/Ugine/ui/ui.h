@@ -2,7 +2,6 @@
 
 #include "ugine/core.h"
 #include "ugine/exception/exception.h"
-#include "ugine/window/window_visitor.h"
 #include "ugine/event/event_handler.h"
 
 struct SDL_Window;

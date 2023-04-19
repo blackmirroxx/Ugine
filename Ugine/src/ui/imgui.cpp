@@ -2,6 +2,7 @@
 #include "imgui.h"
 #include "backends/imgui_impl_sdl2.h"
 #include "backends/imgui_impl_opengl3.h"
+#include "ugine/window/window_visitor.h"
 #include "ugine/log.h"
 #include "../graphic/opengl.h"
 #include "../window/sdl_window.h"

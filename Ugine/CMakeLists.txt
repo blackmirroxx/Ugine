@@ -57,7 +57,7 @@ else ()
     add_library(Ugine-static STATIC ${SOURCES} ${HEADERS})
     add_library(Ugine::Ugine-static ALIAS Ugine-static)
     target_compile_definitions(Ugine-static
-            PUBLIC $<$<BOOL:UGINE_LOGGING>:UGINE_DEBUG>
+            PUBLIC $<$<BOOL:UGINE_DEBUG>:UGINE_DEBUG>
             )
     add_options(Ugine-static)
 endif ()

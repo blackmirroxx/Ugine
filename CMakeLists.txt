@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 option(UGINE_SHARED_LIBRARY "Build shared library" ${BUILD_SHARED_LIBS})
 option(UGINE_TEST "Build Ugine tests" OFF)
-option(UGINE_LOGGING "Display logging information" OFF)
+option(UGINE_DEBUG "Display logging information" OFF)
 
 function(build_dependencies folder)
     # Turning off BUILD_SHARED_LIBS so that dependencies are static build
