@@ -63,15 +63,15 @@ namespace {
 }
 
 
-void ugine::ui::ImguiUI::_add() const {
-    this->pt_window_impl->accept(CreateImguiUI());
+void ugine::ui::ImguiUI::add_impl() const {
+    this->get_window_impl()->accept(CreateImguiUI());
 }
 
-void ugine::ui::ImguiUI::_remove() const {
-    this->pt_window_impl->accept(CloseImguiUI());
+void ugine::ui::ImguiUI::remove_impl() const {
+    this->get_window_impl()->accept(CloseImguiUI());
 }
 
-void ugine::ui::ImguiUI::_render() const {
-    this->pt_window_impl->accept(RenderImguiUI{});
+void ugine::ui::ImguiUI::render_impl() const {
+    this->get_window_impl()->accept(RenderImguiUI{});
 }
 

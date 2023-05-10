@@ -33,11 +33,11 @@ namespace ugine::ui {
          * @param window_impl
          */
         void add(ugine::window::WindowImpl &window_impl) {
-            if (this->pt_window_impl != nullptr) {
+            if (this->m_pt_window_impl != nullptr) {
                 throw ugine::exception::ui::UIAlreadyCreated();
             }
-            this->pt_window_impl = &window_impl;
-            this->_add();
+            this->m_pt_window_impl = &window_impl;
+            this->add_impl();
         }
 
         /**
@@ -45,10 +45,10 @@ namespace ugine::ui {
          * @throw UINotCreated If remove is called before creation
          */
         void remove() const {
-            if (this->pt_window_impl == nullptr) {
+            if (this->m_pt_window_impl == nullptr) {
                 throw ugine::exception::ui::UINotCreated();
             }
-            this->_remove();
+            this->remove_impl();
         }
 
         /**
@@ -56,29 +56,31 @@ namespace ugine::ui {
          * @throw UINotCreated If render is called before creation
          */
         void render() const {
-            if (this->pt_window_impl == nullptr) {
+            if (this->m_pt_window_impl == nullptr) {
                 throw ugine::exception::ui::UINotCreated();
             }
-            this->_render();
+            this->render_impl();
         }
 
     protected:
-        virtual void _add() const = 0;
+        virtual void add_impl() const = 0;
 
-        virtual void _remove() const = 0;
+        virtual void remove_impl() const = 0;
 
-        virtual void _render() const = 0;
+        virtual void render_impl() const = 0;
 
-        ugine::window::WindowImpl *pt_window_impl{nullptr};
+        [[nodiscard]] ugine::window::WindowImpl* get_window_impl() const {return this->m_pt_window_impl;}
+    private:
+        ugine::window::WindowImpl *m_pt_window_impl{nullptr};
     };
 
     class UGINE_API ImguiUI final : public UI {
     private:
-        void _add() const override;
+        void add_impl() const override;
 
-        void _remove() const override;
+        void remove_impl() const override;
 
-        void _render() const override;
+        void render_impl() const override;
     };
 
 }

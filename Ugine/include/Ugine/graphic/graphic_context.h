@@ -2,7 +2,6 @@
 
 #include "ugine/core.h"
 
-using GLADloadproc = void *(*)(const char *name);
 
 namespace ugine::graphic {
 

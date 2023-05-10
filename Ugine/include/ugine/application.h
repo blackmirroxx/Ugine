@@ -26,10 +26,10 @@ namespace ugine {
 
         virtual void run() = 0;
 
-        [[nodiscard]] SignalDispatcher &get_signals() noexcept { return signals; }
+        [[nodiscard]] SignalDispatcher &get_signals() noexcept { return m_signals; }
 
-    protected:
-        SignalDispatcher signals{};
+    private:
+        SignalDispatcher m_signals{};
     };
 
 
@@ -40,9 +40,9 @@ namespace ugine {
                                std::unique_ptr<SceneManager<Scene2D>> scene_manager = std::make_unique<SceneManager2D>(),
                                const window::WindowProps &props = {}
         )
-                : pt_window(std::move(pt_window)), pt_scene_manager(std::move(scene_manager)) {
-            this->pt_window->open(props);
-            this->pt_window->on_event([this](const ugine::event::Event &event) {
+                : m_pt_window(std::move(pt_window)), m_pt_scene_manager(std::move(scene_manager)) {
+            this->m_pt_window->open(props);
+            this->m_pt_window->on_event([this](const ugine::event::Event &event) {
                 UGINE_CORE_TRACE("Event {0}", event.to_string());
                 this->handle_event(event);
             });
@@ -60,13 +60,13 @@ namespace ugine {
 
         void run() override;
 
-        [[nodiscard]] bool is_running() const noexcept { return running; }
+        [[nodiscard]] bool is_running() const noexcept { return m_running; }
 
-        [[nodiscard]] SceneManager<Scene2D> &get_scene_manager() const noexcept { return *this->pt_scene_manager; }
+        [[nodiscard]] SceneManager<Scene2D> &get_scene_manager() const noexcept { return *this->m_pt_scene_manager; }
 
     private:
         void handle(const ugine::event::WindowQuit &event) final {
-            this->running = false;
+            this->m_running = false;
             event.stop_propagation();
         }
 
@@ -74,9 +74,9 @@ namespace ugine {
 
         void on_game_loop() const;
 
-        bool running = false;
-        std::unique_ptr<window::Window> pt_window;
-        std::unique_ptr<SceneManager<Scene2D>> pt_scene_manager;
+        bool m_running = false;
+        std::unique_ptr<window::Window> m_pt_window;
+        std::unique_ptr<SceneManager<Scene2D>> m_pt_scene_manager;
     };
 
     Application *create_application();

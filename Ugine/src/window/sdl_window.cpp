@@ -25,7 +25,7 @@ ugine::window::SDLWindow::SDLWindow() {
 }
 
 void ugine::window::SDLGlWindow::open(const window::WindowProps &props) {
-    if (this->sdl_window != nullptr) {
+    if (this->get_sdl_window() != nullptr) {
         throw ugine::exception::window::WindowAlreadyCreated();
     }
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, graphic::OpenGl::OPENGL_MAJOR_VERSION);
@@ -33,14 +33,14 @@ void ugine::window::SDLGlWindow::open(const window::WindowProps &props) {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
-    this->sdl_window = SDL_CreateWindow(props.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                        props.width, props.height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
-    if (this->sdl_window == nullptr) {
+    this->set_sdl_window(SDL_CreateWindow(props.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                                          props.width, props.height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL));
+    if (this->get_sdl_window() == nullptr) {
         UGINE_CORE_ERROR("Error creating sdl_window, details: {0}", SDL_GetError());
         return;
     }
-    this->gl_context = SDL_GL_CreateContext(this->sdl_window);
-    if (this->gl_context == nullptr) {
+    this->m_gl_context = SDL_GL_CreateContext(this->get_sdl_window());
+    if (this->m_gl_context == nullptr) {
         UGINE_CORE_ERROR("Error creating opengl context, details: {0}", SDL_GetError());
         return;
     }
@@ -55,8 +55,8 @@ ugine::window::SDLWindow::~SDLWindow() {
 }
 
 void ugine::window::SDLGlWindow::render() const {
-    SDL_GL_MakeCurrent(this->sdl_window, this->gl_context); // The gl context may have changed from ui
-    SDL_GL_SwapWindow(this->sdl_window);
+    SDL_GL_MakeCurrent(this->get_sdl_window(), this->m_gl_context); // The gl context may have changed from ui
+    SDL_GL_SwapWindow(this->get_sdl_window());
 }
 
 
@@ -103,23 +103,23 @@ void ugine::window::SDLWindow::on_update() const {
 }
 
 void ugine::window::SDLWindow::close() const {
-    SDL_DestroyWindow(this->sdl_window);
+    SDL_DestroyWindow(this->m_sdl_window);
     UGINE_CORE_INFO("Window closed");
 }
 
 void ugine::window::SDLGlWindow::close() const {
-    SDL_GL_DeleteContext(this->gl_context);
+    SDL_GL_DeleteContext(this->m_gl_context);
     UGINE_CORE_INFO("Opengl context deleted");
     SDLWindow::close();
 }
 
 void ugine::window::SDLWindow::dispatch_sdl_event(const SDL_Event &sdl_event) const noexcept {
-    for (const auto &callback: this->sdl_event_cb) {
+    for (const auto &callback: this->m_sdl_event_cb) {
         callback(sdl_event);
     }
 }
 
 void ugine::window::SDLWindow::on_sdl_event(sdl_event_cb_type callback) noexcept {
-    this->sdl_event_cb.push_back(std::move(callback));
+    this->m_sdl_event_cb.push_back(std::move(callback));
 }
 

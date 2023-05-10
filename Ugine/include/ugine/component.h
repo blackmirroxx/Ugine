@@ -10,7 +10,7 @@ namespace ugine {
 
     class UGINE_API Component {
     public:
-        explicit Component(std::string name) : name(std::move(name)) {}
+        explicit Component(std::string name) : m_name(std::move(name)) {}
 
         Component(Component &&) = default;
 
@@ -22,20 +22,20 @@ namespace ugine {
 
         virtual ~Component() = default;
 
-        [[nodiscard]] const std::string &get_name() const noexcept { return name; }
+        [[nodiscard]] const std::string &get_name() const noexcept { return m_name; }
 
         virtual void update_position() = 0;
 
-    protected:
-        std::string name;
+    private:
+        std::string m_name;
     };
 
     class UGINE_API Component2D : public Component {
     public:
         explicit Component2D(std::string name, Vector2D pos = {0, 0}, Vector2D vel = {0, 0},
                              Vector2D accel = {0, 0}) : Component(std::move(name)),
-                                                        position{std::move(pos)}, velocity{std::move(vel)},
-                                                        acceleration{std::move(accel)} {}
+                                                        m_position{std::move(pos)}, m_velocity{std::move(vel)},
+                                                        m_acceleration{std::move(accel)} {}
 
         /**
          * First render_scene of the component in a scene
@@ -53,24 +53,24 @@ namespace ugine {
 
         ~Component2D() override = default;
 
-        void set_position(Vector2D pos) noexcept { this->position = std::move(pos); }
+        void set_position(Vector2D pos) noexcept { this->m_position = std::move(pos); }
 
-        void set_velocity(Vector2D vel) noexcept { this->velocity = std::move(vel); }
+        void set_velocity(Vector2D vel) noexcept { this->m_velocity = std::move(vel); }
 
-        void set_acceleration(Vector2D accel) noexcept { this->acceleration = std::move(accel); }
+        void set_acceleration(Vector2D accel) noexcept { this->m_acceleration = std::move(accel); }
 
-        [[nodiscard]] const Vector2D &get_position() const noexcept { return this->position; }
+        [[nodiscard]] const Vector2D &get_position() const noexcept { return this->m_position; }
 
-        [[nodiscard]] const Vector2D &get_velocity() const noexcept { return this->velocity; }
+        [[nodiscard]] const Vector2D &get_velocity() const noexcept { return this->m_velocity; }
 
-        [[nodiscard]] const Vector2D &get_acceleration() const noexcept { return this->acceleration; }
+        [[nodiscard]] const Vector2D &get_acceleration() const noexcept { return this->m_acceleration; }
 
         void update_position() override;
 
-    protected:
-        Vector2D position;
-        Vector2D velocity;
-        Vector2D acceleration;
+    private:
+        Vector2D m_position;
+        Vector2D m_velocity;
+        Vector2D m_acceleration;
     };
 
 }

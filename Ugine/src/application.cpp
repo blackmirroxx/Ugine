@@ -1,13 +1,13 @@
 #include "ugine/application.h"
 
 void ugine::Application2D::run() {
-    this->signals.on_start.emit();
+    this->get_signals().on_start.emit();
     this->start_loop();
 }
 
 
 void ugine::Application2D::start_loop() {
-    this->running = true;
+    this->m_running = true;
     // const int delay_time = 1000 / fps;
     while (this->is_running()) {
         //const auto frame_start = SDL_GetTicks();
@@ -20,6 +20,6 @@ void ugine::Application2D::start_loop() {
 }
 
 void ugine::Application2D::on_game_loop() const {
-    this->pt_window->on_update();
-    this->pt_window->render();
+    this->m_pt_window->on_update();
+    this->m_pt_window->render();
 }

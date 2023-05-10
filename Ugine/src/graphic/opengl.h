@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ugine/graphic/graphic_context.h"
+#include <glad/glad.h>
 
 namespace ugine::graphic {
 

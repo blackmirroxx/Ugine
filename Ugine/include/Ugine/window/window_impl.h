@@ -49,42 +49,48 @@ namespace ugine::window {
     public:
         explicit BaseWindow(std::unique_ptr<WindowImpl> window_impl,
                             std::unique_ptr<ui::UI> ui) :
-                window_impl(std::move(window_impl)), ui(std::move(ui)) {}
+                m_window_impl(std::move(window_impl)), m_ui(std::move(ui)) {}
 
         void on_event(event_cb_type callback) noexcept override {
-            this->window_impl->on_event(std::move(callback));
+            this->m_window_impl->on_event(std::move(callback));
         }
 
         void open(const ugine::window::WindowProps &props = {}) override {
-            this->window_impl->open(props);
-            if (this->ui) this->ui->add(*this->window_impl);
+            this->m_window_impl->open(props);
+            if (this->m_ui) {
+                this->m_ui->add(*this->m_window_impl);
+            }
             UGINE_CORE_INFO("Window {0} of {1}x{2}px created", props.title, props.height, props.width);
         }
 
         void render() const override {
-            if (this->ui) this->ui->render();
-            this->window_impl->render();
+            if (this->m_ui) {
+                this->m_ui->render();
+            }
+            this->m_window_impl->render();
         }
 
         void on_update() const override {
-            this->window_impl->on_update();
+            this->m_window_impl->on_update();
         }
 
         void close() const override {
-            if (this->ui) this->ui->remove();
-            this->window_impl->close();
+            if (this->m_ui) {
+                this->m_ui->remove();
+            }
+            this->m_window_impl->close();
         }
 
         [[nodiscard]] const ugine::window::Input &get_input() const noexcept override {
-            return this->window_impl->get_input();
+            return this->m_window_impl->get_input();
         }
 
     protected:
         [[nodiscard]] virtual std::unique_ptr<WindowImpl> create() const = 0;
 
     private:
-        std::unique_ptr<WindowImpl> window_impl;
-        std::unique_ptr<ugine::ui::UI> ui;
+        std::unique_ptr<WindowImpl> m_window_impl;
+        std::unique_ptr<ugine::ui::UI> m_ui;
     };
 
     class UGINE_API WindowsWindow final : public BaseWindow {
@@ -109,7 +115,7 @@ namespace ugine::window {
     };
 }
 
-#ifdef UGINE_PLATFORM_APPLE
+#if defined(UGINE_PLATFORM_APPLE)
 #define UGINE_WINDOW ugine::window::AppleWindow
 #elif defined(UGINE_PLATFORM_LINUX)
 #define UGINE_WINDOW ugine::window::LinuxWindow

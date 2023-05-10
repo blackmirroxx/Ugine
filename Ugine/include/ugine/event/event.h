@@ -22,7 +22,7 @@ namespace ugine::event {
 
     class UGINE_API Event {
     public:
-        Event(event_type event_type, int category_flags) : event(event_type), category_flags(category_flags) {}
+        Event(event_type event_type, int category_flags) : m_event(event_type), m_category_flags(category_flags) {}
 
         Event(const Event &e) = delete;
 
@@ -32,16 +32,16 @@ namespace ugine::event {
 
         Event &operator=(Event &&e) = default;
 
-        [[nodiscard]] int get_category_flags() const { return this->category_flags; }
+        [[nodiscard]] int get_category_flags() const { return this->m_category_flags; }
 
-        [[nodiscard]] event_type get_event_type() const { return this->event; }
+        [[nodiscard]] event_type get_event_type() const { return this->m_event; }
 
         virtual ~Event() = default;
 
         [[nodiscard]] virtual std::string to_string() const noexcept = 0;
 
         [[nodiscard]] bool is_in_category(event_category category) const {
-            return this->category_flags & category;
+            return (this->m_category_flags & category) != 0;
         }
 
         virtual void accept(EventHandlerMixin &handler) const = 0;
@@ -49,14 +49,14 @@ namespace ugine::event {
         /**
          * Stop the propagation of an event, the next handler won't be called
          */
-        void stop_propagation() const noexcept { this->handle = true; }
+        void stop_propagation() const noexcept { this->m_handle = true; }
 
-        [[nodiscard]] bool is_handled() const noexcept { return this->handle; }
+        [[nodiscard]] bool is_handled() const noexcept { return this->m_handle; }
 
     private:
-        bool mutable handle = false;
-        int category_flags = event_category::none;
-        event_type event;
+        bool mutable m_handle = false;
+        int m_category_flags = event_category::none;
+        event_type m_event;
     };
 
 }

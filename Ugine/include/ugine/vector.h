@@ -26,14 +26,14 @@ namespace ugine {
 
     class UGINE_API Vector2D : public Vector {
     public:
-        Vector2D(float x, float y) : v_x{x}, v_y{y} {}
+        Vector2D(float x, float y) : m_x{x}, m_y{y} {}
 
-        void set_x(float x) noexcept { this->v_x = x; }
+        void set_x(float x) noexcept { this->m_x = x; }
 
-        void set_y(float y) noexcept { this->v_y = y; }
+        void set_y(float y) noexcept { this->m_y = y; }
 
         bool operator==(const Vector2D &other) const {
-            return this->v_x == other.v_x && this->v_y == other.v_y;
+            return this->m_x == other.m_x && this->m_y == other.m_y;
         }
 
         bool operator!=(const Vector2D &other) const {
@@ -53,14 +53,14 @@ namespace ugine {
         }
 
         Vector2D &operator+=(const Vector2D &other) {
-            this->v_x += other.v_x;
-            this->v_y += other.v_y;
+            this->m_x += other.m_x;
+            this->m_y += other.m_y;
             return *this;
         }
 
         Vector2D &operator-=(const Vector2D &other) {
-            this->v_x -= other.v_x;
-            this->v_y -= other.v_y;
+            this->m_x -= other.m_x;
+            this->m_y -= other.m_y;
             return *this;
         }
 
@@ -71,8 +71,8 @@ namespace ugine {
         }
 
         Vector2D &operator*=(float scalar) {
-            this->v_y *= scalar;
-            this->v_x *= scalar;
+            this->m_y *= scalar;
+            this->m_x *= scalar;
             return *this;
         }
 
@@ -83,8 +83,8 @@ namespace ugine {
         }
 
         Vector2D &operator/=(float scalar) {
-            this->v_x /= scalar;
-            this->v_y /= scalar;
+            this->m_x /= scalar;
+            this->m_y /= scalar;
             return *this;
         }
 
@@ -95,16 +95,16 @@ namespace ugine {
             }
         }
 
-        [[nodiscard]] float get_x() const noexcept { return v_x; }
+        [[nodiscard]] float get_x() const noexcept { return m_x; }
 
-        [[nodiscard]] float get_y() const noexcept { return v_y; }
+        [[nodiscard]] float get_y() const noexcept { return m_y; }
 
         [[nodiscard]] float length() const noexcept override {
-            return std::sqrt(v_x * v_x + v_y * v_y);
+            return std::sqrt(m_x * m_x + m_y * m_y);
         }
 
     private:
-        float v_x;
-        float v_y;
+        float m_x;
+        float m_y;
     };
 }

@@ -34,17 +34,19 @@ namespace ugine::window {
         void on_sdl_event(sdl_event_cb_type callback) noexcept;
 
         [[nodiscard]] const ugine::window::Input &get_input() const noexcept override {
-            return this->input;
+            return this->m_input;
         }
 
-        [[nodiscard]] SDL_Window *get_sdl_window() const noexcept { return this->sdl_window; }
+        [[nodiscard]] SDL_Window *get_sdl_window() const noexcept { return this->m_sdl_window; }
 
     protected:
         void dispatch_sdl_event(const SDL_Event &sdl_event) const noexcept;
+        void set_sdl_window(SDL_Window* sdl_window) noexcept {this->m_sdl_window = sdl_window;}
 
-        SDL_Window *sdl_window{nullptr};
-        ugine::window::SDLInput input;
-        std::vector<sdl_event_cb_type> sdl_event_cb;
+    private:
+        SDL_Window *m_sdl_window{nullptr};
+        ugine::window::SDLInput m_input;
+        std::vector<sdl_event_cb_type> m_sdl_event_cb;
     };
 
     class SDLGlWindow final : public SDLWindow {
@@ -67,7 +69,7 @@ namespace ugine::window {
             visitor.visit(*this);
         }
 
-        [[nodiscard]] SDL_GLContext get_gl_context() const noexcept { return this->gl_context; }
+        [[nodiscard]] SDL_GLContext get_gl_context() const noexcept { return this->m_gl_context; }
 
         void open(const window::WindowProps &props) override;
 
@@ -76,6 +78,6 @@ namespace ugine::window {
         void close() const override;
 
     private:
-        SDL_GLContext gl_context{nullptr};
+        SDL_GLContext m_gl_context{nullptr};
     };
 }

@@ -12,7 +12,7 @@ namespace ugine {
     public:
         using component_list_type = std::vector<std::unique_ptr<C>>;
 
-        explicit Scene(std::string name) : name(std::move(name)) {}
+        explicit Scene(std::string name) : m_name(std::move(name)) {}
 
         Scene(Scene &&) noexcept = default;
 
@@ -24,17 +24,17 @@ namespace ugine {
 
         virtual ~Scene() = default;
 
-        [[nodiscard]] const std::string &get_name() const noexcept { return name; }
+        [[nodiscard]] const std::string &get_name() const noexcept { return m_name; }
 
-        [[nodiscard]] component_list_type &get_component_list() noexcept { return this->component_list; }
+        [[nodiscard]] component_list_type &get_component_list() noexcept { return this->m_component_list; }
 
         void add_component(std::unique_ptr<C> component) {
-            this->component_list.emplace_back(std::move(component));
+            this->m_component_list.emplace_back(std::move(component));
         }
 
-    protected:
-        std::string name;
-        component_list_type component_list;
+    private:
+        std::string m_name;
+        component_list_type m_component_list;
     };
 
     class UGINE_API Scene2D : public Scene<Component2D> {
@@ -58,23 +58,23 @@ namespace ugine {
         virtual ~SceneManager() = default;
 
         void add_scene(S scene) {
-            this->scenes_map.insert({scene.get_name(), std::move(scene)});
+            this->m_scenes_map.insert({scene.get_name(), std::move(scene)});
         }
 
         void remove_scene(const std::string &name) {
-            this->scenes_map.erase(name);
+            this->m_scenes_map.erase(name);
         }
 
         S &get_scene(const std::string &name) {
-            const auto &elem = this->scenes_map.find(name);
-            if (elem == this->scenes_map.end()) {
+            const auto &elem = this->m_scenes_map.find(name);
+            if (elem == this->m_scenes_map.end()) {
                 throw ugine::exception::SceneNotFound(name);
             }
-            return this->scenes_map.find(name)->second;
+            return this->m_scenes_map.find(name)->second;
         }
 
     private:
-        std::map<std::string, S> scenes_map;
+        std::map<std::string, S> m_scenes_map;
     };
 
     class SceneManager2D final : public SceneManager<Scene2D> {

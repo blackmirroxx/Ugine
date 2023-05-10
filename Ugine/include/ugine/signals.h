@@ -9,19 +9,21 @@ namespace ugine {
         using callback_type = std::function<void(Args...)>;
     public:
         void add_listener(const callback_type &func) noexcept {
-            this->callback = func;
+            this->m_callback = func;
         }
 
         void emit(const Args &... args) const noexcept {
-            if (this->callback) this->callback(args...);
+            if (this->m_callback) {
+                this->m_callback(args...);
+            }
         }
 
         void clear() noexcept {
-            this->callback = nullptr;
+            this->m_callback = nullptr;
         }
 
     private:
-        callback_type callback;
+        callback_type m_callback;
     };
 
 

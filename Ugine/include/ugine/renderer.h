@@ -24,7 +24,7 @@ namespace ugine {
 
         virtual ~TextureManager() = default;
 
-        TextureManager(TextureManager &&) = default;
+        TextureManager(TextureManager &&)  noexcept = default;
 
         TextureManager(const TextureManager &) = default;
 
@@ -64,8 +64,8 @@ namespace ugine {
      */
     class UGINE_API SDLTextureManager final : public TextureManager2D {
     public:
-        SDLTextureManager(SDL_Window *&sdl_window, SDL_Renderer *&sdl_renderer) : sdl_window{sdl_window},
-                                                                                  sdl_renderer{sdl_renderer} {}
+        SDLTextureManager(SDL_Window *&sdl_window, SDL_Renderer *&sdl_renderer) : m_sdl_window{sdl_window},
+                                                                                  m_sdl_renderer{sdl_renderer} {}
 
         SDLTextureManager(SDLTextureManager &&) = default;
 
@@ -92,9 +92,9 @@ namespace ugine {
         ~SDLTextureManager() override;
 
     private:
-        std::map<std::string, SDL_Texture *> textures;
-        SDL_Window *&sdl_window;
-        SDL_Renderer *&sdl_renderer;
+        std::map<std::string, SDL_Texture *> m_textures;
+        SDL_Window *&m_sdl_window;
+        SDL_Renderer *&m_sdl_renderer;
     };
 
 }

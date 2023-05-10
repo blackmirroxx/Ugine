@@ -4,7 +4,7 @@
 
 class TestBaseWindow final: public ugine::window::BaseWindow {
 public:
-    TestBaseWindow(std::unique_ptr<ugine::window::WindowImpl> window_impl,
+    explicit TestBaseWindow(std::unique_ptr<ugine::window::WindowImpl> window_impl,
     std::unique_ptr<ugine::ui::UI> ui = nullptr) : BaseWindow(std::move(window_impl), std::move(ui)) {}
     [[nodiscard]] std::unique_ptr<ugine::window::WindowImpl> create() const override {return std::make_unique<mocks::TestWindowImpl>();}
 };
@@ -30,7 +30,7 @@ TEST(BaseWindow, CreateWindow) {
     const auto base_window = std::make_unique<TestBaseWindow>(
             std::move(test_window_impl), std::move(test_ui)
             );
-    EXPECT_CALL(*pt_test_ui, _add());
+    EXPECT_CALL(*pt_test_ui, add_impl());
     EXPECT_CALL(*pt_test_window_impl, open(testing::_));
     base_window->open();
 }
@@ -44,7 +44,7 @@ TEST(Window, CloseWindow) {
             std::move(test_window_impl), std::move(test_ui)
     );
     window_proxy->open();
-    EXPECT_CALL(*pt_test_ui, _remove());
+    EXPECT_CALL(*pt_test_ui, remove_impl());
     EXPECT_CALL(*pt_test_window_impl, close());
     window_proxy->close();
 }
@@ -58,7 +58,7 @@ TEST(Window, Rendering) {
             std::move(test_window_impl), std::move(test_ui)
     );
     window_proxy->open();
-    EXPECT_CALL(*pt_test_ui, _render());
+    EXPECT_CALL(*pt_test_ui, render_impl());
     EXPECT_CALL(*pt_test_window_impl, render());
     window_proxy->render();
 }
@@ -66,9 +66,9 @@ TEST(Window, Rendering) {
 TEST(UI, UiAlreadyCreated) {
     auto test_ui = mocks::TestUI() ;
     auto test_window_impl = mocks::TestWindowImpl();
-    EXPECT_CALL(test_ui, _add()).Times(1);
+    EXPECT_CALL(test_ui, add_impl()).Times(1);
     test_ui.add(test_window_impl);
-    EXPECT_CALL(test_ui, _add()).Times(0);
+    EXPECT_CALL(test_ui, add_impl()).Times(0);
     EXPECT_THROW(
             test_ui.add(test_window_impl),
             ugine::exception::ui::UIAlreadyCreated
@@ -78,12 +78,12 @@ TEST(UI, UiAlreadyCreated) {
 TEST(UI, UINotCreated) {
     auto test_ui = mocks::TestUI() ;
     auto test_window_impl = mocks::TestWindowImpl();
-    EXPECT_CALL(test_ui, _render()).Times(0);
+    EXPECT_CALL(test_ui, render_impl()).Times(0);
     EXPECT_THROW(
             test_ui.render(),
             ugine::exception::ui::UINotCreated
     );
-    EXPECT_CALL(test_ui, _remove()).Times(0);
+    EXPECT_CALL(test_ui, remove_impl()).Times(0);
     EXPECT_THROW(
             test_ui.remove(),
             ugine::exception::ui::UINotCreated
