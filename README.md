@@ -1,6 +1,11 @@
 # Development of UGINE
 
 This project is built using __cmake__, to get started initialize __cmake__
+The main() function is inside this file 
+
+```shell
+$> ~/<pathToProject>/Ugine/Ugine/include/ugine/entrypoint.h
+```
 
 ```shell
 cmake -S . -B build/<build_name>
